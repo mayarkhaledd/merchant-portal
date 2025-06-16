@@ -1,0 +1,14 @@
+.login_img {
+  background-image: url("../../common/assets/background.png");
+}
+.login_welcome {
+  color: #001081;
+}
+.login_welcome_content {
+  color: #42566b;
+}
+.login_forget_password {
+  color: #42566b;
+  font-size: 1rem;
+  font-weight: 500;
+}

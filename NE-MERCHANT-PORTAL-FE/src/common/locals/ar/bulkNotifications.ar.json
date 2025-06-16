@@ -1,0 +1,50 @@
+{
+  "bulk-notifications": {
+    "bulk_notifications": "إرسال الإشعارات الجماعية",
+    "welcome_notifications": "مرحبًا بك في إرسال الإشعارات الجماعية!",
+    "notifications_message": "يتيح إرسال الإشعارات الجماعية للموظفين إرسال إشعارات إلى جهات اتصال متعددة للترويج لأحدث تغذية المنظمة.",
+    "send_adhoc": "إرسال رسالة مخصصة",
+    "send_event": "إرسال رسالة لحدث",
+    "recipient_details": "تفاصيل المستلم",
+    "schedule_message": "جدولة الرسالة",
+    "message_details": "تفاصيل الرسالة",
+    "recipients": "المستلمين",
+    "attachment_title": "المرفقات",
+    "recipient": "المستلم",
+    "send": "إرسال",
+    "adhoc_message": {
+      "first_step": {
+        "recipient_type": "نوع المستلم",
+        "batch_id": "معرف الدفعة",
+        "upload_recipient": "تحميل ملف المستلمين",
+        "bulk_sending_mode": "وضع الإرسال الجماعي",
+        "ignore_invalid_recipient": "تجاهل المستلم الغير موثوق",
+        "applied_once_cannot_change": "تطبق مرة واحدة ولا يمكن تغييرها لاحقًا"
+      },
+      "second_step": {
+        "ignore": "تجاهل المستلم غير موثوق",
+        "subject": "موضوع الرسالة",
+        "attachment": "اختر نوع المرفق",
+        "content": "محتوى الرسالة",
+        "used_only": "يستخدم فقط إذا كان لدى العميل بريد إلكتروني، وإلا سيتم تجاهله."
+      },
+      "third_step": {
+        "due_date": "تاريخ الاستحقاق",
+        "priority": "أولوية الإشعار",
+        "due_time": "وقت الاستحقاق"
+      },
+      "required": "هذه الخانة مطلوبة",
+      "invalid": "إدخال غير صالح",
+      "numbers": "يسمح بالأرقام فقط",
+      "not_past_date": "لا يمكن أن يكون التاريخ في الماضي",
+      "an_hour_later": "يجب أن يكون الوقت بعد ساعة"
+    },
+    "adhoc_success": "تم إرسال الرسالة بنجاح!",
+    "adhoc_fail": "فشل إرسال الرسالة.",
+    "download_template": "تحميل القالب",
+    "do_not_have_template": "لا تملك القالب؟ انقر هنا",
+    "searchPlaceHolder": "البحث برمز الحدث",
+    "there_is_no_data_with": "لا توجد بيانات مع ",
+    "something_went_wrong": "حدث خطأ ما!"
+  }
+}

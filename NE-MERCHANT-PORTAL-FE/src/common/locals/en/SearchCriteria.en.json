@@ -1,0 +1,15 @@
+{
+  "SearchCriteria": {
+    "searchLabel": "Search",
+    "searchPlaceHolder": "Search",
+    "filtered_by": "Filtered By:",
+    "export_pdf": "Export to PDF",
+    "export_excel": "Export to Excel",
+    "exporting": "Exporting...",
+    "CustomersData": "CustomersData",
+    "EventGroupsData": "EventGroupsData",
+    "NotificationHistoryData": "NotificationHistoryData",
+    "EventsData": "EventsData",
+    "WhatsappData": "WhatsappData"
+  }
+}

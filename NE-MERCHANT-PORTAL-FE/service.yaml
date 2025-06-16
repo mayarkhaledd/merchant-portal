@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: esharatportal
+  namespace: ns-saas-sbox-ne
+  labels:
+    app: esharatportal
+  annotations:
+    cloud.google.com/load-balancer-type: "Internal" # Annotation for an internal load balancer
+spec:
+  type: LoadBalancer
+  selector:
+    app: esharatportal
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80

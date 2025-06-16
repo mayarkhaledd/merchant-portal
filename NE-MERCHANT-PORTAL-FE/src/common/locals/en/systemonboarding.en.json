@@ -1,0 +1,46 @@
+{
+  "system-onboarding": {
+    "system-onboarding": "System Onboarding",
+    "welcome-message": "System Onboarding allows employees to add, update and view App ID and Name easily.",
+    "title-message": "Welcome to your System Onboarding!",
+    "button-message": "Add New Source System",
+    "delete_user": "Delete User",
+    "customize_table": "Customize Table",
+    "setting_title": "You can select which column you wish to show or hide in the table and you can also sort each column order by dragging it.",
+    "show_hide_col": "Show/Hide columns",
+    "col_name": "Column Name",
+    "sort": "Sort",
+    "Why_do_you_want_to_Delete_this_user?": "Why do you want to Delete this user?",
+    "first_part_delete_message": "The event with the code ({{eventCode}}) will be deleted permanently from the Events List.",
+    "second_part_delete_message": "Are you sure you want to delete your event?",
+    "delete_confirm": "Are you sure you want to delete your Source System?",
+    "delete_message": "The Source System with the ID { {{id}} } will be deleted permanently from the Source System List.",
+    "validation": {
+      "english": "Only English Characters Are Allowed",
+      "required": "This Field is required",
+      "number": "Only Numbers Are Allowed"
+    },
+    "form": {
+      "id": "Source System ID",
+      "name": "Source System Name",
+      "status": "Status"
+    },
+    "source_system_id": "Source System ID",
+    "source_system_name": "Source System Name",
+    "status": "Status",
+    "manage": "Manage",
+    "add_new_source_system": "Add a new source system",
+    "search": "Search by Source System ID or Name",
+    "edit_source_system": "Edit Source System",
+    "delete_source_system": "Delete Source System",
+    "add_source_system_success": "A new source system has been added successfully!",
+    "edit_source_system_success": "A source system has been Edited successfully!",
+    "something_went_wrong": "Something went wrong! Please try again.",
+    "delete_event": "Delete Event",
+    "delete": "Delete",
+    "delete_success": "The event has been deleted successfully!",
+    "delete_failed": "Something went wrong! Please try again.",
+    "deleted_succefully": "The source system has been deleted successfully!",
+    "error_delete": "Something went wrong! Please try again."
+  }
+}

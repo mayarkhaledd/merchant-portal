@@ -1,0 +1,30 @@
+{
+  "navigation": {
+    "home": "Home",
+    "my_profile": "My Profile",
+    "dashboard": "Dashboard",
+    "events_management": "Events Management",
+    "events_group_management": "Events Group Management",
+    "bulk_notifications": "Send Bulk Notifications",
+    "system-onboarding": "System Onboarding",
+    "notification-history": "Notification History",
+    "notifications_engine_merchant_portal": "Notifications Engine Merchant Portal",
+    "recipients_notifications": "Send Recipients Notifications",
+    "send-event-message": "Send Event Message",
+    "recipient-event-message": "Send Event Message",
+    "settings": "Settings",
+    "customer_management": "Customer Management",
+    "whatsapp": "WhatsApp",
+    "whatsappSignUp": "Register",
+    "whatsappTemplates": "Templates",
+    "whatsapp-templates": "WhatsApp Templates",
+    "create": "Create",
+    "view": "View",
+    "edit": "Edit"
+  },
+  "system-onboarding": "System Onboarding",
+  "notifications_engine_merchant_portal": "Notifications Engine Merchant Portal",
+  "recipients_notifications": "Recipients Notifications",
+  "send-event-message": "Send Event Message",
+  "recipient-event-message": "Send Event Message"
+}

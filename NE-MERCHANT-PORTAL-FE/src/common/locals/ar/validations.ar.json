@@ -1,0 +1,20 @@
+{
+  "validations": {
+    "required": "الحقل مطلوب",
+    "email_required": "البريد الإلكتروني للمستخدم مطلوب",
+    "general_email-message": "البريد الإلكتروني مطلوب",
+    "email_Invalid": "البريد الإلكتروني غير صالح",
+    "name": "الاسم مطلوب",
+    "min_name_length": "يجب أن يكون الاسم على الأقل 2 حرف",
+    "max_name_length": "يجب ألا يتجاوز الاسم 50 حرفًا",
+    "min_phone_length": "يجب أن يكون رقم الهاتف على الأقل 10 أرقام",
+    "max_phone_length": "يجب ألا يتجاوز رقم الهاتف 15 رقمًا",
+    "email_invalid": "تنسيق البريد الإلكتروني غير صالح",
+    "password_required": "كلمة المرور مطلوبة",
+    "general_password-message": "كلمة المرور مطلوبة",
+    "password_invalid": "كلمة المرور غير صالحة",
+    "pass_reset_method": "طريقة إعادة التعيين مطلوبة",
+    "phone_required": "رقم الهاتف مطلوب",
+    "required": "هذه الخانة مطلوبة"
+  }
+}

@@ -1,0 +1,7 @@
+export enum StatusCodes {
+  INVALID_LOGIN = "ES00038",
+  TOKEN_EXPIRED = "ES00008",
+  OTP_EXPECTED = "ES00040",
+  INVALID_OTP = "E020094",
+  VALID = "I000000",
+}

@@ -1,0 +1,15 @@
+{
+  "SearchCriteria": {
+    "searchLabel": "بحث",
+    "searchPlaceHolder": "بحث",
+    "filtered_by": "تمت الفلترة بواسطة:",
+    "export_pdf": "تصدير إلى PDF",
+    "export_excel": "تصدير إلى Excel",
+    "exporting": "جارٍ التصدير...",
+    "CustomersData": "بيانات العملاء",
+    "EventGroupsData": "بيانات مجموعات الأحداث",
+    "NotificationHistoryData": "بيانات تاريخ الإشعارات",
+    "EventsData": "بيانات الأحداث",
+    "WhatsappData": "بيانات الواتساب"
+  }
+}

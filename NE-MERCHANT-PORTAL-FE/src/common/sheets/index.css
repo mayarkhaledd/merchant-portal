@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: "ReadexPro-bold";
+    font-style: normal;
+    font-display: swap;
+    src: url(../assets/fonts/ReadexPro-Bold.ttf) format("opentype");
+  }
+  @font-face {
+    font-family: "ReadexPro-extra-light";
+    font-style: normal;
+    font-display: swap;
+    src: url(../assets/fonts/ReadexPro-ExtraLight.ttf) format("opentype");
+  }
+  @font-face {
+    font-family: "ReadexPro-light";
+    font-style: normal;
+    font-display: swap;
+    src: url(../assets/fonts/ReadexPro-Light.ttf) format("opentype");
+  }
+  @font-face {
+    font-family: "ReadexPro-medium";
+    font-style: normal;
+    font-display: swap;
+    src: url(../assets/fonts/ReadexPro-Medium.ttf) format("opentype");
+  }
+  @font-face {
+    font-family: "ReadexPro-regular";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(../assets/fonts/ReadexPro-Regular.ttf) format("opentype");
+  }
+  @font-face {
+    font-family: "ReadexPro-semi-bold";
+    font-style: normal;
+    font-display: swap;
+    src: url(../assets/fonts/ReadexPro-SemiBold.ttf) format("opentype");
+  }
+  html {
+    font-family: "ReadexPro-regular";
+  }
+  @layer components {
+    .scrollbar-thin::-webkit-scrollbar {
+      @apply w-2 h-2;
+    }
+
+    .scrollbar-thin::-webkit-scrollbar-track {
+      @apply bg-[#001081] rounded-full;
+    }
+
+    .scrollbar-thin::-webkit-scrollbar-thumb {
+      @apply bg-[#ebe8e8] rounded-full border-[3px] border-transparent;
+    }
+  }
+}

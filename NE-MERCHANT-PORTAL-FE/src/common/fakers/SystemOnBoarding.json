@@ -1,0 +1,27 @@
+[
+  {
+    "sourceSystemId": "43",
+    "sourceSystemName": "UCM",
+    "status": "A"
+  },
+  {
+    "sourceSystemId": "59",
+    "sourceSystemName": "BO",
+    "status": "A"
+  },
+  {
+    "sourceSystemId": "62",
+    "sourceSystemName": "UPM",
+    "status": "I"
+  },
+  {
+    "sourceSystemId": "25",
+    "sourceSystemName": "IPO",
+    "status": "I"
+  },
+  {
+    "sourceSystemId": "10",
+    "sourceSystemName": "CRM",
+    "status": "A"
+  }
+]

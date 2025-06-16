@@ -1,0 +1,86 @@
+{
+  "recipient_notifications": {
+    "welcome": "مرحبًا بك في إشعارات المستلمين الخاصة بك!",
+    "recipient_notifications": "إرسال إشعارات المستلمين",
+    "welcome_notifications": "مرحبًا بك في إرسال إشعارات المستلمين!",
+    "notifications_message": "تتيح إشعارات المستلمين للموظفين إرسال إشعارات إلى جهات الاتصال للترويج لأحدث تغذية المنظمة.",
+    "send_adhoc": "إرسال رسالة مخصصة",
+    "send_event": "إرسال رسالة حدث",
+    "there_is_no_data_with": "لا توجد بيانات مع ",
+    "something_went_wrong": "حدث خطأ ما!",
+    "send": "إرسال",
+    "channel": "قناة",
+    "CUSTOMER": "عميل",
+    "CONTACT": "غير عميل",
+    "ALL": "الكل",
+    "ANY": "أي",
+    "IDENTIFIER": "المعرف",
+    "IQAMA": "الإقامة",
+    "NIN": "الهوية الوطنية",
+    "zeros": "٠٠:٠٠",
+    "attachment_title": "المرفقات",
+    "recipients": "المستلمين",
+    "recipient": "المستلم",
+    "select_option": "اختر خيارًا",
+    "recipient_details": "تفاصيل المستلم",
+    "schedule_message": "جدولة الرسالة",
+    "message_details": "تفاصيل الرسالة",
+    "search_criteria_placeholder": "البحث برمز الحدث",
+    "adhoc_message": {
+      "first_step": {
+        "recipientType": "نوع المستلم",
+        "notificationChannel": "قناة الإخطار",
+        "senderId": "معرف مرسل القناة",
+        "email": "البريد الإلكتروني لجهة الاتصال",
+        "emailBCC": "نسخة مخفية إلى البريد الإلكتروني",
+        "emailCC": "نسخة إلى البريد الإلكتروني",
+        "emailReplyTo": "الرد على البريد الإلكتروني",
+        "mobile": "الهاتف المحمول لجهة الاتصال",
+        "push": "إشعار الدفع",
+        "token": "الرمز",
+        "osType": "نوع نظام التشغيل",
+        "addChannel": "إضافة قناة الإخطار",
+        "mobileApp": "اسم تطبيق الهاتف المحمول",
+        "inbox": "صندوق الوارد",
+        "relation_type": "نوع علاقة العميل",
+        "relation_value": "قيمة علاقة العميل",
+        "primarymobile": "الجوال الأساسي"
+      },
+      "second_step": {
+        "validity": "صلاحية الإخطار",
+        "due_date": "تاريخ الاستحقاق",
+        "priority": "أولوية الإخطار",
+        "due_time": "وقت الاستحقاق",
+        "subject": "موضوع الرسالة",
+        "attachment": "اختر نوع المرفق",
+        "content": "محتوى الرسالة"
+      },
+      "third_step": {
+        "due_date": "تاريخ الاستحقاق",
+        "priority": "أولوية الإخطار",
+        "due_time": "وقت الاستحقاق"
+      },
+      "validation": {
+        "english": "يسمح فقط بالأحرف الإنجليزية",
+        "required": "هذه الخانة مطلوبة",
+        "arabic": "يسمح فقط بالأحرف العربية",
+        "numbers": "يسمح بالأرقام فقط",
+        "email": "تنسيق البريد الإلكتروني غير صالح",
+        "less_than_10": "يجب أن تكون الأولوية أقل من 10",
+        "more_than_36": "لا يمكن أن تكون أكثر من 36 حرفًا",
+        "duplicate_email": "لا يمكن أن يكون هذا البريد الإلكتروني متكررًا"
+      },
+      "not_past_date": "لا يمكن أن يكون التاريخ في الماضي"
+    },
+    "event_message": {
+      "language": "لغة الرسالة",
+      "addRecipient": "إضافة مستلم",
+      "channel": "قنوات الإخطار",
+      "parameterCode": "رمز المعلمة",
+      "parameterValue": "قيمة المعلمة",
+      "notifyMode": "وضع إخطار المستلم"
+    },
+    "adhoc_success": "تم إرسال الرسالة بنجاح!",
+    "adhoc_fail": "فشل إرسال الرسالة."
+  }
+}

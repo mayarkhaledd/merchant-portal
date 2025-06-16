@@ -1,0 +1,29 @@
+.otp_img {
+  background-image: url("../../common/assets/background.png");
+}
+.otp_welcome {
+  color: #001081;
+}
+.otp_welcome_content {
+  color: #42566b;
+}
+
+.otp_icon {
+  font-size: 1.2rem;
+}
+
+.otp_timer {
+  color: #000c5e;
+}
+
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+-moz-appearance: textfield;
+}

@@ -1,0 +1,50 @@
+{
+  "bulk-notifications": {
+    "bulk_notifications": "Send Bulk Notifications",
+    "welcome_notifications": "Welcome to your Send Bulk Notifications!",
+    "notifications_message": "Send Bulk Notifications allows employees to send notifications to multiple contacts to promote the organization's newest feed.",
+    "send_adhoc": "Send Adhoc Message",
+    "send_event": "Send Event Message",
+    "recipient_details": "Recipient Details",
+    "message_details": "Message Details",
+    "schedule_message": "Schedule Message",
+    "attachment_title": "Attachments",
+    "recipients": "Recipients",
+    "recipient": "Recipient",
+    "send": "Send",
+    "adhoc_message": {
+      "first_step": {
+        "recipient_type": "Recipient Type",
+        "batch_id": "Batch ID",
+        "upload_recipient": "Upload Recipients File",
+        "bulk_sending_mode": "Bulk Sending Mode",
+        "ignore_invalid_recipient": "Ignore Invalid Recipient",
+        "applied_once_cannot_change": "Applied once, and cannot be changed later"
+      },
+      "second_step": {
+        "ignore": "Ignore Invalid Recipient",
+        "subject": "Message Subject",
+        "attachment": "Select Attachment Type",
+        "content": "Message Content",
+        "used_only": "used only if customer has Email else, it will be ignored."
+      },
+      "third_step": {
+        "due_date": "Due Date",
+        "priority": "Notification Priority",
+        "due_time": "Due Time"
+      },
+      "required": "This Field is required",
+      "invalid": "Invalid Entry",
+      "numbers": "Only Numbers Are Allowed",
+      "not_past_date": "Date cannot be a Past Date",
+      "an_hour_later": "Time has to be an hour later"
+    },
+    "adhoc_success": "The Message Was sent Successfully!",
+    "adhoc_fail": "The Message Failed to send.",
+    "download_template": "Download Template",
+    "do_not_have_template": "Don't have the template? Click here",
+    "searchPlaceHolder": "Search by Event Code",
+    "there_is_no_data_with": "No Data Exists with ",
+    "something_went_wrong": "Something went wrong!"
+  }
+}

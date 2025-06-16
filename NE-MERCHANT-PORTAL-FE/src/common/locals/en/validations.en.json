@@ -1,0 +1,20 @@
+{
+  "validations": {
+    "required": "Field is Required",
+    "email_required": "User Email is required",
+    "general_email-message": "Email is required",
+    "email_Invalid": "Email is not valid",
+    "name": "Name is required",
+    "min_name_length": "Name must be at least 2 characters",
+    "max_name_length": "Name must not exceed 50 characters",
+    "min_phone_length": "Phone number must be at least 10 digits",
+    "max_phone_length": "Phone number must not exceed 15 digits",
+    "email_invalid": "Invalid email format",
+    "password_required": "Password is required",
+    "general_password-message": "password is required",
+    "password_invalid": "password is not valid",
+    "pass_reset_method": "Reset method is required",
+    "phone_required": "Phone number is required",
+    "required": "This field is required"
+  }
+}

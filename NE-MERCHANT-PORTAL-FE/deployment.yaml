@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: esharatportal
+  namespace: ns-saas-sbox-ne
+  labels:
+    app: esharatportal
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: esharatportal
+  template:
+    metadata:
+      labels:
+        app: esharatportal
+    spec:
+      containers:
+        - name: esharatportal
+          image: esharattech/merchantportal:1.0
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: "100m" # 0.1 CPU core
+              memory: "256Mi" # 0.25 GB RAM
+            limits:
+              cpu: "1000m" # 1 CPU core
+              memory: "1Gi" # 1 GB RAM
+      #imagePullSecrets:
+      #  - name: myregistry.com-registry-key

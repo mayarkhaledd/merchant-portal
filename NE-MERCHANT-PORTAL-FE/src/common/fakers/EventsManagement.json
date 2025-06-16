@@ -1,0 +1,74 @@
+[
+  {
+    "eventCode": "NE-ALIGN-345",
+    "englishDescription": "Aseel_Kh@email.com, asabdelrahman@ejada.com, mmalay@ejada.com",
+    "arabicDescription": "أسمرة صلاح",
+    "status": "Enabled"
+  },
+  {
+    "eventCode": "2302",
+    "englishDescription": "Aseel_Kh@email.com, asabdelrahman@ejada.com, mmalay@ejada.com",
+    "arabicDescription": "أسمى التحرير",
+    "status": "Disabled"
+  },
+  {
+    "eventCode": "2303",
+    "englishDescription": "Aseel_Kh@email.com, asabdelrahman@ejada.com, mmalay@ejada.com",
+    "arabicDescription": "مصطفى ربيع",
+    "status": "Enabled"
+  },
+  {
+    "eventCode": "2304",
+    "englishDescription": "Testing",
+    "arabicDescription": "اختبار نظام",
+    "status": "Disabled"
+  },
+  {
+    "eventCode": "2305",
+    "englishDescription": "Text message",
+    "arabicDescription": "اختبار نظام جديد",
+    "status": "Enabled"
+  },
+  {
+    "eventCode": "2306",
+    "englishDescription": "Text Testing",
+    "arabicDescription": "اختبار نظام",
+    "status": "Disabled"
+  },
+  {
+    "eventCode": "NE-ALIGN-345",
+    "englishDescription": "Aseel_Kh@email.com, asabdelrahman@ejada.com, mmalay@ejada.com",
+    "arabicDescription": "أسمرة صلاح",
+    "status": "Enabled"
+  },
+  {
+    "eventCode": "2302",
+    "englishDescription": "Aseel_Kh@email.com, asabdelrahman@ejada.com, mmalay@ejada.com",
+    "arabicDescription": "أسمى التحرير",
+    "status": "Disabled"
+  },
+  {
+    "eventCode": "2303",
+    "englishDescription": "Aseel_Kh@email.com, asabdelrahman@ejada.com, mmalay@ejada.com",
+    "arabicDescription": "مصطفى ربيع",
+    "status": "Enabled"
+  },
+  {
+    "eventCode": "2304",
+    "englishDescription": "Testing",
+    "arabicDescription": "اختبار نظام",
+    "status": "Disabled"
+  },
+  {
+    "eventCode": "2305",
+    "englishDescription": "Text message",
+    "arabicDescription": "اختبار نظام جديد",
+    "status": "Enabled"
+  },
+  {
+    "eventCode": "2306",
+    "englishDescription": "Text Testing",
+    "arabicDescription": "اختبار نظام",
+    "status": "Disabled"
+  }
+]

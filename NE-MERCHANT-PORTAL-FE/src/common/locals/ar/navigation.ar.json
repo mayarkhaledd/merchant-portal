@@ -1,0 +1,30 @@
+{
+  "navigation": {
+    "home": "الصفحة الرئيسية",
+    "my_profile": "ملفي الشخصي",
+    "dashboard": "لوحة التحكم",
+    "events_management": "إدارة الأحداث",
+    "events_group_management": "إدارة مجموعة الأحداث",
+    "bulk_notifications": "إشعارات جماعية",
+    "system-onboarding": "إعداد النظام",
+    "notification-history": "سجل الإشعارات",
+    "notifications_engine_merchant_portal": "بوابة التاجر لمحرك الإشعارات",
+    "recipients_notifications": "إشعارات المستلمين",
+    "send-event-message": "إرسال رسالة حدث",
+    "recipient-event-message": "إرسال رسالة حدث",
+    "settings": "الإعدادات",
+    "customer_management": "إدارة العملاء",
+    "whatsapp": "واتساب",
+    "whatsappSignUp": "تسجيل",
+    "whatsappTemplates": "قوالب واتساب",
+    "whatsapp-templates": "قوالب واتساب",
+    "create": "إنشاء",
+    "view": "عرض",
+    "edit": "تعديل"
+  },
+  "system-onboarding": "إعداد النظام",
+  "notifications_engine_merchant_portal": "بوابة التاجر لمحرك الإشعارات",
+  "recipients_notifications": "إشعارات المستلمين",
+  "send-event-message": "إرسال رسالة حدث",
+  "recipient-event-message": "إرسال رسالة حدث"
+}

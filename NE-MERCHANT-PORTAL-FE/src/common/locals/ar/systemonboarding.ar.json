@@ -1,0 +1,46 @@
+{
+  "system-onboarding": {
+    "system-onboarding": "إعداد النظام",
+    "welcome-message": "يتيح إعداد النظام للموظفين إضافة وتحديث وعرض معرف التطبيق والاسم بسهولة.",
+    "title-message": "مرحبًا بك في إعداد النظام!",
+    "button-message": "إضافة نظام مصدر جديد",
+    "delete_user": "حذف المستخدم",
+    "customize_table": "تخصيص الجدول",
+    "setting_title": "يمكنك اختيار الأعمدة التي ترغب في إظهارها أو إخفائها في الجدول ويمكنك أيضًا ترتيب الأعمدة عن طريق سحبها.",
+    "show_hide_col": "إظهار/إخفاء الأعمدة",
+    "col_name": "اسم العمود",
+    "sort": "ترتيب",
+    "Why_do_you_want_to_Delete_this_user?": "لماذا تريد حذف هذا المستخدم؟",
+    "first_part_delete_message": "سيتم حذف الحدث برمز ({{eventCode}}) نهائيًا من قائمة الأحداث.",
+    "second_part_delete_message": "هل أنت متأكد أنك تريد حذف الحدث الخاص بك؟",
+    "delete_confirm": "هل أنت متأكد أنك تريد حذف نظام المصدر الخاص بك؟",
+    "delete_message": "سيتم حذف نظام المصدر بمعرف { {{id}} } نهائيًا من قائمة أنظمة المصدر.",
+    "validation": {
+      "english": "يسمح فقط بالأحرف الإنجليزية",
+      "required": "هذه الخانة مطلوبة",
+      "number": "يسمح بالأرقام فقط"
+    },
+    "form": {
+      "id": "معرف نظام المصدر",
+      "name": "اسم نظام المصدر",
+      "status": "الحالة"
+    },
+    "source_system_id": "معرف نظام المصدر",
+    "source_system_name": "اسم نظام المصدر",
+    "status": "الحالة",
+    "manage": "إدارة",
+    "add_new_source_system": "إضافة نظام مصدر جديد",
+    "search": "البحث بمعرف نظام المصدر أو الاسم",
+    "edit_source_system": "تعديل نظام المصدر",
+    "delete_source_system": "حذف نظام المصدر",
+    "add_source_system_success": "تمت إضافة نظام مصدر جديد بنجاح!",
+    "edit_source_system_success": "تم تعديل نظام المصدر بنجاح!",
+    "something_went_wrong": "حدث خطأ ما! يرجى المحاولة مرة أخرى.",
+    "delete_event": "حذف الحدث",
+    "delete": "حذف",
+    "delete_success": "تم حذف الحدث بنجاح!",
+    "delete_failed": "حدث خطأ ما! يرجى المحاولة مرة أخرى.",
+    "deleted_succefully": "تم حذف نظام المصدر بنجاح!",
+    "error_delete": "حدث خطأ ما! يرجى المحاولة مرة أخرى."
+  }
+}

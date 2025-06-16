@@ -1,0 +1,86 @@
+{
+  "recipient_notifications": {
+    "welcome": "Welcome to your Recipients Notifications!",
+    "recipient_notifications": "Send Recipient Notifications",
+    "welcome_notifications": "Welcome to your Send Recipient Notifications!",
+    "notifications_message": "Recipients Notifications allows employees to send a notifications to contacts to promote organization's newest feed.",
+    "send_adhoc": "Send Adhoc Message",
+    "send_event": "Send Event Message",
+    "there_is_no_data_with": "No Data Exists with ",
+    "something_went_wrong": "Something went wrong!",
+    "attachment_title": "Attachments",
+    "channel": "Channel",
+    "send": "Send",
+    "recipients": "Recipients",
+    "recipient": "Recipient",
+    "IDENTIFIER": "IDENTIFIER",
+    "IQAMA": "IQAMA",
+    "NIN": "NIN",
+    "zeros": "00:00",
+    "search_criteria_placeholder": "Search by Event Code",
+    "recipient_details": "Recipient Details",
+    "message_details": "Message Details",
+    "schedule_message": "Schedule Message",
+    "select_option": "Select an Option",
+    "CUSTOMER": "Customer",
+    "CONTACT": "Non-Customer",
+    "ALL": "All",
+    "ANY": "Any",
+    "adhoc_message": {
+      "first_step": {
+        "recipientType": "Recipient Type",
+        "notificationChannel": "Notification Channel",
+        "senderId": "Channel Sender ID",
+        "email": "Contact Email",
+        "emailBCC": "Email BCC",
+        "emailCC": "Email CC",
+        "emailReplyTo": "Email Reply To",
+        "mobile": "Contact Mobile",
+        "push": "Push Notification",
+        "token": "Token",
+        "osType": " OS Type",
+        "addChannel": "Add Notification Channel",
+        "mobileApp": "Mobile Application Name",
+        "inbox": "Inbox",
+        "relation_type": "Customer Relation Type",
+        "relation_value": "Customer Relation Value",
+        "primarymobile": "Primary Mobile"
+      },
+      "second_step": {
+        "validity": "Notification Validity",
+        "due_date": "Due Date",
+        "priority": "Notification Priority",
+        "due_time": "Due Time",
+        "subject": "Message Subject",
+        "attachment": "Select Attachment Type",
+        "content": "Message Content"
+      },
+      "third_step": {
+        "due_date": "Due Date",
+        "priority": "Notification Priority",
+        "due_time": "Due Time"
+      },
+      "validation": {
+        "english": "Only English Characters Are Allowed",
+        "required": "This Field Is Required",
+        "arabic": "Only Arabic Characters Are Allowed",
+        "numbers": "Only Numbers Are Allowed",
+        "email": "Invalid Email Format",
+        "less_than_10": "Priority has to be less than 10",
+        "more_than_36": "Cannot be more than 36 Characters",
+        "duplicate_email": "This email address is already used in another field"
+      },
+      "not_past_date": "Date cannot be a Past Date"
+    },
+    "event_message": {
+      "language": "Message Language",
+      "addRecipient": "Add Recipient",
+      "channel": "Notification Channels",
+      "parameterCode": "Parameter Code",
+      "parameterValue": "Parameter Value",
+      "notifyMode": "Notify Recipient Mode"
+    },
+    "adhoc_success": "The Message Was sent Successfully!",
+    "adhoc_fail": "The Message Failed to send."
+  }
+}
