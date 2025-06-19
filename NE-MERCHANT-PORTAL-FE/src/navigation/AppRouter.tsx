@@ -24,11 +24,12 @@ import { CustomerManagement } from "@ejada/screens/CustomerManagement";
 import {
   Whatsapp,
   WhatsappRedirect,
-  WhatsappSignUp,
   WhatsappSignupCallback,
 } from "@ejada/screens/Whatsapp";
-import { WhatsappTemplateForm } from "@ejada/screens/Whatsapp";
-
+import {
+  WhatsappTemplateForm,
+  WhatsAppSetupWizard,
+} from "@ejada/screens/Whatsapp";
 export const AppRouter = createBrowserRouter(
   [
     {
@@ -104,7 +105,7 @@ export const AppRouter = createBrowserRouter(
         },
         {
           path: AppRoutes.whatsappSignUp,
-          element: <WhatsappSignUp />,
+          element: <WhatsAppSetupWizard />,
         },
         {
           path: AppRoutes.whatsappSignupCallback,

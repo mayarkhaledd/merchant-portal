@@ -159,7 +159,7 @@ export const WhatsappAuthSecondStep: React.FC<WhatsappFormProps> = ({
       </div>
 
       {/* Right Section */}
-      <div className=" pl-5 flex place-content-end w-full">
+      <div className=" pl-5 flex place-content-center w-full">
         <AuthenticationPreviewSection
           codeHeader={t("whatsapp.code_header") as string}
           securitybody={securityBody}

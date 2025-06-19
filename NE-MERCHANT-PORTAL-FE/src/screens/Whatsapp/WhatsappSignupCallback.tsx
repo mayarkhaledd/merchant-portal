@@ -5,7 +5,6 @@ export const WhatsappSignupCallback = () => {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const code = params.get("code");
-    console.log("WhatsappSignupCallback code", code);
     const state = params.get("state");
     const error = params.get("error");
 
