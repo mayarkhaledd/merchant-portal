@@ -33,10 +33,13 @@ export function WhatsAppSetupWizard() {
 
   const startSignup = () => {
     const params = systemParamsData?.params || [];
-    const appId = getParamValue(params, "WHATSAPP_APP_ID");
-    const redirectUri = getParamValue(params, "WHATSAPP_REDIRECT_URI"); // or WHATSAPP_REDIRECT_URI
-    const state = getParamValue(params, "WHATSAPP_STATE");
-    const scope = getParamValue(params, "WHATSAPP_SCOPE");
+    const appId = getParamValue(params, whatsappConstants.whatsappAppId);
+    const redirectUri = getParamValue(
+      params,
+      whatsappConstants.whatsappRedirectUri,
+    );
+    const state = getParamValue(params, whatsappConstants.whatsappState);
+    const scope = getParamValue(params, whatsappConstants.whatsappScope);
 
     const url = `https://www.facebook.com/v19.0/dialog/oauth?client_id=${appId}&redirect_uri=${encodeURIComponent(
       redirectUri,
@@ -45,11 +48,10 @@ export function WhatsAppSetupWizard() {
     window.open(url, "_blank", "width=600,height=700,left=100,top=100");
 
     const handleMessage = (event: MessageEvent) => {
-      if (event.data?.source === "whatsapp-signup-callback") {
+      if (event.data?.source === whatsappConstants.whatsappSignupCallback) {
         const { code, error } = event.data;
 
         if (code) {
-          console.log("WhatsApp signup code:", code);
           whatsappOnboarding({
             code,
             tenantId: Number(Cookies.get(whatsappConstants.tenantId)),

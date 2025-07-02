@@ -93,7 +93,7 @@ export const WhatsappService = {
   whatsappOnboarding: async (
     data: WhatsappOnboardingPayload,
   ): Promise<WhatsappOnboardingResponse> => {
-    const response = await httpClient.post(`${API.whatsapp}/onboarding/`, data);
+    const response = await httpClient.post(`${API.whatsappOnboarding}`, data);
     return {
       status: response.status,
       ...response.data,
