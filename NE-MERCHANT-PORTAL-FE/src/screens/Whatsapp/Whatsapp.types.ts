@@ -1,10 +1,12 @@
 import {
   CreateTemplatePayload,
+  CreateTemplateResponse,
   DeleteWhatsappTemplatePayload,
   GetSystemParamsInterface,
   GetWhatsappTemplatesInterface,
   GetWhatsappTemplatesPayload,
   UpdateTemplatePayload,
+  WhatsappOnboardingPayload,
   WhatsappTemplate,
 } from "@ejada/types/api/whatsappInterface";
 import { SelectSearchList } from "../CustomerManagement";
@@ -85,6 +87,11 @@ export interface TWhatsappState {
   systemParamsDataError: boolean;
   systemParamsDataSuccess: boolean;
   systemParamsErrorMessage: AxiosError<unknown, any> | null;
+  createWhatsappTemplateData: CreateTemplateResponse | undefined;
+  whatsappOnboarding: (data: WhatsappOnboardingPayload) => void;
+  isWhatsappOnboardingSuccess: boolean;
+  isWhatsappOnboardingError: boolean;
+  isWhatsappOnboardingAxiosError: AxiosError<unknown, any> | null;
 }
 
 export interface WhatsappFormProps {

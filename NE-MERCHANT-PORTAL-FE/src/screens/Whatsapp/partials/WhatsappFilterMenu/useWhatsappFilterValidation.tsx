@@ -3,7 +3,7 @@ export const useWhatsappFilterValidation = () => {
   return {
     english: {
       pattern: {
-        value: /^[a-zA-Z ]+$/,
+        value: /^[a-z_]+$/,
         message: i18n.t("whatsapp.create_template.invalid.english") as string,
       },
       minLength: {

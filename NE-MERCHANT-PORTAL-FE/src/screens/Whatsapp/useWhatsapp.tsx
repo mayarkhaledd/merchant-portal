@@ -5,6 +5,7 @@ import {
   useGetWhatsappTemplateById,
   useGetWhatsappTemplates,
   useUpdateWhatsappTemplate,
+  useWhatsappOnboarding,
 } from "@ejada/providers/whatsappProvider";
 import { GetWhatsappTemplatesPayload } from "@ejada/types/api/whatsappInterface";
 //import Cookies from "js-cookie";
@@ -124,6 +125,7 @@ export const useWhatsapp = () => {
     isSuccess: isCreateWhatsappTemplateSuccess,
     isError: isCreateWhatsappTemplateError,
     error: isCreateWhatsappTemplateAxiosError,
+    data: createWhatsappTemplateData,
   } = useCreateWhatsappTemplate();
 
   const {
@@ -132,6 +134,13 @@ export const useWhatsapp = () => {
     isError: isUpdateWhatsappTemplateError,
     error: isUpdateWhatsappTemplateAxiosError,
   } = useUpdateWhatsappTemplate();
+
+  const {
+    mutate: whatsappOnboarding,
+    isSuccess: isWhatsappOnboardingSuccess,
+    isError: isWhatsappOnboardingError,
+    error: isWhatsappOnboardingAxiosError,
+  } = useWhatsappOnboarding();
 
   useEffect(() => {
     if (searchQuery && typeof searchQuery === "object") {
@@ -280,5 +289,10 @@ export const useWhatsapp = () => {
     systemParamsDataError,
     systemParamsDataSuccess,
     systemParamsErrorMessage,
+    createWhatsappTemplateData,
+    whatsappOnboarding,
+    isWhatsappOnboardingSuccess,
+    isWhatsappOnboardingError,
+    isWhatsappOnboardingAxiosError,
   };
 };

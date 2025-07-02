@@ -11,6 +11,8 @@ import {
   GetWhatsappTemplatesResponse,
   UpdateTemplatePayload,
   UpdateTemplateResponse,
+  WhatsappOnboardingPayload,
+  WhatsappOnboardingResponse,
 } from "@ejada/types/api/whatsappInterface";
 import httpClient from "./httpClient";
 import { API } from "@ejada/common";
@@ -42,11 +44,16 @@ export const WhatsappService = {
   createWhatsappTemplate: async (
     data: CreateTemplatePayload,
   ): Promise<CreateTemplateResponse> => {
-    const response = await httpClient.post(API.whatsapp, data);
-    return {
-      status: response.status,
-      ...response.data,
-    };
+    try {
+      const response = await httpClient.post(API.whatsapp, data);
+      return {
+        status: response.status,
+        ...response.data,
+      };
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
   },
 
   updateWhatsappTemplate: async (
@@ -79,6 +86,16 @@ export const WhatsappService = {
       },
     });
     return {
+      ...response.data,
+    };
+  },
+
+  whatsappOnboarding: async (
+    data: WhatsappOnboardingPayload,
+  ): Promise<WhatsappOnboardingResponse> => {
+    const response = await httpClient.post(`${API.whatsapp}/onboarding/`, data);
+    return {
+      status: response.status,
       ...response.data,
     };
   },

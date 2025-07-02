@@ -17,6 +17,8 @@ import {
   GetWhatsappTemplatesResponse,
   UpdateTemplatePayload,
   UpdateTemplateResponse,
+  WhatsappOnboardingPayload,
+  WhatsappOnboardingResponse,
   WhatsappTemplate,
 } from "@ejada/types/api/whatsappInterface";
 import {
@@ -121,4 +123,18 @@ export function useGetSystemParams(
     (data: GetSystemParamsResponse) => adaptGetSystemParams(data),
     enabled,
   );
+}
+
+export function useWhatsappOnboarding() {
+  const onSuccess = (res: WhatsappOnboardingResponse) => {
+    const updatedData = res;
+    return updatedData;
+  };
+
+  return useCustomMutation<
+    WhatsappOnboardingPayload,
+    WhatsappOnboardingResponse
+  >((data: WhatsappOnboardingPayload) => {
+    return WhatsappService.whatsappOnboarding(data);
+  }, onSuccess);
 }

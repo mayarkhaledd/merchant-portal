@@ -18,6 +18,9 @@
     "Marketing": "تسويقي",
     "Utility": "خدمي",
     "Authentication": "تحققي",
+    "MARKETING": "تسويقي",
+    "UTILITY": "خدمي",
+    "AUTHENTICATION": "تحققي",
     "A": "نشط",
     "Sent": "تم الإرسال",
     "Failed": "فشل",
@@ -45,6 +48,10 @@
     "Approved": "مقبول",
     "Rejected": "مرفوض",
     "export_all": "تصدير الكل",
-    "export_filtered": "تصدير المصفى"
+    "export_filtered": "تصدير المصفى",
+    "en": "الإنجليزية",
+    "ar": "العربية",
+    "english_us": "الإنجليزية (أمريكية)",
+    "english_uk": "الإنجليزية (بريطانية)"
   }
 }

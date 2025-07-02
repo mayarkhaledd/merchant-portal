@@ -134,3 +134,11 @@ export interface GetSystemParamsResponse
   extends ResponseInterface<GetSystemParamsInterface> {}
 export interface GetWhatsappTemplateByIdResponse
   extends ResponseInterface<WhatsappTemplate> {}
+
+export interface WhatsappOnboardingPayload {
+  code: string;
+  tenantId: number;
+}
+export interface WhatsappOnboardingInterface {}
+export interface WhatsappOnboardingResponse
+  extends ResponseInterface<WhatsappOnboardingInterface> {}

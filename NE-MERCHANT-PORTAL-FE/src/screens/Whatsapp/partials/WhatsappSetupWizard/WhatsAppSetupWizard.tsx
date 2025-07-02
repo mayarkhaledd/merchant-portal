@@ -4,9 +4,12 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useWhatsapp } from "../../useWhatsapp";
 import { getParamValue } from "../../utils";
+import { whatsappConstants } from "../../Whatsapp.constants";
+import Cookies from "js-cookie";
 
 export function WhatsAppSetupWizard() {
-  const { refetchSystemParamsData, systemParamsData } = useWhatsapp();
+  const { refetchSystemParamsData, systemParamsData, whatsappOnboarding } =
+    useWhatsapp();
   const [checkboxes, setCheckboxes] = useState([false, false, false, false]);
   const [currentStep, setCurrentStep] = useState(0);
 
@@ -47,6 +50,10 @@ export function WhatsAppSetupWizard() {
 
         if (code) {
           console.log("WhatsApp signup code:", code);
+          whatsappOnboarding({
+            code,
+            tenantId: Number(Cookies.get(whatsappConstants.tenantId)),
+          });
         } else {
           console.error("WhatsApp signup error:", error);
         }

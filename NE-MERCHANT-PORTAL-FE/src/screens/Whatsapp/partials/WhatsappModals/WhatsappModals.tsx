@@ -12,6 +12,7 @@ import {
   useSuccessToast,
 } from "@ejada/screens/shared";
 import { AxiosError } from "axios";
+import { useWhatsapp } from "../../useWhatsapp";
 
 export function WhatsappModals() {
   const { t } = useTranslation();
@@ -28,10 +29,13 @@ export function WhatsappModals() {
     isDeleteWhatsappTemplateByIdAxiosError,
     isDeleteWhatsappTemplateByIdSuccess,
     isCreateWhatsappTemplateSuccess,
-    isCreateWhatsappTemplateError,
-    isCreateWhatsappTemplateAxiosError,
     isUpdateWhatsappTemplateAxiosError,
     isUpdateWhatsappTemplateSuccess,
+    isCreateWhatsappTemplateError,
+    isCreateWhatsappTemplateAxiosError,
+    isWhatsappOnboardingSuccess,
+    isWhatsappOnboardingError,
+    isWhatsappOnboardingAxiosError,
   } = useContext<TWhatsappState>(WhatsappContext as Context<TWhatsappState>);
 
   const successToast = useSuccessToast;
@@ -39,6 +43,12 @@ export function WhatsappModals() {
   const handleSuccessToast = (condition: boolean, message: string) => {
     successToast(condition, t(message));
   };
+
+  // const {
+  //   isWhatsappOnboardingSuccess,
+  //   isWhatsappOnboardingError,
+  //   isWhatsappOnboardingAxiosError,
+  // } = useWhatsapp();
 
   const handleErrorToast = (
     condition: boolean,
@@ -78,6 +88,15 @@ export function WhatsappModals() {
           isUpdateWhatsappTemplateAxiosError?.message !== undefined,
         errorMessage: "whatsapp.error",
         errorDetail: isUpdateWhatsappTemplateAxiosError as ErrorCode,
+      },
+      {
+        condition: isWhatsappOnboardingSuccess,
+        successMessage: "whatsapp.onboarding_success",
+        errorCondition:
+          isWhatsappOnboardingError ||
+          isWhatsappOnboardingAxiosError?.message !== undefined,
+        errorMessage: "whatsapp.error",
+        errorDetail: isWhatsappOnboardingAxiosError as ErrorCode,
       },
     ];
     toastConfigs.forEach(

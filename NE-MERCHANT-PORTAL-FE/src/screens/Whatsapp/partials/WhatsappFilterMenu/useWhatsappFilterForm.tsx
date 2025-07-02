@@ -104,22 +104,29 @@ export const useWhatsappFilterForm = ({
   const onSubmit = (data: WhatsappFilterMenuValues) => {
     const updatedData = {
       ...(data.templateName && { templateName: data.templateName }),
-      ...(data.languageCode && { languageCode: data.languageCode }),
+      ...(data.languageCode && {
+        languageCode:
+          data.languageCode === "Arabic"
+            ? "ar"
+            : data.languageCode === "English"
+              ? "en"
+              : data.languageCode,
+      }),
       ...(data.templateStatus && {
         templateStatus:
           data.templateStatus === "Pending"
-            ? "Pending"
+            ? "PENDING"
             : data.templateStatus === "Approved"
-              ? "Approved"
-              : "Rejected",
+              ? "APPROVED"
+              : "REJECTED",
       }),
       ...(data.category && {
         category:
           data.category === "Marketing"
-            ? "Marketing"
+            ? "MARKETING"
             : data.category === "Utility"
-              ? "Utility"
-              : "Authentication",
+              ? "UTILITY"
+              : "AUTHENTICATION",
       }),
     };
     setSearchQuery({ ...updatedData });

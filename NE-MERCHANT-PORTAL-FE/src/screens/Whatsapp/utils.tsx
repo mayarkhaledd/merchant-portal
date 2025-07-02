@@ -14,7 +14,7 @@ import {
 import Cookies from "js-cookie";
 import { filterEmptyValues } from "../shared";
 import { t } from "i18next";
-import { whatsappConstants } from "./Whatsapp.Constants";
+import { whatsappConstants } from "./Whatsapp.constants";
 
 export const formateWhatsappTemplatesColumns = (
   data: GetWhatsappTemplatesInterface,
@@ -215,8 +215,7 @@ export const formatWhatsappTemplatePayload = (
     namespace: whatsappConstants.namespace, // Should be sent to BE
     components: components || [],
     tenantId:
-      Cookies.get(whatsappConstants.templateId) ||
-      whatsappConstants.emptyString,
+      Cookies.get(whatsappConstants.tenantId) || whatsappConstants.emptyString,
   };
 
   // Recursively remove empty values and properties with value 0
