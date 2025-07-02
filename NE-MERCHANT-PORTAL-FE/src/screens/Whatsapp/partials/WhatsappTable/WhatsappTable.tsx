@@ -87,8 +87,8 @@ export const WhatsappTable = () => {
           <div className="mt-[-2.25rem] w-full">
             <div className="-mx-4">
               {whatsappTemplatesManegementData &&
-            whatsappTemplatesManegementData?.length > 0 &&
-            (isWhatsappTemplatesSuccess || isRefetchDataSuccess) ?(
+              whatsappTemplatesManegementData?.length > 0 &&
+              (isWhatsappTemplatesSuccess || isRefetchDataSuccess) ? (
                 <Table
                   data={
                     whatsappTemplatesManegementData

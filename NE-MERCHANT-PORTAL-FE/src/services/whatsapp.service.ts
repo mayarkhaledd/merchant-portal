@@ -3,6 +3,8 @@ import {
   CreateTemplateResponse,
   DeleteWhatsappTemplatePayload,
   DeleteWhatsappTemplateResponse,
+  GetSystemParamsPayload,
+  GetSystemParamsResponse,
   GetWhatsappTemplateByIdPayload,
   GetWhatsappTemplateByIdResponse,
   GetWhatsappTemplatesPayload,
@@ -50,10 +52,7 @@ export const WhatsappService = {
   updateWhatsappTemplate: async (
     data: UpdateTemplatePayload,
   ): Promise<UpdateTemplateResponse> => {
-    const response = await httpClient.put(
-      `${API.whatsapp}/${data.templateId}`,
-      data,
-    );
+    const response = await httpClient.post(`${API.whatsapp}/templateId`, data);
     return {
       status: response.status,
       ...response.data,
@@ -68,6 +67,18 @@ export const WhatsappService = {
     );
     return {
       status: response.status,
+      ...response.data,
+    };
+  },
+  getsystemParams: async (
+    data: GetSystemParamsPayload,
+  ): Promise<GetSystemParamsResponse> => {
+    const response = await httpClient.get(API.systemParams, {
+      params: {
+        ...data,
+      },
+    });
+    return {
       ...response.data,
     };
   },

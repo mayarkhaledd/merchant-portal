@@ -277,13 +277,30 @@ export interface ErrorCode {
           subErrors: { details: string; code: string }[];
         };
       };
+      data?: {
+        notificationRequestId: string;
+        invalidRequestDataErrors: [
+          {
+            errorCode: string;
+            errorDescription: string;
+          },
+        ];
+        invalidRecipientErrors: {
+          [key: string]: [
+            {
+              errorCode: string;
+              errorDescription: string;
+            },
+          ];
+        };
+      };
     };
     status: number;
   };
 }
 
 export const getLocalizedErrorMessage = (
-  error: ErrorCode | null | AxiosError,
+  error: ErrorCode | null | AxiosError | any, // allow plain data
   defaultMessage: string,
 ) => {
   const errorCode =
@@ -318,6 +335,36 @@ export const getLocalizedErrorMessage = (
   }
   return defaultMessage;
 };
+export function getBulkNotificationErrorMessages(data: {
+  invalidRequestDataErrors?: { errorCode: string; errorDescription: string }[];
+  invalidRecipientErrors?: {
+    [key: string]: { errorCode: string; errorDescription: string }[];
+  };
+}): string[] {
+  const messages: string[] = [];
+
+  // Handle invalidRequestDataErrors
+  if (Array.isArray(data.invalidRequestDataErrors)) {
+    data.invalidRequestDataErrors.forEach((err) => {
+      if (err.errorCode && err.errorDescription) {
+        messages.push(`${err.errorCode}: ${err.errorDescription}`);
+      }
+    });
+  }
+
+  // Handle invalidRecipientErrors
+  if (data.invalidRecipientErrors) {
+    Object.values(data.invalidRecipientErrors).forEach((arr) => {
+      arr.forEach((err) => {
+        if (err.errorCode && err.errorDescription) {
+          messages.push(`${err.errorCode}: ${err.errorDescription}`);
+        }
+      });
+    });
+  }
+
+  return messages;
+}
 
 export const filterEmptyValues = <T>(obj: T): T => {
   if (Array.isArray(obj)) {

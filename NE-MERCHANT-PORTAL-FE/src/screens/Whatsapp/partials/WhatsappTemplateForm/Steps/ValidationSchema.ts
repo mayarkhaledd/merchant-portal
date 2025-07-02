@@ -93,6 +93,7 @@ export const validationRules = {
     },
   },
   body: {
+    required: i18n.t("whatsapp.create_template.required") as string,
     minLength: {
       value: 2,
       message: i18n.t("whatsapp.validations.min_description_length") as string,

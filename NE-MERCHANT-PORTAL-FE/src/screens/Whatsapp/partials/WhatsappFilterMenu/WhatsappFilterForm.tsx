@@ -5,6 +5,7 @@ import { TemplateName } from "./WhatsappFilterItems/TemplateName";
 import { TemplateCategory } from "./WhatsappFilterItems/TemplateCategory";
 import { TemplateLanguage } from "./WhatsappFilterItems/TemplateLanguage";
 import i18n from "@ejada/common/locals/i18n";
+import { TemplateStatus } from "./WhatsappFilterItems/TemplateStatus";
 
 export const WhatsappFilterForm = ({
   closeDrawer,
@@ -32,6 +33,12 @@ export const WhatsappFilterForm = ({
     setIsArabic,
     isEnglish,
     setIsEnglish,
+    isPending,
+    setIsPending,
+    isApproved,
+    setIsApproved,
+    isRejected,
+    setIsRejected,
   } = useWhatsappFilterForm({
     closeDrawer,
     setSearchQuery,
@@ -69,6 +76,19 @@ export const WhatsappFilterForm = ({
             />
           </div>
           <div className="pt-4 w-full">
+            <div className="pt-2">
+              <TemplateStatus
+                control={control}
+                watch={watch}
+                t={t}
+                isPending={isPending}
+                setIsPending={setIsPending}
+                isApproved={isApproved}
+                setIsApproved={setIsApproved}
+                isRejected={isRejected}
+                setIsRejected={setIsRejected}
+              />
+            </div>
             <div className="pt-2">
               <TemplateCategory
                 control={control}

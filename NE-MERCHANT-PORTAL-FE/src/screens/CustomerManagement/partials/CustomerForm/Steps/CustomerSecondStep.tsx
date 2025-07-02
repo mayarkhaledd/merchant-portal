@@ -7,6 +7,7 @@ import { validationRules } from "./ValidationSchema";
 import { CustomerInitialValues } from "../CustomerManagementTypes";
 import { CustomerFormProps } from "@ejada/screens/CustomerManagement/CustomerManagement.types";
 import i18n from "@ejada/common/locals/i18n";
+import { t } from "i18next";
 
 export const CustomerSecondStep: React.FC<CustomerFormProps> = ({
   control,
@@ -53,8 +54,8 @@ export const CustomerSecondStep: React.FC<CustomerFormProps> = ({
               <Select
                 label={i18n.t("customer.create_customer.second_step.language")}
                 options={[
-                  { key: "EN", node: <>English</> },
-                  { key: "AR", node: <>Arabic</> },
+                  { key: "EN", node: <>{t("customer.english")}</> },
+                  { key: "AR", node: <>{t("customer.arabic")}</> },
                 ]}
                 value={
                   drawerMode === "edit" || drawerMode === "view"

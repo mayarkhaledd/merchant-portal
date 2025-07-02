@@ -28,7 +28,7 @@ export const useWhatsappFilterForm = ({
       templateName: "",
       languageCode: "",
       category: undefined,
-      status: "",
+      templateStatus: undefined,
     },
   });
   const [isMarketing, setIsMarketing] = useState(false);
@@ -36,6 +36,9 @@ export const useWhatsappFilterForm = ({
   const [isArabic, setIsArabic] = useState(false);
   const [isEnglish, setIsEnglish] = useState(false);
   const [isAuthentication, setIsAuthentication] = useState(false);
+  const [isPending, setIsPending] = useState(false);
+  const [isApproved, setIsApproved] = useState(false);
+  const [isRejected, setIsRejected] = useState(false);
   const [isApplyButtonDisabled, setIsApplyButtonDisabled] = useState(true);
   const { t } = useTranslation();
   const formValues = watch();
@@ -60,7 +63,7 @@ export const useWhatsappFilterForm = ({
       templateName: "",
       languageCode: "",
       category: undefined,
-      status: "",
+      templateStatus: undefined,
     });
     setSearchQuery({});
     setActiveSearchCriteria({});
@@ -79,8 +82,11 @@ export const useWhatsappFilterForm = ({
           case "languageCode":
             mappedValues.languageCode = value as string;
             break;
-          case "status":
-            mappedValues.status = value as string;
+          case "templateStatus":
+            mappedValues.templateStatus = value as string as
+              | "Approved"
+              | "Pending"
+              | "Rejected";
             break;
           case "category":
             mappedValues.category = value as string as
@@ -99,7 +105,14 @@ export const useWhatsappFilterForm = ({
     const updatedData = {
       ...(data.templateName && { templateName: data.templateName }),
       ...(data.languageCode && { languageCode: data.languageCode }),
-      ...(data.status && { status: data.status }),
+      ...(data.templateStatus && {
+        templateStatus:
+          data.templateStatus === "Pending"
+            ? "Pending"
+            : data.templateStatus === "Approved"
+              ? "Approved"
+              : "Rejected",
+      }),
       ...(data.category && {
         category:
           data.category === "Marketing"
@@ -143,5 +156,11 @@ export const useWhatsappFilterForm = ({
     setIsArabic,
     isEnglish,
     setIsEnglish,
+    isPending,
+    setIsPending,
+    isApproved,
+    setIsApproved,
+    isRejected,
+    setIsRejected,
   };
 };

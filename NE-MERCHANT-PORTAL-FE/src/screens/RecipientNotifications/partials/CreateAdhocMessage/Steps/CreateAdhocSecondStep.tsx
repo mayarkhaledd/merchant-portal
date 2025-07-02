@@ -153,12 +153,8 @@ export const CreateAdhocSecondStep: React.FC<FormStepProps> = ({
                 render={({ field }) => (
                   <div className="relative">
                     <FileInputField
-                      acceptedFormats={[
-                        "image/jpeg",
-                        "image/png",
-                        "application/pdf",
-                      ]}
-                      acceptedFormatsText={[".jpeg", ".png", ".pdf"]}
+                      acceptedFormats={[".jpeg", ".jpg", ".png", ".pdf"]}
+                      acceptedFormatsText={["JPEG", "JPG", "PNG", "PDF"]}
                       label={t("recipient_notifications.attachment_title")}
                       onChange={field.onChange as OnChangeHandler}
                       value={field.value as UploaderformValue}

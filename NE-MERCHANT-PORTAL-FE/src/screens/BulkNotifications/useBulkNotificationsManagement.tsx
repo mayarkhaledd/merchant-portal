@@ -62,6 +62,7 @@ export function useBulkNotifications() {
     isSuccess: requestSuccess,
     isError: requestError,
     error: requestErrorMessage,
+    data: requestErrorData,
   } = useNotificaitonRequest();
 
   const {
@@ -184,5 +185,6 @@ export function useBulkNotifications() {
     isButtonText,
     setIsButtonText,
     isGetEventsDataLoading,
+    requestErrorData,
   };
 }

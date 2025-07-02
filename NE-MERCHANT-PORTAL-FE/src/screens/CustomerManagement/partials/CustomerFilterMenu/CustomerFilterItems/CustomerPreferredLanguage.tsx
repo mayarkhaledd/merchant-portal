@@ -61,7 +61,9 @@ export const CustomerPreferredLanguage = ({
       defaultValue={undefined}
       render={({ field }) => (
         <>
-          <span className=" pt-6 text-[#404042]">Preferred Language</span>
+          <span className=" pt-6 text-[#404042]">
+            {t("customer.preferred_language")}
+          </span>
           <div className="flex flex-row gap-3 pt-2">
             <Button
               state="default"

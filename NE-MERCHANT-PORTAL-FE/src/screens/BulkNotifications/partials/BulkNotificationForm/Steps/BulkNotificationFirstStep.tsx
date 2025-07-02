@@ -132,10 +132,11 @@ export const BulkNotificationFirstStep: React.FC<FormStepProps> = ({
               <FileInputField
                 isRequired
                 acceptedFormats={[
-                  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                  ".csv",
                   "text/csv",
+                  "application/vnd.ms-excel",
                 ]}
-                acceptedFormatsText={[".xlsx", ".csv"]}
+                acceptedFormatsText={["CSV, XLSX"]}
                 label={i18n.t(
                   "bulk-notifications.adhoc_message.first_step.upload_recipient",
                 )}

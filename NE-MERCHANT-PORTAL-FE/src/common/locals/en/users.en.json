@@ -42,6 +42,11 @@
     "Closed": "Closed",
     "REJECTED": "REJECTED",
     "APPROVED": "APPROVED",
-    "PENDING": "PENDING"
+    "PENDING": "PENDING",
+    "Approved": "Approved",
+    "Rejected": "Rejected",
+    "Pending": "Pending",
+    "export_all": "Export All",
+    "export_filtered": "Export Filtered"
   }
 }

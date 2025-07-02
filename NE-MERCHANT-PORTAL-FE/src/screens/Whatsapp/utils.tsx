@@ -14,39 +14,49 @@ import {
 import Cookies from "js-cookie";
 import { filterEmptyValues } from "../shared";
 import { t } from "i18next";
+import { whatsappConstants } from "./Whatsapp.Constants";
 
 export const formateWhatsappTemplatesColumns = (
   data: GetWhatsappTemplatesInterface,
 ): TTableColumns[] => {
   const templates = data.templates;
   return templates.map((template) => {
-    let language = "";
+    let language = whatsappConstants.emptyString;
     switch (template.languageCode) {
-      case "en":
+      case whatsappConstants.en:
         language = t("whatsapp.english");
         break;
-      case "en_US":
+      case whatsappConstants.en_US:
         language = t("whatsapp.english_us");
         break;
-      case "en_GB":
+      case whatsappConstants.en_GB:
         language = t("whatsapp.english_uk");
         break;
-      case "ar":
+      case whatsappConstants.ar:
         language = t("whatsapp.arabic");
         break;
       default:
-        language = template.languageCode || "";
+        language = template.languageCode || whatsappConstants.emptyString;
     }
-    const categoryKey = (template.category || "").toLowerCase();
+    const categoryKey = (
+      template.category || whatsappConstants.emptyString
+    ).toLowerCase();
     return {
-      templateId: template.templateId || "",
-      templateName: template.templateName || "",
+      templateId: template.templateId || whatsappConstants.emptyString,
+      templateName: template.templateName || whatsappConstants.emptyString,
       category: t(`whatsapp.${categoryKey}`),
-      status: template.status || "",
+      status: template.status || whatsappConstants.emptyString,
       language,
     };
   });
 };
+
+export function getParamValue(
+  params: { key: string; value: string }[],
+  key: string,
+): string {
+  return params.find((p) => p.key === key)?.value || "";
+}
 
 export const formatWhatsappTemplatePayload = (
   data: WhatsappFormValues,
@@ -56,11 +66,11 @@ export const formatWhatsappTemplatePayload = (
   // HEADER
   if (data.header) {
     components.push({
-      type: "HEADER",
+      type: whatsappConstants.header,
       text: data.header,
-      format: "TEXT",
-      mediaUrl: "",
-      mediaCaption: "",
+      format: whatsappConstants.text_type,
+      mediaUrl: whatsappConstants.emptyString,
+      mediaCaption: whatsappConstants.emptyString,
       parameters: [],
       buttons: [],
       example: {
@@ -76,11 +86,11 @@ export const formatWhatsappTemplatePayload = (
   // BODY
   if (data.body || data.securityCheckbox) {
     components.push({
-      type: "BODY",
-      text: data.body || "",
-      format: "",
-      mediaUrl: "",
-      mediaCaption: "",
+      type: whatsappConstants.body,
+      text: data.body || whatsappConstants.emptyString,
+      format: whatsappConstants.emptyString,
+      mediaUrl: whatsappConstants.emptyString,
+      mediaCaption: whatsappConstants.emptyString,
       ...(data.securityCheckbox ? { addSecurityRecommendation: true } : {}),
       parameters: [],
       buttons: [],
@@ -97,14 +107,14 @@ export const formatWhatsappTemplatePayload = (
   // FOOTER
   if (data.footer || data.expirationCheckbox) {
     components.push({
-      type: "FOOTER",
-      text: data.footer || "",
-      format: "",
-      mediaUrl: "",
-      mediaCaption: "",
+      type: whatsappConstants.footer,
+      text: data.footer || whatsappConstants.emptyString,
+      format: whatsappConstants.emptyString,
+      mediaUrl: whatsappConstants.emptyString,
+      mediaCaption: whatsappConstants.emptyString,
       codeExpirationMinutes: data.expirationCheckbox
-        ? data.expiryDuration || ""
-        : "",
+        ? data.expiryDuration || whatsappConstants.emptyString
+        : whatsappConstants.emptyString,
       parameters: [],
       buttons: [],
       example: {
@@ -116,30 +126,30 @@ export const formatWhatsappTemplatePayload = (
   }
 
   // BUTTONS
-  if (data.categoryButtons === "Authentication") {
+  if (data.categoryButtons === whatsappConstants.authentication) {
     components.push({
-      type: "BUTTONS",
-      text: "",
-      format: "",
-      mediaUrl: "",
-      mediaCaption: "",
+      type: whatsappConstants.buttons,
+      text: whatsappConstants.emptyString,
+      format: whatsappConstants.emptyString,
+      mediaUrl: whatsappConstants.emptyString,
+      mediaCaption: whatsappConstants.emptyString,
       parameters: [],
       buttons: [
         {
-          type: "OTP",
-          otpType: "ONE_TAP",
-          text: data.copyCodeButton || "",
-          name: "",
-          phoneNumber: "",
-          url: "",
+          type: whatsappConstants.otp,
+          otpType: whatsappConstants.one_tap,
+          text: data.copyCodeButton || whatsappConstants.emptyString,
+          name: whatsappConstants.emptyString,
+          phoneNumber: whatsappConstants.emptyString,
+          url: whatsappConstants.emptyString,
           supportedApp: [
             {
-              packageName: "com.example.luckyshrub",
-              signatureHash: "K8a/AINcGX7",
+              packageName: whatsappConstants.packageName,
+              signatureHash: whatsappConstants.signatureHash,
             },
           ],
           parameterPosition: 0,
-          exampleValue: "",
+          exampleValue: data.copyCodeButton || whatsappConstants.emptyString,
         },
       ],
       example: {
@@ -150,33 +160,44 @@ export const formatWhatsappTemplatePayload = (
     });
   } else if (data.buttons && data.buttons.length > 0) {
     components.push({
-      type: "BUTTONS",
-      text: "",
-      format: "",
-      mediaUrl: "",
-      mediaCaption: "",
+      type: whatsappConstants.buttons,
+      text: whatsappConstants.emptyString,
+      format: whatsappConstants.emptyString,
+      mediaUrl: whatsappConstants.emptyString,
+      mediaCaption: whatsappConstants.emptyString,
       parameters: [],
       buttons: data.buttons.map((button) => ({
         type:
-          button.buttonType === "CALL"
-            ? "PHONE_NUMBER"
-            : button.buttonType === "OFFER_CODE"
-              ? "OTP"
+          button.buttonType === whatsappConstants.call
+            ? whatsappConstants.phone
+            : button.buttonType === whatsappConstants.offerCode
+              ? whatsappConstants.otp
               : button.buttonType,
-        otpType: button.buttonType === "OFFER_CODE" ? "COPY_CODE" : "",
-        text: button.text || "",
-        name: "",
-        phoneNumber: button.buttonType === "CALL" ? button.phone || "" : "",
-        url: button.buttonType === "URL" ? button.url || "" : "",
+        otpType:
+          button.buttonType === whatsappConstants.offerCode
+            ? whatsappConstants.copy_code
+            : whatsappConstants.emptyString,
+        text: button.text || whatsappConstants.emptyString,
+        name: whatsappConstants.emptyString,
+        phoneNumber:
+          button.buttonType === whatsappConstants.call
+            ? button.phone || whatsappConstants.emptyString
+            : whatsappConstants.emptyString,
+        url:
+          button.buttonType === whatsappConstants.url
+            ? button.url || whatsappConstants.emptyString
+            : whatsappConstants.emptyString,
         supportedApp: [
           {
-            packageName: "com.example.luckyshrub",
-            signatureHash: "K8a/AINcGX7",
+            packageName: whatsappConstants.packageName,
+            signatureHash: whatsappConstants.signatureHash,
           },
         ],
         parameterPosition: 0,
         exampleValue:
-          button.buttonType === "OFFER_CODE" ? button.text || "" : "",
+          button.buttonType === whatsappConstants.offerCode
+            ? button.text || whatsappConstants.emptyString
+            : whatsappConstants.emptyString,
       })),
       example: {
         bodyText: [[]],
@@ -187,13 +208,15 @@ export const formatWhatsappTemplatePayload = (
   }
 
   const payload: CreateTemplatePayload = {
-    templateId: "", // Should be set if updating, else leave empty for create
+    templateId: whatsappConstants.emptyString, // Should be set if updating, else leave empty for create
     templateName: data.templateName,
     languageCode: data.languageCode,
     category: data.categoryButtons.toUpperCase(),
-    namespace: "test-ns", // Should be sent to BE
+    namespace: whatsappConstants.namespace, // Should be sent to BE
     components: components || [],
-    tenantId: Cookies.get("tenantId") || "",
+    tenantId:
+      Cookies.get(whatsappConstants.templateId) ||
+      whatsappConstants.emptyString,
   };
 
   // Recursively remove empty values and properties with value 0
@@ -261,16 +284,21 @@ export const mapWhatsappTemplateInterfaceToInitialValues = (
   // Find components by their type instead of relying on order
   if (template.components && Array.isArray(template.components)) {
     headerComponent =
-      template.components.find((comp) => comp.componentType === "HEADER") ||
-      null;
+      template.components.find(
+        (comp) => comp.componentType === whatsappConstants.header,
+      ) || null;
     bodyComponent =
-      template.components.find((comp) => comp.componentType === "BODY") || null;
+      template.components.find(
+        (comp) => comp.componentType === whatsappConstants.body,
+      ) || null;
     footerComponent =
-      template.components.find((comp) => comp.componentType === "FOOTER") ||
-      null;
+      template.components.find(
+        (comp) => comp.componentType === whatsappConstants.footer,
+      ) || null;
     buttonsComponent =
-      template.components.find((comp) => comp.componentType === "BUTTONS") ||
-      null;
+      template.components.find(
+        (comp) => comp.componentType === whatsappConstants.buttons,
+      ) || null;
   }
 
   // Map parameters to variables with proper typing
@@ -279,8 +307,8 @@ export const mapWhatsappTemplateInterfaceToInitialValues = (
     return [...parameters]
       .sort((a, b) => (a.position ?? 0) - (b.position ?? 0))
       .map((param) => ({
-        type: param.type || "",
-        value: param.example || "",
+        type: param.type || whatsappConstants.emptyString,
+        value: param.example || whatsappConstants.emptyString,
       }));
   };
 
@@ -296,16 +324,16 @@ export const mapWhatsappTemplateInterfaceToInitialValues = (
   const mapButtonToButtonType = (button: any): ButtonType => {
     return {
       buttonType:
-        button.buttonType === "OTP"
-          ? "OFFER_CODE"
-          : button.buttonType === "PHONE_NUMBER"
-            ? "CALL"
-            : button.buttonType === "URL"
-              ? "URL"
-              : button.buttonType || "",
-      text: button.text || "",
-      url: button.url || "",
-      phone: button.phoneNumber || "",
+        button.buttonType === whatsappConstants.otp
+          ? whatsappConstants.offerCode
+          : button.buttonType === whatsappConstants.phone
+            ? whatsappConstants.call
+            : button.buttonType === whatsappConstants.url
+              ? whatsappConstants.url
+              : button.buttonType || whatsappConstants.emptyString,
+      text: button.text || whatsappConstants.emptyString,
+      url: button.url || whatsappConstants.emptyString,
+      phone: button.phoneNumber || whatsappConstants.emptyString,
     };
   };
 
@@ -315,31 +343,33 @@ export const mapWhatsappTemplateInterfaceToInitialValues = (
   }
 
   // Authentication specific fields
-  let copyCodeButton = "";
+  let copyCodeButton = whatsappConstants.emptyString;
   let securityCheckbox = false;
   let expirationCheckbox = false;
-  let expiryDuration = "";
+  let expiryDuration = whatsappConstants.emptyString;
 
-  if (template.category === "AUTHENTICATION") {
+  if (template.category === whatsappConstants.authentication) {
     if (buttonsComponent?.buttons) {
       const otpButton = buttonsComponent.buttons.find(
         (b: any) =>
-          b.buttonType === "OTP" || (b.otpType && b.otpType === "COPY_CODE"),
+          b.buttonType === whatsappConstants.otp ||
+          (b.otpType && b.otpType === whatsappConstants.copy_code),
       );
-      copyCodeButton = otpButton?.text || "";
+      copyCodeButton = otpButton?.text || whatsappConstants.emptyString;
     }
     securityCheckbox = !!bodyComponent?.addSecurityRecommendation;
     expirationCheckbox = !!footerComponent?.codeExpirationMinutes;
-    expiryDuration = footerComponent?.codeExpirationMinutes || "";
+    expiryDuration =
+      footerComponent?.codeExpirationMinutes || whatsappConstants.emptyString;
   }
 
   return {
-    templateName: template.templateName || "",
-    languageCode: template.languageCode || "",
-    categoryButtons: template.category || "",
-    header: headerComponent?.text || "",
-    body: bodyComponent?.text || "",
-    footer: footerComponent?.text || "",
+    templateName: template.templateName || whatsappConstants.emptyString,
+    languageCode: template.languageCode || whatsappConstants.emptyString,
+    categoryButtons: template.category || whatsappConstants.emptyString,
+    header: headerComponent?.text || whatsappConstants.emptyString,
+    body: bodyComponent?.text || whatsappConstants.emptyString,
+    footer: footerComponent?.text || whatsappConstants.emptyString,
     headerVariables,
     bodyVariables,
     copyCodeButton,
@@ -354,7 +384,7 @@ export const renderButton = (button: ButtonType, index: number) => {
   if (!button || !button.text) return null; // Ensure button has text
 
   switch (button.buttonType) {
-    case "URL":
+    case whatsappConstants.url:
       return (
         <button
           key={index}
@@ -365,10 +395,15 @@ export const renderButton = (button: ButtonType, index: number) => {
           <div className="flex items-center gap-2 justify-between w-full px-4 break-all">
             <span className="text-sm">{button.text}</span>
           </div>
+          {button.url && (
+            <div className="text-xs text-gray-500 mt-1 px-4 break-all">
+              {button.url}
+            </div>
+          )}
         </button>
       );
 
-    case "CALL":
+    case whatsappConstants.call:
       return (
         <button
           key={index}
@@ -379,10 +414,15 @@ export const renderButton = (button: ButtonType, index: number) => {
           <div className="flex items-center gap-2 justify-between w-full px-4 break-all">
             <span className="text-sm">{button.text}</span>
           </div>
+          {button.phone && (
+            <div className="text-xs text-gray-500 mt-1 px-4 break-all">
+              {button.phone}
+            </div>
+          )}
         </button>
       );
 
-    case "OFFER_CODE":
+    case whatsappConstants.offerCode:
       return (
         <button
           key={index}
@@ -393,6 +433,11 @@ export const renderButton = (button: ButtonType, index: number) => {
           <div className="flex items-center gap-2 justify-between w-full px-4">
             <span className="text-sm">{button.text}</span>
           </div>
+          {button.text && (
+            <div className="text-xs text-gray-500 mt-1 px-4 break-all">
+              Code: {button.text}
+            </div>
+          )}
         </button>
       );
 

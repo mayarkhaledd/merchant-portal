@@ -5,7 +5,7 @@ import {
 } from "./partials/CreateAdhocMessage";
 import { CreateEventInitialValues as EventValues } from "./partials/CreateEventMessage";
 import { CreateEventMessageValues } from "./partials/CreateEventMessage";
-import { ChannelData, SelectSearchList } from "@ejada/screens";
+import { ChannelData, ErrorCode, SelectSearchList } from "@ejada/screens";
 import { Dispatch, SetStateAction } from "react";
 import { GetEventGroupInterface } from "@ejada/types/api/eventGroupsInterface";
 import {
@@ -13,7 +13,10 @@ import {
   NotificationEventInterface,
   NotificationEventParameter,
 } from "@ejada/types";
-import { NotificationRequestPayload } from "@ejada/types/api/recipientInterface";
+import {
+  NotificationRequestPayload,
+  NotificationRequestResponse,
+} from "@ejada/types/api/recipientInterface";
 import { AxiosError } from "axios";
 import { TTableColumns } from "eds-react";
 
@@ -100,4 +103,5 @@ export type TRecipientNotificationsState = {
   setParamCodeGot: (value: string[]) => void;
   channelIds: string[];
   setChannelIds: Dispatch<SetStateAction<string[]>>;
+  requestErrorData: NotificationRequestResponse | undefined | ErrorCode;
 };

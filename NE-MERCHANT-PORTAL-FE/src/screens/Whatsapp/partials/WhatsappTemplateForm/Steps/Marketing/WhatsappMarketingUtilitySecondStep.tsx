@@ -101,7 +101,7 @@ export const WhatsappMarketingUtilitySecondStep: React.FC<
           name="header"
           control={control}
           defaultValue=""
-          rules={{ ...validationRules.header, ...validationRules.required }}
+          rules={validationRules.header}
           render={({ field }) => (
             <div className="relative w-[100%]">
               <InputField
@@ -112,7 +112,7 @@ export const WhatsappMarketingUtilitySecondStep: React.FC<
                 style={{ width: "100%" }}
                 label={t("whatsapp.header") as string}
                 inputError={formState?.errors.header?.message}
-                isRequired={true}
+                isRequired={false}
                 disabled={drawerMode === "view"}
                 {...field}
               />
@@ -139,7 +139,7 @@ export const WhatsappMarketingUtilitySecondStep: React.FC<
             <Controller
               control={control}
               name={`headerVariables.${index}.value`}
-              rules={{ ...validationRules.header, ...validationRules.required }}
+              rules={validationRules.header}
               render={({ field }) => (
                 <div className="w-[67%]">
                   <InputField
@@ -149,7 +149,7 @@ export const WhatsappMarketingUtilitySecondStep: React.FC<
                     size={Sizes.Medium}
                     style={{ width: "100%" }}
                     disabled={drawerMode === "view"}
-                    isRequired
+                    isRequired={false}
                     inputError={
                       formState?.errors.headerVariables?.[index]?.value?.message
                     }
@@ -180,7 +180,7 @@ export const WhatsappMarketingUtilitySecondStep: React.FC<
           name="body"
           control={control}
           defaultValue=""
-          rules={{ ...validationRules.body, ...validationRules.required }}
+          rules={validationRules.body}
           render={({ field }) => (
             <div className="relative w-[100%]">
               <InputField
@@ -218,8 +218,7 @@ export const WhatsappMarketingUtilitySecondStep: React.FC<
             <Controller
               control={control}
               name={`bodyVariables.${index}.value`}
-              rules={{ ...validationRules.body, ...validationRules.required }}
-              //defaultValue={bodyVariables[index]?.value || ""} // Set defaultValue from bodyVariables
+              rules={validationRules.body}
               render={({ field }) => (
                 <div className="w-[67%]">
                   <InputField
@@ -259,7 +258,7 @@ export const WhatsappMarketingUtilitySecondStep: React.FC<
           name="footer"
           defaultValue=""
           control={control}
-          rules={{ ...validationRules.footer, ...validationRules.required }}
+          rules={validationRules.footer}
           render={({ field }) => (
             <div className="relative w-[100%]">
               <InputField
@@ -271,7 +270,7 @@ export const WhatsappMarketingUtilitySecondStep: React.FC<
                 label={t("whatsapp.footer") as string}
                 inputError={formState?.errors.footer?.message}
                 disabled={drawerMode === "view"}
-                isRequired
+                isRequired={false}
                 {...field}
               />
             </div>

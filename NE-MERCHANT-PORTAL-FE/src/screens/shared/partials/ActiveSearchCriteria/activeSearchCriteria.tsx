@@ -49,6 +49,7 @@ export const ActiveSearchCriteria = ({
           }
           if (key === "languageCode") {
             key = "language";
+            displayValue = t(`users.${String(displayValue)}`);
           }
           if (key === "enabledFlag") {
             key = "status";
@@ -60,7 +61,9 @@ export const ActiveSearchCriteria = ({
             displayValue = value ? "Active" : "Inactive";
             displayValue = t(`users.${String(displayValue)}`);
           }
-
+          if (key === "templateStatus" || key === "category") {
+            displayValue = t(`users.${String(displayValue)}`);
+          }
           if (
             (key === "appType" || key === "appTypeId") &&
             sourceSystemsMenu &&

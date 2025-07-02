@@ -43,5 +43,20 @@ export interface NotificationRequestPayload {
   notificationValidity?: number;
   recipients: Recipient[];
 }
+export interface NotificationRequestInterface {
+  data: {
+    notificationRequestId: string;
+    invalidRequestDataErrors: {
+      errorCode: string;
+      errorDescription: string;
+    }[];
+    invalidRecipientErrors: {
+      [key: string]: {
+        errorCode: string;
+        errorDescription: string;
+      }[];
+    };
+  };
+}
 export interface NotificationRequestResponse
-  extends ResponseInterface<NotificationRequestPayload> {}
+  extends ResponseInterface<NotificationRequestInterface> {}

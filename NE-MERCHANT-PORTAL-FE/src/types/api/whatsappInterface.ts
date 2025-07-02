@@ -102,9 +102,7 @@ export interface CreateTemplatePayload {
   components: TemplateComponentsList[];
   tenantId: string;
 }
-export interface UpdateTemplatePayload extends CreateTemplatePayload {
-  templateId: string;
-}
+export interface UpdateTemplatePayload extends CreateTemplatePayload {}
 export interface CreateTemplateInterface {
   tenantId: string;
   rejectionReason: string;
@@ -128,6 +126,11 @@ export interface GetWhatsappTemplatesInterface {
 export interface GetWhatsappTemplateByIdPayload {
   templateId: string;
 }
-
+export interface GetSystemParamsPayload {}
+export interface GetSystemParamsInterface {
+  params: { key: string; value: string }[];
+}
+export interface GetSystemParamsResponse
+  extends ResponseInterface<GetSystemParamsInterface> {}
 export interface GetWhatsappTemplateByIdResponse
   extends ResponseInterface<WhatsappTemplate> {}

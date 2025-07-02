@@ -4,10 +4,13 @@ import {
   BulkNotificationInitialValues,
 } from "./partials/BulkNotificationForm";
 import { GetEventGroupInterface } from "@ejada/types/api/eventGroupsInterface";
-import { ChannelData, SelectSearchList } from "@ejada/screens";
+import { ChannelData, ErrorCode, SelectSearchList } from "@ejada/screens";
 import { Dispatch, SetStateAction } from "react";
 import { GetEventPayload, NotificationEventInterface } from "@ejada/types";
-import { NotificationRequestPayload } from "@ejada/types/api/recipientInterface";
+import {
+  NotificationRequestPayload,
+  NotificationRequestResponse,
+} from "@ejada/types/api/recipientInterface";
 import { AxiosError } from "axios";
 import { TTableColumns } from "eds-react";
 
@@ -72,4 +75,5 @@ export type TBulkNotificationsState = {
   errorMessage: AxiosError<unknown, any> | null;
   isButtonText: boolean;
   setIsButtonText: (value: boolean) => void;
+  requestErrorData: NotificationRequestResponse | undefined | ErrorCode;
 };

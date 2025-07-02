@@ -5,7 +5,7 @@ export interface WhatsappFilterMenuValues {
   templateName: string;
   languageCode: string;
   category: "Marketing" | "Utility" | "Authentication" | undefined;
-  status: string;
+  templateStatus: "Approved" | "Rejected" | "Pending" | undefined;
 }
 
 export interface useWhatsappFilterMenuFormProps {

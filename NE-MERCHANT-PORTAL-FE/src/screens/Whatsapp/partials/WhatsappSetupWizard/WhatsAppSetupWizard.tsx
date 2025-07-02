@@ -1,12 +1,18 @@
 import { AppRoutes } from "@ejada/navigation";
 import { Stepper } from "eds-react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useWhatsapp } from "../../useWhatsapp";
+import { getParamValue } from "../../utils";
 
 export function WhatsAppSetupWizard() {
+  const { refetchSystemParamsData, systemParamsData } = useWhatsapp();
   const [checkboxes, setCheckboxes] = useState([false, false, false, false]);
   const [currentStep, setCurrentStep] = useState(0);
-  const navigate = useNavigate();
+
+  useEffect(() => {
+    refetchSystemParamsData?.();
+  }, []);
 
   const handleCheckboxChange = (index: number) => {
     const updated = [...checkboxes];
@@ -23,40 +29,29 @@ export function WhatsAppSetupWizard() {
   };
 
   const startSignup = () => {
-    const appId = "990049736643186";
-    const redirectUri =
-      "http://localhost:5173/whatsapp/whatsapp-signup-callback";
-    const state = "test_user_123";
-    const scope =
-      "whatsapp_business_messaging,whatsapp_business_management,business_management";
+    const params = systemParamsData?.params || [];
+    const appId = getParamValue(params, "WHATSAPP_APP_ID");
+    const redirectUri = getParamValue(params, "WHATSAPP_REDIRECT_URI"); // or WHATSAPP_REDIRECT_URI
+    const state = getParamValue(params, "WHATSAPP_STATE");
+    const scope = getParamValue(params, "WHATSAPP_SCOPE");
+
     const url = `https://www.facebook.com/v19.0/dialog/oauth?client_id=${appId}&redirect_uri=${encodeURIComponent(
       redirectUri,
     )}&state=${state}&scope=${scope}`;
 
-    const popup = window.open(
-      url,
-      "whatsapp-signup",
-      "width=600,height=700,left=100,top=100",
-    );
+    window.open(url, "_blank", "width=600,height=700,left=100,top=100");
 
     const handleMessage = (event: MessageEvent) => {
       if (event.data?.source === "whatsapp-signup-callback") {
         const { code, error } = event.data;
 
         if (code) {
-          navigate("/whatsapp/whatsapp-templates", {
-            state: {
-              whatsappCode: code,
-              fromSignup: true,
-            },
-            replace: true,
-          });
+          console.log("WhatsApp signup code:", code);
         } else {
           console.error("WhatsApp signup error:", error);
         }
 
         window.removeEventListener("message", handleMessage);
-        if (popup) popup.close();
       }
     };
 

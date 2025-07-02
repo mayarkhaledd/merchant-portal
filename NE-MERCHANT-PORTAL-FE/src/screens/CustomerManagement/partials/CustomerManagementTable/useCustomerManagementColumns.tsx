@@ -142,6 +142,15 @@ export function useCustomerManagementColumns(): TTableColumnsDef[] {
             </td>
           );
         }
+        if (key === "relationType") {
+          return (
+            <td className={className}>
+              <span className="first:ml-6">
+                {t(`customer.${row.cell.getValue()}`) as string}
+              </span>
+            </td>
+          );
+        }
         if (key === "customerEmailDetails") {
           className += " !whitespace-normal break-all overflow-[auto]";
         }

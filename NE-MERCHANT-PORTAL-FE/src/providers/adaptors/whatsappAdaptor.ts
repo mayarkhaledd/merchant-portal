@@ -1,6 +1,8 @@
 import {
   CreateTemplateInterface,
   CreateTemplateResponse,
+  GetSystemParamsInterface,
+  GetSystemParamsResponse,
   GetWhatsappTemplateByIdResponse,
   GetWhatsappTemplatesInterface,
   GetWhatsappTemplatesResponse,
@@ -46,6 +48,16 @@ export function adaptGetWhatsappTemplates(
           phoneNumber: button.phoneNumber,
         })),
       })),
+    })),
+  };
+}
+export function adaptGetSystemParams(
+  res: GetSystemParamsResponse,
+): GetSystemParamsInterface {
+  return {
+    params: res.data.params.map((param) => ({
+      key: param.key,
+      value: param.value,
     })),
   };
 }

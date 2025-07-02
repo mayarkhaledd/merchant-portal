@@ -125,21 +125,13 @@ export const useCustomerFilterForm = ({
     const updatedData = {
       ...(data.relationValue && { relationValue: data.relationValue }),
       ...(data.customerNameEnglish && {
-        firstNameEnglish: data.customerNameEnglish,
-      }),
-      ...(data.customerNameEnglish && {
-        secondNameEnglish: data.customerNameEnglish,
+        englishName: data.customerNameEnglish,
       }),
       ...(data.customerNameArabic && {
-        firstNameArabic: data.customerNameArabic,
+        arabicName: data.customerNameArabic,
       }),
-      ...(data.customerNameArabic && {
-        secondNameArabic: data.customerNameArabic,
-      }),
-      ...(data.email && { primaryEmail: data.email }),
-      ...(data.email && { secondaryEmail: data.email }),
-      ...(data.mobile && { primaryMobile: data.mobile }),
-      ...(data.mobile && { secondaryMobile: data.mobile }),
+      ...(data.email && { email: data.email }),
+      ...(data.mobile && { mobileNumber: data.mobile }),
       ...(data.status && {
         activeFlag: data.status === "Active" ? true : false,
       }),

@@ -9,10 +9,9 @@ import { CreateEventMessage } from "./partials/CreateEventMessage";
 import { t } from "i18next";
 import { EventFilterMenuForm } from "@ejada/screens/shared/partials/EventsManagementTable/EventFilterMenu/EventFilterMenuForm";
 import {
-  getLocalizedErrorMessage,
+  getBulkNotificationErrorMessages,
   useErrorToast,
   useSuccessToast,
-  ErrorCode,
 } from "@ejada/screens/shared";
 
 export const RecipientNotificationsModals = () => {
@@ -27,29 +26,45 @@ export const RecipientNotificationsModals = () => {
     setEventGroupList,
     isEventGroupSuccess,
     eventGroupData,
-    //requestError,
     requestSuccess,
-    requestErrorMessage,
     setActiveSearchCriteria,
     activeSearchCriteria,
     refetchEventsData,
     isEnglish,
     setIsButtonText,
     isButtonText,
+    requestErrorData,
   } = useContext<TRecipientNotificationsState>(
     RecipientNotificationsContext as Context<TRecipientNotificationsState>,
   );
-  useSuccessToast(requestSuccess, t("bulk-notifications.adhoc_success"));
+
+  // Only use .data if it exists, otherwise use an empty object
+  const errorMessages = getBulkNotificationErrorMessages(
+    (requestErrorData && "data" in requestErrorData
+      ? requestErrorData.data
+      : {}) as {
+      invalidRequestDataErrors?: {
+        errorCode: string;
+        errorDescription: string;
+      }[];
+      invalidRecipientErrors?: {
+        [key: string]: { errorCode: string; errorDescription: string }[];
+      };
+    },
+  );
+  const localizedErrorMessages = errorMessages.map((msg) => i18n.t(msg));
+  const errorMessageString = localizedErrorMessages.join("\n");
 
   useErrorToast(
-    requestErrorMessage?.message !== undefined,
+    errorMessages.length > 0,
     t("bulk-notifications.adhoc_fail"),
-    getLocalizedErrorMessage(
-      requestErrorMessage as ErrorCode,
-      t("bulk-notifications.adhoc_fail") as string,
-    ),
+    errorMessageString,
   );
 
+  useSuccessToast(
+    requestSuccess && errorMessages.length === 0,
+    t("bulk-notifications.adhoc_success") as string,
+  );
   return (
     <>
       <Drawer

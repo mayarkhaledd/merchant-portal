@@ -18,6 +18,7 @@ import {
   activeFlagToBoolean,
   booleanToActiveFlag,
 } from "@ejada/screens/CustomerManagement/partials/utils";
+import { t } from "i18next";
 
 export const CustomerFirstStep: React.FC<CustomerFormProps> = ({
   control,
@@ -25,6 +26,14 @@ export const CustomerFirstStep: React.FC<CustomerFormProps> = ({
   drawerMode,
   initialValues = {} as CustomerInitialValues,
 }) => {
+  const localizedRelationTypeList = relationType.map((item) => ({
+    ...item,
+    node: t(`customer.${item.key}`),
+  }));
+  const localizedStatuseList = statusArray.map((item) => ({
+    ...item,
+    node: t(`users.${item.key}`),
+  }));
   return (
     <div
       className="flex flex-col max-h-full mb-2 pr-5 pl-2 overflow-y-hidden"
@@ -43,7 +52,7 @@ export const CustomerFirstStep: React.FC<CustomerFormProps> = ({
                 label={i18n.t(
                   "customer.create_customer.first_step.relation_type",
                 )}
-                options={relationType}
+                options={localizedRelationTypeList}
                 disabled={drawerMode === "edit" || drawerMode === "view"}
                 value={
                   drawerMode === "edit" || drawerMode === "view"
@@ -120,7 +129,7 @@ export const CustomerFirstStep: React.FC<CustomerFormProps> = ({
                   disabled={drawerMode === "view" || drawerMode === "edit"}
                   isRequired
                   label={i18n.t("customer.create_customer.first_step.status")}
-                  options={statusArray}
+                  options={localizedStatuseList}
                   value={
                     drawerMode === "edit" || drawerMode === "view"
                       ? booleanToActiveFlag(initialValues.activeFlag as boolean)

@@ -1,6 +1,7 @@
 import {
   useCreateWhatsappTemplate,
   useDeleteWhatsappTemplateById,
+  useGetSystemParams,
   useGetWhatsappTemplateById,
   useGetWhatsappTemplates,
   useUpdateWhatsappTemplate,
@@ -88,6 +89,15 @@ export const useWhatsapp = () => {
     },
     false,
   );
+
+  const {
+    updatedData: systemParamsData,
+    refetch: refetchSystemParamsData,
+    isError: systemParamsDataError,
+    isSuccess: systemParamsDataSuccess,
+    error: systemParamsErrorMessage,
+  } = useGetSystemParams({}, false);
+
   const {
     mutate: deleteWhatsappTemplateById,
     isSuccess: isDeleteWhatsappTemplateByIdSuccess,
@@ -265,5 +275,10 @@ export const useWhatsapp = () => {
     isUpdateWhatsappTemplateSuccess,
     isUpdateWhatsappTemplateError,
     isUpdateWhatsappTemplateAxiosError,
+    systemParamsData,
+    refetchSystemParamsData,
+    systemParamsDataError,
+    systemParamsDataSuccess,
+    systemParamsErrorMessage,
   };
 };

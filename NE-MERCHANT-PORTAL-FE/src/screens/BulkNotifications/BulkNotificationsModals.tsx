@@ -7,12 +7,8 @@ import { CreateMessageForm } from "./partials/BulkNotificationForm";
 import i18n from "@ejada/common/locals/i18n";
 import { EventFilterMenuForm } from "@ejada/screens/shared/partials/EventsManagementTable/EventFilterMenu/EventFilterMenuForm";
 import { useTranslation } from "react-i18next";
-import { ErrorCode } from "@ejada/screens/shared/utils";
-import {
-  getLocalizedErrorMessage,
-  useErrorToast,
-  useSuccessToast,
-} from "../shared";
+import { getBulkNotificationErrorMessages } from "@ejada/screens/shared/utils";
+import { useErrorToast, useSuccessToast } from "../shared";
 export const BulkNotificationsModals = () => {
   const { t } = useTranslation();
   const {
@@ -26,30 +22,43 @@ export const BulkNotificationsModals = () => {
     setEventGroupList,
     isEventGroupSuccess,
     eventGroupData,
-    //requestError,
     requestSuccess,
-    requestErrorMessage,
     setActiveSearchCriteria,
     activeSearchCriteria,
     refetchEventsData,
     isEnglish,
     setIsButtonText,
     isButtonText,
+    requestErrorData,
   } = useContext<TBulkNotificationsState>(
     BulkNotificationsContext as Context<TBulkNotificationsState>,
   );
+  // Only use .data if it exists, otherwise use an empty object
+  const errorMessages = getBulkNotificationErrorMessages(
+    (requestErrorData && "data" in requestErrorData
+      ? requestErrorData.data
+      : {}) as {
+      invalidRequestDataErrors?: {
+        errorCode: string;
+        errorDescription: string;
+      }[];
+      invalidRecipientErrors?: {
+        [key: string]: { errorCode: string; errorDescription: string }[];
+      };
+    },
+  );
+  const localizedErrorMessages = errorMessages.map((msg) => i18n.t(msg));
+  const errorMessageString = localizedErrorMessages.join("\n");
+
+  useErrorToast(
+    errorMessages.length > 0,
+    t("bulk-notifications.adhoc_fail"),
+    errorMessageString,
+  );
 
   useSuccessToast(
-    requestSuccess,
+    requestSuccess && errorMessages.length === 0,
     t("bulk-notifications.adhoc_success") as string,
-  );
-  useErrorToast(
-    requestErrorMessage?.message !== undefined,
-    t("bulk-notifications.adhoc_fail") as string,
-    getLocalizedErrorMessage(
-      requestErrorMessage as ErrorCode,
-      t("bulk-notifications.adhoc_fail") as string,
-    ),
   );
   return (
     <>

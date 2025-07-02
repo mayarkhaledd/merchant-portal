@@ -1,6 +1,6 @@
 {
   "validations": {
-    "required": "Field is Required",
+    "max_description_length": "Description must not exceed 50 characters",
     "email_required": "User Email is required",
     "general_email-message": "Email is required",
     "email_Invalid": "Email is not valid",

@@ -9,7 +9,8 @@ import {
   useErrorToast,
 } from "@ejada/screens";
 import { ExportButtonProps } from "./exportButton.types";
-
+import AmiriRegular from "@ejada/common/assets/fonts/Amiri-Regular-normal.js";
+import AmiriBold from "@ejada/common/assets/fonts/Amiri-Bold-bold.js";
 export const useExportButton = ({
   data,
   fileName,
@@ -53,31 +54,9 @@ export const useExportButton = ({
       });
 
       try {
-        const amiriFontRegularBase64 = await fetch(
-          "/fonts/Amiri-Regular-normal.js",
-        )
-          .then((response) => response.text())
-          .then((text) => {
-            const matchResult = text.match(/base64,(.*)"/);
-            if (matchResult && matchResult[1]) {
-              const base64String = String(matchResult[1]);
-              return base64String;
-            }
-          });
-
-        const amiriFontBoldBase64 = await fetch("/fonts/Amiri-Bold-bold.js")
-          .then((response) => response.text())
-          .then((text) => {
-            const matchResult = text.match(/base64,(.*)"/);
-            if (matchResult && matchResult[1]) {
-              const base64String = String(matchResult[1]);
-              return base64String;
-            }
-          });
-
-        doc.addFileToVFS("Amiri-Regular.ttf", amiriFontRegularBase64 as string);
-        doc.addFileToVFS("Amiri-Bold.ttf", amiriFontBoldBase64 as string);
+        doc.addFileToVFS("Amiri-Regular.ttf", AmiriRegular);
         doc.addFont("Amiri-Regular.ttf", "Amiri", "normal");
+        doc.addFileToVFS("Amiri-Bold.ttf", AmiriBold);
         doc.addFont("Amiri-Bold.ttf", "Amiri", "bold");
         doc.setFont("Amiri");
         doc.setFontSize(12);
@@ -191,7 +170,7 @@ export const useExportButton = ({
     if (exportSearchQuery && Object.keys(exportSearchQuery).length > 0) {
       return [
         {
-          node: "Export Filtered",
+          node: t("users.export_filtered"),
           onClick: () => {
             type === "excel" ? setExportingExcel(true) : setExportingPdf(true);
             setExportType(type);
@@ -203,7 +182,7 @@ export const useExportButton = ({
     } else {
       return [
         {
-          node: "Export All",
+          node: t("users.export_all"),
           onClick: () => {
             type === "excel" ? setExportingExcel(true) : setExportingPdf(true);
             setExportType(type);

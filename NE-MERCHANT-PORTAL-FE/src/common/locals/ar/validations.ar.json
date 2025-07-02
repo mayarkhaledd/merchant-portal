@@ -1,6 +1,6 @@
 {
   "validations": {
-    "required": "الحقل مطلوب",
+    "max_description_length": "حقل الوصف يجب ألا يتجاوز 50 حرفًا",
     "email_required": "البريد الإلكتروني للمستخدم مطلوب",
     "general_email-message": "البريد الإلكتروني مطلوب",
     "email_Invalid": "البريد الإلكتروني غير صالح",

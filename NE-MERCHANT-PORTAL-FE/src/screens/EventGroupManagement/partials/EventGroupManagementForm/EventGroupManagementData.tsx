@@ -17,6 +17,10 @@ export const EventGroupManagementData = ({
   sourceSystemsMenu,
 }: EventGroupManagementProps) => {
   const { t } = useTranslation();
+  const localizedEventGroupTypeList = eventGroupTypes.map((item) => ({
+    ...item,
+    node: t(`eventGroupManagement.${item.key}`),
+  }));
   return (
     <div
       className="flex flex-col max-h-full  overflow-y-hidden overflow-x-hidden pb-12 pt-2"
@@ -59,7 +63,7 @@ export const EventGroupManagementData = ({
               return (
                 <div className="relative w-[100%] ">
                   <Select
-                    options={eventGroupTypes}
+                    options={localizedEventGroupTypeList}
                     label={t("eventGroupManagement.event_group_type")}
                     onChange={field.onChange}
                     value={

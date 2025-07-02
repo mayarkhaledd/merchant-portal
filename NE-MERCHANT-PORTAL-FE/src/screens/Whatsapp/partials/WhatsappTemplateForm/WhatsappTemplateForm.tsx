@@ -12,7 +12,6 @@ import { t } from "i18next";
 import { colors } from "@ejada/common";
 import { AppRoutes } from "@ejada/navigation";
 import { useNavigate } from "react-router-dom";
-import { usePath } from "@ejada/screens/shared";
 import { Loader } from "lucide-react";
 
 export const WhatsappTemplateForm: React.FC<WhatsappFormProps> = ({
@@ -40,7 +39,6 @@ export const WhatsappTemplateForm: React.FC<WhatsappFormProps> = ({
   } = useContext<TWhatsappState>(WhatsappContext as Context<TWhatsappState>);
   const categoryType = whatsappTemplateByIdData?.category;
   const navigate = useNavigate();
-  const path = usePath();
   const watchedTemplateType = watch("categoryButtons");
   const handleStepperSubmit = async () => {
     if (whatsappTemplateId) {
@@ -63,9 +61,7 @@ export const WhatsappTemplateForm: React.FC<WhatsappFormProps> = ({
           validateForm={trigger}
           onSubmit={handleCreateSubmit}
           drawerClose={() => {
-            if (path === AppRoutes.createWhatsappTemplate) {
-              navigate(AppRoutes.templates, { replace: true });
-            }
+            navigate(`/${AppRoutes.templates}`, { replace: true });
           }}
           labelPosition="below"
           orientation="horizontal"
@@ -228,7 +224,7 @@ export const WhatsappTemplateForm: React.FC<WhatsappFormProps> = ({
         <Button
           size="large"
           onClick={() => {
-            navigate(AppRoutes.templates);
+            navigate(`/${AppRoutes.templates}`, { replace: true });
           }}
           label={t("whatsapp.cancel")}
           type={"default"}

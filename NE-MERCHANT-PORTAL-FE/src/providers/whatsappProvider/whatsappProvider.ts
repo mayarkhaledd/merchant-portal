@@ -7,6 +7,9 @@ import {
   CreateTemplateResponse,
   DeleteWhatsappTemplatePayload,
   DeleteWhatsappTemplateResponse,
+  GetSystemParamsInterface,
+  GetSystemParamsPayload,
+  GetSystemParamsResponse,
   GetWhatsappTemplateByIdPayload,
   GetWhatsappTemplateByIdResponse,
   GetWhatsappTemplatesInterface,
@@ -18,6 +21,7 @@ import {
 } from "@ejada/types/api/whatsappInterface";
 import {
   adaptCreateUpdateWhatsappTemplate,
+  adaptGetSystemParams,
   adaptGetWhatsappTemplateById,
   adaptGetWhatsappTemplates,
 } from "../adaptors/whatsappAdaptor";
@@ -99,4 +103,22 @@ export function useDeleteWhatsappTemplateById() {
   >((data: DeleteWhatsappTemplatePayload) => {
     return WhatsappService.deleteWhatsappTemplateById(data);
   }, onSuccess);
+}
+
+export function useGetSystemParams(
+  data: GetSystemParamsPayload,
+  enabled?: boolean,
+) {
+  return useCustomQuery<
+    GetSystemParamsPayload,
+    GetSystemParamsResponse,
+    GetSystemParamsInterface
+  >(
+    QueryCosntant.SYSTEM_PARAMS,
+    () => {
+      return WhatsappService.getsystemParams(data);
+    },
+    (data: GetSystemParamsResponse) => adaptGetSystemParams(data),
+    enabled,
+  );
 }

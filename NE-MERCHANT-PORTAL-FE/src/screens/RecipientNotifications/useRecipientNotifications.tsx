@@ -95,6 +95,7 @@ export function useRecipientNotifications() {
     isSuccess: requestSuccess,
     isError: requestError,
     error: requestErrorMessage,
+    data: requestErrorData,
   } = useNotificaitonRequest();
 
   useEffect(() => {
@@ -195,5 +196,6 @@ export function useRecipientNotifications() {
     setParamCodeGot,
     channelIds,
     setChannelIds,
+    requestErrorData,
   };
 }

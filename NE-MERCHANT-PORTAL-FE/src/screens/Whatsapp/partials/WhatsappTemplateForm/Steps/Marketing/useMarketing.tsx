@@ -60,6 +60,10 @@ export function useMarketing({
   const buttons = watch?.("buttons") ?? [];
   const [buttonTypeError, setButtonTypeError] = useState(false);
   const [buttonTypeErrorMessage, setButtonTypeErrorMessage] = useState("");
+  const [headerVariableError, setHeaderVariableError] = useState(false);
+  const [headerVariableErrorMessage, setHeaderVariableErrorMessage] =
+    useState("");
+
   // Unregister phone or url based on button type
   useEffect(() => {
     if (buttonType === "text") {
@@ -68,14 +72,22 @@ export function useMarketing({
       unregister?.("url");
     }
   }, [buttonType, unregister]);
-  // Use the error toast hook
+
+  // Use the error toast hook for button type errors
   useErrorToast(
     buttonTypeError,
     buttonTypeErrorMessage,
     buttonTypeErrorMessage,
   );
 
-  // Reset error state after showing toast
+  // Use the error toast hook for header variable errors
+  useErrorToast(
+    headerVariableError,
+    headerVariableErrorMessage,
+    headerVariableErrorMessage,
+  );
+
+  // Reset button type error state after showing toast
   useEffect(() => {
     if (buttonTypeError) {
       const timer = setTimeout(() => {
@@ -88,6 +100,20 @@ export function useMarketing({
       };
     }
   }, [buttonTypeError]);
+
+  // Reset header variable error state after showing toast
+  useEffect(() => {
+    if (headerVariableError) {
+      const timer = setTimeout(() => {
+        setHeaderVariableError(false);
+        setHeaderVariableErrorMessage("");
+      }, 3000);
+
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+  }, [headerVariableError]);
 
   // Find all placeholders in a text
   const findPlaceholders = useCallback((text: string): number[] => {
@@ -118,7 +144,48 @@ export function useMarketing({
         (a, b) => a - b,
       );
 
-      // Step 2: Build new variable list using old values if available
+      // Step 2: Check header variable limit
+      if (isHeader && sortedUnique.length > 1) {
+        setHeaderVariableError(true);
+        setHeaderVariableErrorMessage(
+          i18n.t("whatsapp.header_variable_limit") as string,
+        );
+
+        // Keep only the first placeholder and remove the rest
+        const limitedPlaceholders = sortedUnique.slice(0, 1);
+
+        // Update text to keep only the first placeholder
+        let updatedText = originalText;
+        let placeholderIndex = 1;
+
+        // Replace all placeholders with {{1}} only
+        updatedText = originalText.replace(/\{\{(\d+)\}\}/g, () => {
+          if (placeholderIndex === 1) {
+            placeholderIndex++;
+            return "{{1}}";
+          } else {
+            return "";
+          }
+        });
+
+        // Clean up extra spaces
+        updatedText = updatedText.replace(/\s+/g, " ").trim();
+
+        // Build variable list with only one variable
+        const newVariables = limitedPlaceholders.map((originalIdx) => {
+          const zeroBased = originalIdx - 1;
+          const stableVariables = getValues?.(fullName) ?? [];
+          const value = stableVariables[zeroBased]?.value ?? "";
+          return { value };
+        });
+
+        // Update form state
+        replace(newVariables);
+        setText(updatedText);
+        return;
+      }
+
+      // Step 3: Build new variable list using old values if available
       const newVariables = sortedUnique.map((originalIdx) => {
         const zeroBased = originalIdx - 1;
         const stableVariables = getValues?.(fullName) ?? [];
@@ -128,23 +195,30 @@ export function useMarketing({
         return { value };
       });
 
-      // Step 3: Normalize placeholder text (only reindex, do not touch spaces)
+      // Step 4: Normalize placeholder text (only reindex, do not touch spaces)
       let i = 1;
       const normalizedText = originalText.replace(
         /\{\{(\d+)\}\}/g,
         () => `{{${i++}}}`,
       );
 
-      // Step 4: Unregister any removed fields
+      // Step 5: Unregister any removed fields
       for (let i = newVariables.length; i < variables.length; i++) {
         unregister?.(`${fullName}.${i}.value`);
       }
 
-      // Step 5: Update form state
+      // Step 6: Update form state
       replace(newVariables);
       setText(normalizedText);
     },
-    [header, body],
+    [
+      header,
+      body,
+      headerVariables,
+      bodyVariables,
+      setHeaderVariableError,
+      setHeaderVariableErrorMessage,
+    ],
   );
 
   useEffect(() => {
@@ -214,6 +288,15 @@ export function useMarketing({
         ? (val: string) => setValue?.("header", val)
         : (val: string) => setValue?.("body", val);
 
+      // Check header variable limit
+      if (isHeader && variables.length >= 1) {
+        setHeaderVariableError(true);
+        setHeaderVariableErrorMessage(
+          i18n.t("whatsapp.header_variable_limit") as string,
+        );
+        return;
+      }
+
       const newIndex = variables.length + 1;
       append({ value: "" });
 
@@ -226,7 +309,15 @@ export function useMarketing({
         trimmedText + (needsSpaceBefore ? " " : "") + `{{${newIndex}}}`;
       updateText(updatedText.trim());
     },
-    [header, body, appendHeaderVar, appendBodyVar, setValue],
+    [
+      header,
+      body,
+      appendHeaderVar,
+      appendBodyVar,
+      setValue,
+      headerVariables,
+      bodyVariables,
+    ],
   );
 
   const handleAddButton = useCallback(() => {
@@ -237,11 +328,11 @@ export function useMarketing({
     const maxTotalButtons = availableTypes.length * maxButtonsPerType;
 
     const typeCounts = buttons.reduce(
-      (acc: any, btn: ButtonType) => {
+      (acc: Record<string, number>, btn: ButtonType) => {
         acc[btn.buttonType] = (acc[btn.buttonType] ?? 0) + 1;
         return acc;
       },
-      {} as Record<"URL" | "CALL" | "OFFER_CODE", number>,
+      {} as Record<string, number>,
     );
 
     const typePriority: ("URL" | "CALL" | "OFFER_CODE")[] = availableTypes.map(

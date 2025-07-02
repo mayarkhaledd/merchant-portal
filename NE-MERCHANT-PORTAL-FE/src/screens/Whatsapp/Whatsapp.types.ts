@@ -1,6 +1,7 @@
 import {
   CreateTemplatePayload,
   DeleteWhatsappTemplatePayload,
+  GetSystemParamsInterface,
   GetWhatsappTemplatesInterface,
   GetWhatsappTemplatesPayload,
   UpdateTemplatePayload,
@@ -79,6 +80,11 @@ export interface TWhatsappState {
   setTemplateType: (value: string) => void;
   isGetWhatsappTemplatesLoading: boolean;
   isGetWhatsappTemplateByIdLoading: boolean;
+  systemParamsData: GetSystemParamsInterface | null;
+  refetchSystemParamsData: (() => void) | undefined;
+  systemParamsDataError: boolean;
+  systemParamsDataSuccess: boolean;
+  systemParamsErrorMessage: AxiosError<unknown, any> | null;
 }
 
 export interface WhatsappFormProps {

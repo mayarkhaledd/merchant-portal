@@ -15,9 +15,9 @@
     "DELETED": "محذوف",
     "English": "الإنجليزية",
     "Arabic": "العربية",
-    "Marketing": "التسويق",
-    "Utility": "الخدمات",
-    "Authentication": "المصادقة",
+    "Marketing": "تسويقي",
+    "Utility": "خدمي",
+    "Authentication": "تحققي",
     "A": "نشط",
     "Sent": "تم الإرسال",
     "Failed": "فشل",
@@ -40,6 +40,11 @@
     "Closed": "مغلق",
     "REJECTED": "مرفوض",
     "APPROVED": "مقبول",
-    "PENDING": "قيد الانتظار"
+    "PENDING": "قيد الانتظار",
+    "Pending": "قيد الانتظار",
+    "Approved": "مقبول",
+    "Rejected": "مرفوض",
+    "export_all": "تصدير الكل",
+    "export_filtered": "تصدير المصفى"
   }
 }

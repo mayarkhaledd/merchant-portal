@@ -15,6 +15,9 @@ import {
   UpdateTemplatePayload,
   WhatsappTemplate,
 } from "@ejada/types/api/whatsappInterface";
+import { filterEmptyValues } from "@ejada/screens/shared";
+import { AppRoutes } from "@ejada/navigation";
+import { useNavigate } from "react-router-dom";
 
 export const useWhatsappTemplateForm = (
   drawerMode?: "add" | "edit" | "view",
@@ -39,13 +42,18 @@ export const useWhatsappTemplateForm = (
       bodyVariables: [],
     },
   });
-
+  const navigate = useNavigate();
   const {
     setWhatsappTemplateId,
     createWhatsappTemplate,
     updateWhatsappTemplate,
-    whatsappTemplateId,
     whatsappTemplateByIdData,
+    isUpdateWhatsappTemplateSuccess,
+    isCreateWhatsappTemplateSuccess,
+    isCreateWhatsappTemplateError,
+    isUpdateWhatsappTemplateError,
+    isCreateWhatsappTemplateAxiosError,
+    isUpdateWhatsappTemplateAxiosError,
   } = useContext<TWhatsappState>(WhatsappContext);
 
   const handleCancel = (e: { preventDefault: () => void }) => {
@@ -59,13 +67,48 @@ export const useWhatsappTemplateForm = (
     if (drawerMode === "add") {
       createWhatsappTemplate(formattedDataPayload);
     } else if (drawerMode === "edit") {
-      updateWhatsappTemplate({
+      const editPayload = {
         ...formattedDataPayload,
-        templateId: whatsappTemplateId,
-      } as UpdateTemplatePayload);
+        languageCode: "",
+        namespace: "",
+      };
+      updateWhatsappTemplate(
+        filterEmptyValues(editPayload) as UpdateTemplatePayload,
+      );
     }
     setWhatsappTemplateId("");
   };
+
+  useEffect(() => {
+    if (
+      isUpdateWhatsappTemplateSuccess ||
+      isUpdateWhatsappTemplateError ||
+      isUpdateWhatsappTemplateAxiosError
+    ) {
+      navigate(`/${AppRoutes.templates}`, { replace: true });
+    }
+  }, [
+    isUpdateWhatsappTemplateSuccess,
+    isUpdateWhatsappTemplateError,
+    isUpdateWhatsappTemplateAxiosError,
+    navigate,
+  ]);
+
+  useEffect(() => {
+    if (
+      isCreateWhatsappTemplateSuccess ||
+      isCreateWhatsappTemplateError ||
+      isCreateWhatsappTemplateAxiosError
+    ) {
+      navigate(`/${AppRoutes.templates}`, { replace: true });
+    }
+  }, [
+    isCreateWhatsappTemplateSuccess,
+    isCreateWhatsappTemplateError,
+    isCreateWhatsappTemplateAxiosError,
+    navigate,
+  ]);
+
   useEffect(() => {
     if (
       whatsappTemplateByIdData &&

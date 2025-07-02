@@ -119,12 +119,8 @@ export const BulkNotificationSecondStep: React.FC<FormStepProps> = ({
             render={({ field }) => (
               <div className="relative">
                 <FileInputField
-                  acceptedFormats={[
-                    "image/jpeg",
-                    "image/png",
-                    "application/pdf",
-                  ]}
-                  acceptedFormatsText={[".jpeg", ".png", ".pdf"]}
+                  acceptedFormats={[".jpeg", ".jpg", ".png", ".pdf"]}
+                  acceptedFormatsText={["JPEG", "JPG", "PNG", "PDF"]}
                   label={t("bulk-notifications.attachment_title")}
                   onChange={field.onChange as OnChangeHandler}
                   value={field.value as UploaderformValue}

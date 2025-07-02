@@ -31,7 +31,9 @@ export const validationRules = {
     ) as string,
   },
   mobile: {
-    required: i18n.t("customer.create_customer.required.mobile") as string,
+    required: i18n.t(
+      "recipient_notifications.adhoc_message.validation.required",
+    ) as string,
     minLength: {
       value: 13,
       message: i18n.t(
