@@ -128,6 +128,23 @@ export const formatWhatsappTemplatePayload = (
   // BUTTONS
   if (data.categoryButtons === whatsappConstants.authentication) {
     components.push({
+      type: whatsappConstants.body,
+      text: data.body || whatsappConstants.emptyString,
+      format: whatsappConstants.emptyString,
+      mediaUrl: whatsappConstants.emptyString,
+      mediaCaption: whatsappConstants.emptyString,
+      ...(data.securityCheckbox ? { addSecurityRecommendation: true } : {}),
+      parameters: [],
+      buttons: [],
+      example: {
+        bodyText: data.bodyVariables
+          ? [data.bodyVariables.map((v) => v.value)]
+          : [[]],
+        headerText: [],
+        headerHandle: [],
+      },
+    });
+    components.push({
       type: whatsappConstants.buttons,
       text: whatsappConstants.emptyString,
       format: whatsappConstants.emptyString,
@@ -394,11 +411,11 @@ export const renderButton = (button: ButtonType, index: number) => {
           <div className="flex items-center gap-2 justify-between w-full px-4 break-all">
             <span className="text-sm">{button.text}</span>
           </div>
-          {button.url && (
+          {/* {button.url && (
             <div className="text-xs text-gray-500 mt-1 px-4 break-all">
               {button.url}
             </div>
-          )}
+          )} */}
         </button>
       );
 
@@ -413,11 +430,11 @@ export const renderButton = (button: ButtonType, index: number) => {
           <div className="flex items-center gap-2 justify-between w-full px-4 break-all">
             <span className="text-sm">{button.text}</span>
           </div>
-          {button.phone && (
+          {/* {button.phone && (
             <div className="text-xs text-gray-500 mt-1 px-4 break-all">
               {button.phone}
             </div>
-          )}
+          )} */}
         </button>
       );
 
@@ -432,11 +449,11 @@ export const renderButton = (button: ButtonType, index: number) => {
           <div className="flex items-center gap-2 justify-between w-full px-4">
             <span className="text-sm">{button.text}</span>
           </div>
-          {button.text && (
+          {/* {button.text && (
             <div className="text-xs text-gray-500 mt-1 px-4 break-all">
               Code: {button.text}
             </div>
-          )}
+          )} */}
         </button>
       );
 

@@ -93,7 +93,11 @@ export interface TWhatsappState {
   isWhatsappOnboardingError: boolean;
   isWhatsappOnboardingAxiosError: AxiosError<unknown, any> | null;
 }
-
+export interface WhatsappOnboardingProps {
+  metaSignUpUrl?: string;
+  startSignup?: () => void;
+  allDoneFlag?: boolean;
+}
 export interface WhatsappFormProps {
   closeDrawer?: () => void;
   drawerMode?: "add" | "edit" | "view";

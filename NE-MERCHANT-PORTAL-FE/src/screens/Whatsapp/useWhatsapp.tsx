@@ -209,7 +209,10 @@ export const useWhatsapp = () => {
     ) {
       // @ts-expect-error: refetch does not return a Promise, suppressing type error
       refetchWhatsappTemplates().then((result) => {
-        if (result.status !== "success") {
+        if (
+          Array.isArray(result.data.data.templates) &&
+          result.data.data.templates.length === 0
+        ) {
           const queryValue = Object.values(searchQuery)[0];
           toast.dark(
             <Notification

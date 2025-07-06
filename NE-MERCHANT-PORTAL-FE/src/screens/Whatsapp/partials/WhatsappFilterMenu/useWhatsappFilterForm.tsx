@@ -113,7 +113,7 @@ export const useWhatsappFilterForm = ({
               : data.languageCode,
       }),
       ...(data.templateStatus && {
-        templateStatus:
+        status:
           data.templateStatus === "Pending"
             ? "PENDING"
             : data.templateStatus === "Approved"

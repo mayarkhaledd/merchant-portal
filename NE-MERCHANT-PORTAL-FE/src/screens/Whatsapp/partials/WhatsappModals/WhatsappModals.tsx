@@ -12,7 +12,6 @@ import {
   useSuccessToast,
 } from "@ejada/screens/shared";
 import { AxiosError } from "axios";
-import { useWhatsapp } from "../../useWhatsapp";
 
 export function WhatsappModals() {
   const { t } = useTranslation();
@@ -43,12 +42,6 @@ export function WhatsappModals() {
   const handleSuccessToast = (condition: boolean, message: string) => {
     successToast(condition, t(message));
   };
-
-  // const {
-  //   isWhatsappOnboardingSuccess,
-  //   isWhatsappOnboardingError,
-  //   isWhatsappOnboardingAxiosError,
-  // } = useWhatsapp();
 
   const handleErrorToast = (
     condition: boolean,
