@@ -22,6 +22,7 @@
     "rejected": "Rejected",
     "pending": "Pending",
     "template_status": "Template Status",
+    "please_connect_via_meta_first": "Please connect via Meta first",
     "create_whatsapp_template_success": "A new whatsapp template has been added successfully!",
     "update_whatsapp_template_success": "The whatsapp template has been edited successfully!",
     "deleted_successfully": "The whatsapp template has been deleted successfully!",

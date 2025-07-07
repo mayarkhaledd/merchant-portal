@@ -25,6 +25,7 @@
     "edit_template": "تعديل القالب",
     "view_template": "عرض القالب",
     "manage": "إدارة",
+    "please_connect_via_meta_first": "يرجى الاتصال عبر Meta أولاً",
     "create_whatsapp_template_success": "تمت إضافة قالب واتساب جديد بنجاح!",
     "update_whatsapp_template_success": "تم تعديل قالب واتساب بنجاح!",
     "deleted_successfully": "تم حذف قالب واتساب بنجاح!",

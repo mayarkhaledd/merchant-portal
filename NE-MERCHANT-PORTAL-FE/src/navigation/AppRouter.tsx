@@ -108,10 +108,6 @@ export const AppRouter = createBrowserRouter(
           element: <WhatsAppSetupWizard />,
         },
         {
-          path: AppRoutes.whatsappSignupCallback,
-          element: <WhatsappSignupCallback />,
-        },
-        {
           path: AppRoutes.customerManagement,
           element: <CustomerManagement />,
         },
@@ -125,6 +121,10 @@ export const AppRouter = createBrowserRouter(
     {
       path: AppRoutes.otp,
       element: <ProtectedRoute isOtpPage component={OTP} />,
+    },
+    {
+      path: AppRoutes.whatsappSignupCallback,
+      element:   <ProtectedRoute component={WhatsappSignupCallback}  />,
     },
     {
       path: AppRoutes.forgotPassword,

@@ -34,6 +34,7 @@ export const useWhatsapp = () => {
   const [whatsappTemplatesList, setWhatsappTemplatesList] = useState<
     SelectSearchList[]
   >([]);
+  const [isConnected, setIsConnected] = useState<boolean>(false);
   const [isWhatsappFilterMenuOpen, setIsWhatsappFilterMenuOpen] =
     useState(false);
   const [activeSearchCriteria, setActiveSearchCriteria] = useState<
@@ -297,5 +298,7 @@ export const useWhatsapp = () => {
     isWhatsappOnboardingSuccess,
     isWhatsappOnboardingError,
     isWhatsappOnboardingAxiosError,
+    isConnected,
+    setIsConnected
   };
 };
