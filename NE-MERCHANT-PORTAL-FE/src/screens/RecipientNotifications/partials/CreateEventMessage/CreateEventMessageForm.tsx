@@ -13,6 +13,8 @@ import { t } from "i18next";
 import { RecipientNotificationsContext } from "../../RecipientNotificationsProvider";
 import { TRecipientNotificationsState } from "../../RecipientNotifications.types";
 import { UseFormGetValues } from "react-hook-form";
+import { WhatsappTemplatePreview } from "@ejada/screens/shared";
+
 interface CreateEventMessageEditProps extends CreateEventMessageProps {
   initialValues?: CreateEventInitialValues;
   getValues?: UseFormGetValues<CreateEventMessageValues> | undefined;
@@ -31,13 +33,15 @@ export const CreateEventMessage: React.FC<CreateEventMessageEditProps> = ({
     watch,
     setValue,
     getValues,
+    channelIds,
   } = useCreateEventMessage(closeDrawer, initialValues);
   const handleStepperSubmit = async () => {
     await handleSubmit(onSubmit)();
   };
-  const { eventParameters } = useContext<TRecipientNotificationsState>(
-    RecipientNotificationsContext as Context<TRecipientNotificationsState>,
-  );
+  const { eventParameters, TemplateByIdData, selectedNotificationId } =
+    useContext<TRecipientNotificationsState>(
+      RecipientNotificationsContext as Context<TRecipientNotificationsState>,
+    );
   const formValues: CreateEventInitialValues =
     watch() as CreateEventInitialValues;
   return (
@@ -66,6 +70,19 @@ export const CreateEventMessage: React.FC<CreateEventMessageEditProps> = ({
               />
             </div>
           </Stepper.Step>
+          {channelIds &&
+            channelIds.includes("WHATSAPP") &&
+            selectedNotificationId === "WHATSAPP" && (
+              <Stepper.Step title="WhatsApp Preview">
+                <div className="flex flex-col h-full">
+                  <WhatsappTemplatePreview
+                    selectedTemplate={TemplateByIdData}
+                    setValue={setValue}
+                    control={control}
+                  />
+                </div>
+              </Stepper.Step>
+            )}
           <Stepper.Step title={t("recipient_notifications.schedule_message")}>
             <div className="flex flex-col h-full">
               <CreateEventSecondStep

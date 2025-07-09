@@ -27,4 +27,5 @@ export interface TemplateChannelsData {
   body: string;
   sender: string;
   languageCode: string;
+  templateId?: string;
 }

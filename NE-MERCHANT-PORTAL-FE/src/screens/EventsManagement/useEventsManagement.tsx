@@ -9,13 +9,15 @@ import {
   useGetLookUpParameters,
   useGetNotificationChannels,
   useGetNotificationEvent,
+  useGetWhatsappTemplates,
   useSmsSender,
   useUpdateEvent,
 } from "@ejada/providers";
 import { TTableColumns, Notification } from "eds-react";
 import { EventChannel, GetEventPayload } from "@ejada/types";
+import { WhatsappTemplate } from "@ejada/types/api/whatsappInterface";
 import Cookies from "js-cookie";
-import { formatToSelectSearch } from "../shared";
+import { formatToSelectKeyNode, formatToSelectSearch } from "../shared";
 import { toast } from "react-toastify";
 import i18n from "@ejada/common/locals/i18n";
 import { TemplateChannelsData } from "./partials/EventManagementForm/types";
@@ -30,6 +32,11 @@ export const useEventsManagement = () => {
   const [extraMobileAppName, setExtraMobileAppName] = useState<string>("");
   const [addExtraChannelBtn, setAddExtraChannelBtn] = useState(false);
   const [extraChannels, setExtraChannels] = useState<EventChannel[]>([]);
+  const [whatsappTemplatesList, setWhatsappTemplatesList] = useState<
+    { key: string; node: string }[]
+  >([]);
+  const [selectedWhatsappTemplate, setSelectedWhatsappTemplate] =
+    useState<WhatsappTemplate | null>(null);
 
   const [channelsTableDataEditMode, setChannelsTableDataEditMode] = useState<
     TemplateChannelsData[]
@@ -101,6 +108,14 @@ export const useEventsManagement = () => {
       label: "",
     },
   ]);
+
+  const allWhatsappTemplatesPayload = {
+    tenantId: Cookies.get("tenantId")
+      ? (Cookies.get("tenantId") as string)
+      : "",
+    limit: 1000000,
+    offset: 0,
+  };
 
   // Modify the code near line 93 to fix the pagination issues
   const getEventsPayload = {
@@ -235,6 +250,20 @@ export const useEventsManagement = () => {
   } = useGetEventById(
     {
       id: viewEventId,
+    },
+    false,
+  );
+
+  const {
+    updatedData: allWhatsappTemplatesData,
+    refetch: refetchAllWhatsappTemplatesData,
+    isError: isRefetchedDataErrorWhatsapp,
+    isSuccess: isRefetchDataSuccessWhatsapp,
+    error: errorMessageWhatsapp,
+  } = useGetWhatsappTemplates(
+    {
+      ...allWhatsappTemplatesPayload,
+      ...(searchQuery && typeof searchQuery === "object" && searchQuery),
     },
     false,
   );
@@ -413,6 +442,28 @@ export const useEventsManagement = () => {
     setIsEnglish(currentLanguage === "en" ? true : false);
   }, []);
 
+  useEffect(() => {
+    if (allWhatsappTemplatesData && isRefetchDataSuccessWhatsapp) {
+      const whatsappTemplatesList = formatToSelectKeyNode(
+        allWhatsappTemplatesData.templates,
+        "templateName",
+        "templateName",
+      );
+      setWhatsappTemplatesList(whatsappTemplatesList);
+    }
+  }, [allWhatsappTemplatesData]);
+
+  const getWhatsappTemplateDetails = (
+    templateName: string,
+  ): WhatsappTemplate | null => {
+    if (!allWhatsappTemplatesData?.templates) return null;
+    return (
+      allWhatsappTemplatesData.templates.find(
+        (template) => template.templateName === templateName,
+      ) || null
+    );
+  };
+
   return {
     deleteNotificationEventError,
     EventsManagementData,
@@ -523,5 +574,14 @@ export const useEventsManagement = () => {
     isButtonText,
     setIsButtonText,
     isGetEventsDataLoading,
+    allWhatsappTemplatesData,
+    refetchAllWhatsappTemplatesData,
+    isRefetchedDataErrorWhatsapp,
+    isRefetchDataSuccessWhatsapp,
+    errorMessageWhatsapp,
+    whatsappTemplatesList,
+    selectedWhatsappTemplate,
+    setSelectedWhatsappTemplate,
+    getWhatsappTemplateDetails,
   };
 };

@@ -10,6 +10,7 @@ export const whatsappConstants = {
   buttons: "BUTTONS",
   one_tap: "ONE_TAP",
   authentication: "Authentication",
+  authentication_uppercase: "AUTHENTICATION",
   footer: "FOOTER",
   body: "BODY",
   header: "HEADER",

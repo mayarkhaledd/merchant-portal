@@ -16,6 +16,7 @@ export const channelArray = [
   { key: "EMAIL", node: "Email" },
   { key: "PUSH_NOTIFICATION", node: "Push Notification" },
   { key: "INBOX", node: "Inbox" },
+  { key: "WHATSAPP", node: "Whatsapp" },
 ];
 export const recipientTypeArray = [
   { key: "CUSTOMER", node: "Customer" },

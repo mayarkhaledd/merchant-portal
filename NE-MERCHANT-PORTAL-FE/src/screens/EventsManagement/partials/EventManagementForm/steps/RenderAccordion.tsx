@@ -12,10 +12,11 @@ import {
   extraEventChannelsInitialValues,
   TEventsManagementState,
 } from "@ejada/screens/EventsManagement/EventsManagement.types";
-import { Accordion, InputField, SelectSearch } from "eds-react";
+import { Accordion, InputField, Select, SelectSearch } from "eds-react";
 import { EventManagementFormValidationSchema } from "../EventManagementFormValidationSchema";
 import { EventsManagementContext } from "@ejada/screens/EventsManagement/EventsManagementProvider";
 import { Types } from "@ejada/common/utils/Enum";
+import { WhatsappTemplatePreview } from "@ejada/screens/shared";
 interface RenderAccordionProps {
   type: string;
   control:
@@ -52,9 +53,21 @@ const RenderAccordion: React.FC<RenderAccordionProps> = ({
   const languageCode = `eventChannels.${id}.languageCode`;
   const body = `eventChannels.${id}.body`;
 
-  const { smsSender, emailSender } = useContext<TEventsManagementState>(
+  const {
+    smsSender,
+    emailSender,
+    refetchAllWhatsappTemplatesData,
+    whatsappTemplatesList,
+    selectedWhatsappTemplate,
+    setSelectedWhatsappTemplate,
+    getWhatsappTemplateDetails,
+  } = useContext<TEventsManagementState>(
     EventsManagementContext as Context<TEventsManagementState>,
   );
+
+  useEffect(() => {
+    refetchAllWhatsappTemplatesData?.();
+  }, []);
 
   // Update hidden value every time the type changes
   useEffect(() => {
@@ -627,6 +640,86 @@ const RenderAccordion: React.FC<RenderAccordionProps> = ({
                       </div>
                     )}
                   />
+                </div>
+              ),
+            },
+          ]}
+          variant="underlined"
+        />
+      );
+    case "WHATSAPP":
+      return (
+        <Accordion
+          items={[
+            {
+              isRequired: true,
+              label: t("eventsManagement.WHATSAPP"),
+              value: "WHATSAPP",
+              content: (
+                <div className="my-4" key={id}>
+                  <Controller
+                    name={notificationChannelIdName}
+                    control={
+                      control as Control<
+                        | NotificationEventFormValues
+                        | extraEventChannelsInitialValues
+                      >
+                    }
+                    defaultValue={type}
+                    render={({ field }) => (
+                      <input
+                        type="hidden"
+                        {...field}
+                        value={type}
+                        onChange={() => field.onChange(type)}
+                      />
+                    )}
+                  />
+                  <Controller
+                    name={`eventChannels.${id}.templateName`}
+                    control={
+                      control as Control<
+                        | NotificationEventFormValues
+                        | extraEventChannelsInitialValues
+                      >
+                    }
+                    defaultValue={undefined}
+                    rules={EventManagementFormValidationSchema.required}
+                    render={({ field }) => (
+                      <div className="relative w-[100%]">
+                        <Select
+                          options={whatsappTemplatesList || []}
+                          label={t("eventsManagement.templates") as string}
+                          onChange={(value) => {
+                            field.onChange(value);
+                            // Update the selected template for preview
+                            if (value) {
+                              const templateDetails =
+                                getWhatsappTemplateDetails(value);
+
+                              setSelectedWhatsappTemplate(templateDetails);
+                            } else {
+                              setSelectedWhatsappTemplate(null);
+                            }
+                          }}
+                          value={selectedWhatsappTemplate?.templateName}
+                          placeholder={
+                            t("eventsManagement.select_template") as string
+                          }
+                        />
+                      </div>
+                    )}
+                  />
+
+                  {/* Template Preview */}
+                  <div className="mt-4">
+                    <div className="text-sm font-medium text-gray-700 mb-2">
+                      {t("eventsManagement.template_preview")}
+                    </div>
+                    <WhatsappTemplatePreview
+                      selectedTemplate={selectedWhatsappTemplate}
+                    />
+                  </div>
                 </div>
               ),
             },

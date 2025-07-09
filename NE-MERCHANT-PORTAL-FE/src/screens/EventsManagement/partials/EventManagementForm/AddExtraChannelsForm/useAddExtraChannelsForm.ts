@@ -22,6 +22,7 @@ export const useAddExtraChannelsForm = () => {
     setSavedChannel,
     setSavedLanguage,
     setShowErrorNotification,
+    selectedWhatsappTemplate,
   } = useContext(EventsManagementContext);
 
   const {
@@ -161,6 +162,16 @@ export const useAddExtraChannelsForm = () => {
           });
       });
     }
+
+    if (selectedWhatsappTemplate) {
+      const templateId = selectedWhatsappTemplate.templateId;
+      formattedEventChannels.forEach((channel) => {
+        if (channel.channelId === "WHATSAPP") {
+          channel.templateId = templateId;
+        }
+      });
+    }
+
     const payLoadData = filterEmptyValues(
       formattedEventChannels as EventChannel[],
     );

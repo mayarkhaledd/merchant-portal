@@ -45,6 +45,7 @@ export const CreateEventFirstStep: React.FC<EventFormStepProps> = ({
     paramCodeGot,
     setParamCodeGot,
     channelIds,
+    setSelectedNotificationId,
   } = useContext<TRecipientNotificationsState>(
     RecipientNotificationsContext as Context<TRecipientNotificationsState>,
   );
@@ -121,6 +122,7 @@ export const CreateEventFirstStep: React.FC<EventFormStepProps> = ({
     ...item,
     node: t(`recipient_notifications.${item.key}`),
   }));
+
   return (
     <div
       className="flex flex-col max-h-full mb-2 pr-5 pl-2 overflow-y-hidden"
@@ -388,6 +390,10 @@ export const CreateEventFirstStep: React.FC<EventFormStepProps> = ({
                                 }
                                 onChange={(selectedOption) => {
                                   field.onChange(selectedOption);
+                                  setSelectedNotificationId(
+                                    recipient.channels[channelIndex]
+                                      .notificationChannel,
+                                  );
                                   const updatedChannel = {
                                     notificationChannel: selectedOption,
                                     contact: "",

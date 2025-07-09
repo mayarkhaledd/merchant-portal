@@ -127,6 +127,7 @@ export const useWhatsapp = () => {
     isError: isCreateWhatsappTemplateError,
     error: isCreateWhatsappTemplateAxiosError,
     data: createWhatsappTemplateData,
+    isPending: isCreateWhatsappTemplatePending,
   } = useCreateWhatsappTemplate();
 
   const {
@@ -299,6 +300,7 @@ export const useWhatsapp = () => {
     isWhatsappOnboardingError,
     isWhatsappOnboardingAxiosError,
     isConnected,
-    setIsConnected
+    setIsConnected,
+    isCreateWhatsappTemplatePending,
   };
 };

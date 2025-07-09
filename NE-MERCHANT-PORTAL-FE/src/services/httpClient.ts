@@ -7,6 +7,7 @@ const accessToken = Cookies.get(HTTPCookies.token);
 
 const httpClient = axios.create({
   baseURL: API.baseURL,
+  timeout: 20000,
   headers: {
     "Content-Type": "application/json",
     Authorization: `Bearer ${accessToken}`,

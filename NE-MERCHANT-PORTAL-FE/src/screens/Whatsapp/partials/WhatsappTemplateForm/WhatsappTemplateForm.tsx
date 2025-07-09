@@ -36,6 +36,7 @@ export const WhatsappTemplateForm: React.FC<WhatsappFormProps> = ({
     templateType,
     whatsappTemplateByIdData,
     isGetWhatsappTemplateByIdLoading,
+    isCreateWhatsappTemplatePending,
   } = useContext<TWhatsappState>(WhatsappContext as Context<TWhatsappState>);
   const categoryType = whatsappTemplateByIdData?.category;
   const navigate = useNavigate();
@@ -57,34 +58,21 @@ export const WhatsappTemplateForm: React.FC<WhatsappFormProps> = ({
   return drawerMode === "add" ? (
     <form className="flex flex-col h-screen w-full formWrapper">
       <div className="flex-1 w-full">
-        <Stepper
-          validateForm={trigger}
-          onSubmit={handleCreateSubmit}
-          drawerClose={() => {
-            navigate(`/${AppRoutes.templates}`, { replace: true });
-          }}
-          labelPosition="below"
-          orientation="horizontal"
-        >
-          <Stepper.Step title={t("whatsapp.generalDetails")}>
-            <div className="flex flex-col h-full w-full">
-              <WhatsappFirstStep
-                control={control}
-                formState={formState}
-                colors={{ errorDefault: colors.errorDefault }}
-                initialValues={initialValues}
-                drawerMode={drawerMode}
-                watch={watch}
-                setValue={setValue}
-                closeDrawer={() => {}}
-              />
-            </div>
-          </Stepper.Step>
-          <Stepper.Step title={t(`whatsapp.${templateType}Template`)}>
-            <div className="flex flex-col h-full w-full">
-              {watchedTemplateType === "Marketing" && (
-                <WhatsappMarketingUtilitySecondStep
-                  templateType={templateType}
+        {isCreateWhatsappTemplatePending ? (
+          <div className="flex justify-center items-center h-screen">
+            <Loader className="animate-spin" />
+          </div>
+        ) : (
+          <Stepper
+            validateForm={trigger}
+            onSubmit={handleCreateSubmit}
+            drawerClose={async () => {}}
+            labelPosition="below"
+            orientation="horizontal"
+          >
+            <Stepper.Step title={t("whatsapp.generalDetails")}>
+              <div className="flex flex-col h-full w-full">
+                <WhatsappFirstStep
                   control={control}
                   formState={formState}
                   colors={{ errorDefault: colors.errorDefault }}
@@ -93,38 +81,55 @@ export const WhatsappTemplateForm: React.FC<WhatsappFormProps> = ({
                   watch={watch}
                   setValue={setValue}
                   closeDrawer={() => {}}
-                  getValues={getValues}
                 />
-              )}
-              {watchedTemplateType === "Utility" && (
-                <WhatsappMarketingUtilitySecondStep
-                  templateType={templateType}
-                  control={control}
-                  formState={formState}
-                  colors={{ errorDefault: colors.errorDefault }}
-                  initialValues={initialValues}
-                  drawerMode={drawerMode}
-                  watch={watch}
-                  setValue={setValue}
-                  closeDrawer={() => {}}
-                  getValues={getValues}
-                />
-              )}
-              {watchedTemplateType === "Authentication" && (
-                <WhatsappAuthSecondStep
-                  control={control}
-                  formState={formState}
-                  colors={{ errorDefault: colors.errorDefault }}
-                  initialValues={initialValues}
-                  setValue={setValue}
-                  drawerMode={drawerMode}
-                  watch={watch}
-                  closeDrawer={() => {}}
-                />
-              )}
-            </div>
-          </Stepper.Step>
-        </Stepper>
+              </div>
+            </Stepper.Step>
+            <Stepper.Step title={t(`whatsapp.${templateType}Template`)}>
+              <div className="flex flex-col h-full w-full">
+                {watchedTemplateType === "Marketing" && (
+                  <WhatsappMarketingUtilitySecondStep
+                    templateType={templateType}
+                    control={control}
+                    formState={formState}
+                    colors={{ errorDefault: colors.errorDefault }}
+                    initialValues={initialValues}
+                    drawerMode={drawerMode}
+                    watch={watch}
+                    setValue={setValue}
+                    closeDrawer={() => {}}
+                    getValues={getValues}
+                  />
+                )}
+                {watchedTemplateType === "Utility" && (
+                  <WhatsappMarketingUtilitySecondStep
+                    templateType={templateType}
+                    control={control}
+                    formState={formState}
+                    colors={{ errorDefault: colors.errorDefault }}
+                    initialValues={initialValues}
+                    drawerMode={drawerMode}
+                    watch={watch}
+                    setValue={setValue}
+                    closeDrawer={() => {}}
+                    getValues={getValues}
+                  />
+                )}
+                {watchedTemplateType === "Authentication" && (
+                  <WhatsappAuthSecondStep
+                    control={control}
+                    formState={formState}
+                    colors={{ errorDefault: colors.errorDefault }}
+                    initialValues={initialValues}
+                    setValue={setValue}
+                    drawerMode={drawerMode}
+                    watch={watch}
+                    closeDrawer={() => {}}
+                  />
+                )}
+              </div>
+            </Stepper.Step>
+          </Stepper>
+        )}
       </div>
     </form>
   ) : isGetWhatsappTemplateByIdLoading ? (

@@ -92,6 +92,7 @@ export interface TWhatsappState {
   isWhatsappOnboardingSuccess: boolean;
   isWhatsappOnboardingError: boolean;
   isWhatsappOnboardingAxiosError: AxiosError<unknown, any> | null;
+  isCreateWhatsappTemplatePending: boolean;
 }
 export interface WhatsappOnboardingProps {
   metaSignUpUrl?: string;

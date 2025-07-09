@@ -24,10 +24,11 @@ export const EventManagementFirstStep: React.FC<
   initialValues = {} as EventManagementInitialValues,
 }) => {
   const { t } = useTranslation();
-  const { eventGroupList, eventParameterList, selectedEventGroup } =
+  const { eventGroupList, selectedEventGroup } =
     useContext<TEventsManagementState>(
       EventsManagementContext as Context<TEventsManagementState>,
     );
+
   const isRtl = i18n.language === "ar";
   return (
     <div className={`h-full ${(mode == "edit" || mode == "view") && "mt-16"} `}>
@@ -187,41 +188,7 @@ export const EventManagementFirstStep: React.FC<
           )}
         />
       </div>
-      <div className="flex justify-between mb-4 gap-6">
-        <Controller
-          name="parameters"
-          defaultValue={[]}
-          control={control}
-          render={({ field }) => (
-            <div className="relative w-full ">
-              <SelectSearch
-                initialSelectedItems={field?.value?.map((value: string) => ({
-                  id: value,
-                }))}
-                items={eventParameterList || []}
-                displayKey={"id"}
-                placeholder={t("SearchCriteria.searchPlaceHolder") as string}
-                title={t("eventsManagement.parameters") as string}
-                label={t("eventsManagement.parameters") as string}
-                fullWidth
-                dropDownStyles="w-[38rem]"
-                onChange={field.onChange}
-                isDisabled={mode === "view"}
-              />
-              {formState.errors.usersList && (
-                <span className="text-error-default mt-1 flex text-sm items-center -bottom-3">
-                  <IconAlertCircleFilled
-                    color={colors.errorDefault}
-                    size={16}
-                    className="mx-1"
-                  />
-                  {formState.errors.parameters?.message}
-                </span>
-              )}
-            </div>
-          )}
-        />
-      </div>
+
       <div className="flex justify-between mb-4 gap-6">
         <Controller
           name="eventStatus"

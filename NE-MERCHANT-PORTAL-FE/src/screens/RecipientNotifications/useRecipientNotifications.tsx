@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import { SelectSearchList, formateEventsColumns } from "@ejada/screens";
 import { GetEventPayload, NotificationEventParameter } from "@ejada/types";
-import { useGetEventGroups, useGetNotificationEvent } from "@ejada/providers";
+import {
+  useGetEventGroups,
+  useGetNotificationEvent,
+  useGetWhatsappTemplateById,
+} from "@ejada/providers";
 import Cookies from "js-cookie";
 import { useNotificaitonRequest } from "@ejada/providers/recipientProvider/recipientProvider";
 import { TTableColumns, Notification } from "eds-react";
@@ -39,6 +43,12 @@ export function useRecipientNotifications() {
   const [languageSelected, setLanguageSelected] = useState<string>("");
   const [paramCodeGot, setParamCodeGot] = useState<string[]>([]);
   const [channelIds, setChannelIds] = useState<string[]>([]);
+  const [selectedWhatsappTemplateId, setSelectedWhatsappTemplateId] = useState<
+    string | null
+  >(null);
+  const [selectedNotificationId, setSelectedNotificationId] = useState<
+    string | null
+  >(null);
 
   const payload = {
     tenantId: Cookies.get("tenantId")
@@ -97,6 +107,19 @@ export function useRecipientNotifications() {
     error: requestErrorMessage,
     data: requestErrorData,
   } = useNotificaitonRequest();
+
+  const {
+    updatedData: TemplateByIdData,
+    isError: isGetTemplateByIdError,
+    error: getTemplateByIdError,
+    refetch: refetchTemplateById,
+    isLoading: isGetTemplateByIdLoading,
+  } = useGetWhatsappTemplateById(
+    {
+      templateId: selectedWhatsappTemplateId || "",
+    },
+    selectedWhatsappTemplateId !== null,
+  );
 
   useEffect(() => {
     if (searchQuery && typeof searchQuery == "object" && refetchEventsData) {
@@ -197,5 +220,14 @@ export function useRecipientNotifications() {
     channelIds,
     setChannelIds,
     requestErrorData,
+    selectedWhatsappTemplateId,
+    setSelectedWhatsappTemplateId,
+    TemplateByIdData,
+    isGetTemplateByIdError,
+    getTemplateByIdError,
+    refetchTemplateById,
+    isGetTemplateByIdLoading,
+    selectedNotificationId,
+    setSelectedNotificationId,
   };
 }

@@ -15,6 +15,8 @@
     "show_hide_col": "إظهار/إخفاء الأعمدة",
     "col_name": "اسم العمود",
     "sort": "ترتيب",
+    "WHATSAPP": "واتساب",
+    "select_template": "اختر قالب",
     "succes_extra_msg": "تمت إضافة القنوات بنجاح",
     "failed_extra_msg": "لا يمكن إضافة قنوات مكررة",
     "event_arabic_description_required": "الوصف بالعربية مطلوب",
@@ -144,7 +146,10 @@
     "email_sender_required": "مرسل البريد الإلكتروني مطلوب",
     "push_notification_header_required": "عنوان إشعار الدفع مطلوب",
     "inbox_header_required": "عنوان صندوق الوارد مطلوب",
-    "max_event_code_length": "يجب أن يكون رمز الحدث 10 أحرف على الأكثر"
+    "max_event_code_length": "يجب أن يكون رمز الحدث 10 أحرف على الأكثر",
+    "select_template_to_preview": "اختر قالبًا للمعاينة",
+    "template_preview_will_appear_here": "ستظهر معاينة القالب هنا",
+    "template_preview": "معاينة القالب"
   },
   "validations": {
     "name_InValid": "الاسم غير صالح",

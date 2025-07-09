@@ -148,7 +148,6 @@ export const useNavbar = () => {
   };
 
   const changeLanguage = (lng: string) => {
-    i18n.changeLanguage(lng);
     localStorage.setItem("userLanguage", lng);
     setShowLanguageDropdown(false);
     setCurrentLanguage(lng);

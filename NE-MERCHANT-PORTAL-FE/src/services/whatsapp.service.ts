@@ -44,16 +44,11 @@ export const WhatsappService = {
   createWhatsappTemplate: async (
     data: CreateTemplatePayload,
   ): Promise<CreateTemplateResponse> => {
-    try {
-      const response = await httpClient.post(API.whatsapp, data);
-      return {
-        status: response.status,
-        ...response.data,
-      };
-    } catch (error) {
-      console.log(error);
-      throw error;
-    }
+    const response = await httpClient.post(API.whatsapp, data);
+    return {
+      status: response.status,
+      ...response.data,
+    };
   },
 
   updateWhatsappTemplate: async (

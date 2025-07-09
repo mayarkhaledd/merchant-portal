@@ -15,3 +15,4 @@ export * from "./partials/PopUp/CustomerDelete";
 export * from "./partials/ActiveSearchCriteria/activeSearchCriteria";
 export * from "./partials/ExportButton/exportButton";
 export * from "./partials/PopUp/WhatsappTemplateDelete";
+export * from "./partials/WhatsappPreviewTemplate";

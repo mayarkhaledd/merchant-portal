@@ -367,6 +367,7 @@ export interface EventChannel {
   header: string;
   body: string;
   sender: string;
+  templateId?: string;
   confirmationPeriod?: string;
   snoozeCount?: string;
   snoozePeriod?: string;

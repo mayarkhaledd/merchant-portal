@@ -24,6 +24,7 @@ const useCreateEventMessage = (
     setEventParameters,
     setChannelIds,
     channelIds,
+    setSelectedWhatsappTemplateId,
   } = useContext<TRecipientNotificationsState>(
     RecipientNotificationsContext as Context<TRecipientNotificationsState>,
   );
@@ -62,6 +63,16 @@ const useCreateEventMessage = (
     },
     eventId !== "",
   );
+
+  useEffect(() => {
+    if (eventByIdData) {
+      const whatsappChannel = eventByIdData.eventChannels.find(
+        (channel: { channelId: string }) => channel.channelId === "WHATSAPP",
+      );
+      setSelectedWhatsappTemplateId(whatsappChannel?.body || null);
+    }
+  }, [eventByIdData]);
+
   const fetchEventParameters = () => {
     const eventsList = EventsData?.notificationEvents as NotificationEvent[];
     const selectedEvent = eventsList.find(

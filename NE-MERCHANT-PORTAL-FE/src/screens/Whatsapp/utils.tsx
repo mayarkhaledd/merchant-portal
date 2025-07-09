@@ -126,7 +126,10 @@ export const formatWhatsappTemplatePayload = (
   }
 
   // BUTTONS
-  if (data.categoryButtons === whatsappConstants.authentication) {
+  if (
+    data.categoryButtons === whatsappConstants.authentication ||
+    data.categoryButtons === whatsappConstants.authentication_uppercase
+  ) {
     components.push({
       type: whatsappConstants.body,
       text: data.body || whatsappConstants.emptyString,
@@ -364,7 +367,7 @@ export const mapWhatsappTemplateInterfaceToInitialValues = (
   let expirationCheckbox = false;
   let expiryDuration = whatsappConstants.emptyString;
 
-  if (template.category === whatsappConstants.authentication) {
+  if (template.category === whatsappConstants.authentication_uppercase) {
     if (buttonsComponent?.buttons) {
       const otpButton = buttonsComponent.buttons.find(
         (b: any) =>

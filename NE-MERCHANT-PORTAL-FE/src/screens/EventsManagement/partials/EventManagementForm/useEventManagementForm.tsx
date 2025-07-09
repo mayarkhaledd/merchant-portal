@@ -50,6 +50,8 @@ export const useEventManagementForm = (
     resetUpdateEvent,
     resetCreateEvent,
     setAddExtraChannelBtn,
+    selectedWhatsappTemplate,
+    setSelectedWhatsappTemplate,
   } = useContext(EventsManagementContext as Context<TEventsManagementState>);
   const queryClient = useQueryClient();
 
@@ -149,6 +151,9 @@ export const useEventManagementForm = (
         filterPayloadEmptyStringsAndArrays(updatePayLoadData);
       updateEvent(filteredUpdateData as UpdateEventPayload);
       closeDrawer();
+    }
+    if (selectedWhatsappTemplate) {
+      setSelectedWhatsappTemplate(null);
     }
     resetAll();
   };

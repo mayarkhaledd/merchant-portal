@@ -3,7 +3,7 @@ import {
   WhatsappFormValues,
   WhatsappInitialValues,
 } from "@ejada/screens/Whatsapp/partials/WhatsappTemplateForm";
-import { useContext, useEffect } from "react";
+import { Context, useContext, useEffect } from "react";
 import { WhatsappContext } from "@ejada/screens/Whatsapp";
 import { TWhatsappState } from "@ejada/screens/Whatsapp";
 import { colors } from "@ejada/common";
@@ -54,7 +54,7 @@ export const useWhatsappTemplateForm = (
     isUpdateWhatsappTemplateError,
     isCreateWhatsappTemplateAxiosError,
     isUpdateWhatsappTemplateAxiosError,
-  } = useContext<TWhatsappState>(WhatsappContext);
+  } = useContext<TWhatsappState>(WhatsappContext as Context<TWhatsappState>);
 
   const handleCancel = (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -75,8 +75,8 @@ export const useWhatsappTemplateForm = (
       updateWhatsappTemplate(
         filterEmptyValues(editPayload) as UpdateTemplatePayload,
       );
+      setWhatsappTemplateId("");
     }
-    setWhatsappTemplateId("");
   };
 
   useEffect(() => {

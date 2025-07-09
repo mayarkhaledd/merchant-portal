@@ -11,6 +11,7 @@ import {
   NotificationEventInterface,
 } from "@ejada/types";
 import { GetEventGroupInterface } from "@ejada/types/api/eventGroupsInterface";
+import { WhatsappTemplate } from "@ejada/types/api/whatsappInterface";
 import { Dispatch, SetStateAction } from "react";
 import { SelectSearchList } from "@ejada/screens";
 import {
@@ -29,6 +30,7 @@ import {
   EventManagementInitialValues,
   TemplateChannelsData,
 } from "@ejada/screens/EventsManagement/partials/EventManagementForm/types";
+import { GetWhatsappTemplatesInterface } from "@ejada/types/api/whatsappInterface";
 export interface EventChannels {
   notificationEventChannelId?: string;
   notificationChannelId: string | undefined;
@@ -37,6 +39,7 @@ export interface EventChannels {
   sender: string;
   languageCode?: string;
   mobileAppName?: string;
+  templateId?: string;
   eventChannels?: EventChannels[];
 }
 export interface TEventsManagementState {
@@ -149,6 +152,17 @@ export interface TEventsManagementState {
   EventsData: NotificationEventInterface | null;
   isButtonText: boolean;
   setIsButtonText: (value: boolean) => void;
+  allWhatsappTemplatesData?: GetWhatsappTemplatesInterface | null;
+  refetchAllWhatsappTemplatesData?: (() => void) | undefined;
+  isRefetchedDataErrorWhatsapp?: boolean;
+  isRefetchDataSuccessWhatsapp?: boolean;
+  errorMessageWhatsapp?: AxiosError<unknown, any> | null;
+  whatsappTemplatesList: { key: string; node: string }[];
+  selectedWhatsappTemplate: WhatsappTemplate | null;
+  setSelectedWhatsappTemplate: Dispatch<
+    SetStateAction<WhatsappTemplate | null>
+  >;
+  getWhatsappTemplateDetails: (templateName: string) => WhatsappTemplate | null;
 }
 
 export interface EditTemplateFormInitialValues {
@@ -194,6 +208,7 @@ export interface extraEventChannelsInitialValues {
   languageCode?: string[];
   eventChannels: EventChannel[];
   mobileAppName: string;
+  parameters: string[];
 }
 
 export enum NotificationChannelType {

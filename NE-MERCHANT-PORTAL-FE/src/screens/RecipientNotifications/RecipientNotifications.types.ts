@@ -19,6 +19,7 @@ import {
 } from "@ejada/types/api/recipientInterface";
 import { AxiosError } from "axios";
 import { TTableColumns } from "eds-react";
+import { WhatsappTemplate } from "@ejada/types/api/whatsappInterface";
 
 export interface FormStepProps {
   formValues: CreateAdhocMessageValues;
@@ -104,4 +105,13 @@ export type TRecipientNotificationsState = {
   channelIds: string[];
   setChannelIds: Dispatch<SetStateAction<string[]>>;
   requestErrorData: NotificationRequestResponse | undefined | ErrorCode;
+  selectedWhatsappTemplateId: string | null;
+  setSelectedWhatsappTemplateId: Dispatch<SetStateAction<string | null>>;
+  TemplateByIdData: WhatsappTemplate | null;
+  isGetTemplateByIdError: boolean;
+  getTemplateByIdError: AxiosError | null;
+  refetchTemplateById: (() => void) | undefined;
+  isGetTemplateByIdLoading: boolean;
+  selectedNotificationId: string | null;
+  setSelectedNotificationId: Dispatch<SetStateAction<string | null>>;
 };
