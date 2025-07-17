@@ -34,6 +34,7 @@ export const RecipientNotificationsModals = () => {
     setIsButtonText,
     isButtonText,
     requestErrorData,
+    setSelectedWhatsappTemplate,
   } = useContext<TRecipientNotificationsState>(
     RecipientNotificationsContext as Context<TRecipientNotificationsState>,
   );
@@ -97,7 +98,10 @@ export const RecipientNotificationsModals = () => {
         drawerTitle={i18n.t("bulk-notifications.send_adhoc") as string}
       >
         <CreateAdhocMessage
-          closeDrawer={() => setIsCreateAdhocMessageOpen(false)}
+          closeDrawer={() => {
+            setIsCreateAdhocMessageOpen(false);
+            setSelectedWhatsappTemplate(null);
+          }}
         />
       </Drawer>
 

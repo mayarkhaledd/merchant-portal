@@ -10,6 +10,7 @@ import { TRecipientNotificationsState } from "@ejada/screens/RecipientNotificati
 import { RecipientNotificationsContext } from "@ejada/screens/RecipientNotifications/RecipientNotificationsProvider";
 import { NotificationEvent } from "@ejada/types";
 import { useGetEventById } from "@ejada/providers";
+import { useWhatsappOnboardingParams } from "@ejada/context/WhatsappOnboardingContext";
 
 const useCreateEventMessage = (
   closeDrawer: () => void,
@@ -25,9 +26,14 @@ const useCreateEventMessage = (
     setChannelIds,
     channelIds,
     setSelectedWhatsappTemplateId,
+    TemplateByIdData,
+    setLanguageSelected,
   } = useContext<TRecipientNotificationsState>(
     RecipientNotificationsContext as Context<TRecipientNotificationsState>,
   );
+  const context = useWhatsappOnboardingParams();
+  const params = context?.params;
+  const token = params?.onboardingMetaAuth?.accessToken || "";
   const [, setIsValidPhone] = useState<boolean>(false);
   const {
     control,
@@ -64,14 +70,23 @@ const useCreateEventMessage = (
     eventId !== "",
   );
 
+  const selectedLanguage = watch("recipients.0.messageLanguage");
+
   useEffect(() => {
-    if (eventByIdData) {
+    if (eventByIdData && selectedLanguage) {
       const whatsappChannel = eventByIdData.eventChannels.find(
-        (channel: { channelId: string }) => channel.channelId === "WHATSAPP",
+        (channel: any) => {
+          return (
+            channel.channelId === "WHATSAPP" &&
+            channel.languageCode === selectedLanguage
+          );
+        },
       );
-      setSelectedWhatsappTemplateId(whatsappChannel?.body || null);
+      setSelectedWhatsappTemplateId(
+        whatsappChannel?.whatsappTemplateId || null,
+      );
     }
-  }, [eventByIdData]);
+  }, [eventByIdData, selectedLanguage]);
 
   const fetchEventParameters = () => {
     const eventsList = EventsData?.notificationEvents as NotificationEvent[];
@@ -103,13 +118,20 @@ const useCreateEventMessage = (
   }, [eventId]);
 
   const onSubmit = async (data: CreateEventMessageValues) => {
-    const payload = mapToNotificationRequestPayload({
-      ...data,
-      eventCode: eventId,
-    });
+    const payload = mapToNotificationRequestPayload(
+      {
+        ...data,
+        eventCode: eventId,
+      },
+      TemplateByIdData,
+      token,
+    );
+
     createNotification(payload);
     closeDrawer();
     setEventId("");
+    setSelectedWhatsappTemplateId(null);
+    setLanguageSelected("");
   };
 
   const handleCancel = (e: { preventDefault: () => void }) => {
@@ -117,6 +139,8 @@ const useCreateEventMessage = (
     reset();
     closeDrawer();
     setEventId("");
+    setSelectedWhatsappTemplateId(null);
+    setLanguageSelected("");
   };
 
   return {

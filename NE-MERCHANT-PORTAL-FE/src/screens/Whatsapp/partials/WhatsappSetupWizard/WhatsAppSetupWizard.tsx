@@ -10,6 +10,7 @@ import { OnBoardingSecondStep } from "./onBoardingSecondStep";
 import i18n from "@ejada/common/locals/i18n";
 import { Notification } from "eds-react";
 import { toast } from "react-toastify";
+import { useWhatsappOnboardingParams } from "@ejada/context/WhatsappOnboardingContext";
 
 export function WhatsAppSetupWizard() {
   const { isConnected, setIsConnected } = useWhatsapp();
@@ -18,6 +19,8 @@ export function WhatsAppSetupWizard() {
   const metaUrl = "https://business.facebook.com/overview";
   const stepperRef = useRef<HTMLDivElement>(null);
   const hasAutoAdvanced = useRef(false); // Prevent multiple auto-advances
+  const context = useWhatsappOnboardingParams();
+  const refetch = context?.refetch;
 
   useEffect(() => {
     refetchSystemParamsData?.();
@@ -26,29 +29,30 @@ export function WhatsAppSetupWizard() {
   useEffect(() => {
     if (isConnected && !hasAutoAdvanced.current) {
       hasAutoAdvanced.current = true;
-      
-      
+
       const timer = setTimeout(() => {
         const findAndClickNextButton = () => {
-          const buttons = stepperRef.current?.querySelectorAll('button');
+          const buttons = stepperRef.current?.querySelectorAll("button");
           if (buttons) {
             for (const button of buttons) {
               const buttonText = button.textContent?.toLowerCase();
-              if (buttonText?.includes('next') || buttonText?.includes('التالي')) {
+              if (
+                buttonText?.includes("next") ||
+                buttonText?.includes("التالي")
+              ) {
                 button.click();
                 return true;
               }
             }
           }
         };
-        
-      
+
         const success = findAndClickNextButton();
-        
+
         if (!success) {
-          console.warn('Could not find Next button for auto-advance');
+          console.warn("Could not find Next button for auto-advance");
         }
-      }, 1500); 
+      }, 1500);
 
       return () => clearTimeout(timer);
     }
@@ -64,9 +68,9 @@ export function WhatsAppSetupWizard() {
         />,
         {
           position: toast.POSITION.TOP_RIGHT,
-        }
+        },
       );
-      return false; 
+      return false;
     }
     return true;
   };
@@ -97,6 +101,7 @@ export function WhatsAppSetupWizard() {
             tenantId: Number(Cookies.get(whatsappConstants.tenantId)),
           });
           setIsConnected(true);
+          refetch?.();
         } else {
           console.error("WhatsApp signup error:", error);
         }
@@ -117,7 +122,7 @@ export function WhatsAppSetupWizard() {
         <Stepper
           validateForm={validateForm}
           onSubmit={async () => {
-            window.location.href = `/${AppRoutes.templates}`; // Redirect to templates page
+            window.location.href = `/esharat/${AppRoutes.templates}`;
           }}
           orientation="horizontal"
           size="medium"

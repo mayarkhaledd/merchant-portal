@@ -35,8 +35,8 @@ export function WhatsappModals() {
     isWhatsappOnboardingSuccess,
     isWhatsappOnboardingError,
     isWhatsappOnboardingAxiosError,
+    templateName,
   } = useContext<TWhatsappState>(WhatsappContext as Context<TWhatsappState>);
-
   const successToast = useSuccessToast;
   const errorToast = useErrorToast;
   const handleSuccessToast = (condition: boolean, message: string) => {
@@ -113,7 +113,7 @@ export function WhatsappModals() {
       {isDeletePopUpOpen && (
         <ContextPopup
           option={"deleteWhatsappTemplate"}
-          id={whatsappTemplateId}
+          templateName={templateName as string}
           onClose={() => {
             setIsDeletePopUpOpen(false);
           }}

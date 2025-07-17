@@ -33,4 +33,5 @@ export enum QueryCosntant {
   WHATSAPP_TEMPLATES = "whatsapp_templates",
   WHATSAPP_TEMPLATE_ID = "whatsapp_template_id",
   SYSTEM_PARAMS = "system_params",
+  WHATSAPP_ONBOARDING = "whatsapp_onboarding",
 }

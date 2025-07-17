@@ -20,6 +20,9 @@ export interface RecipientChannel {
     emailReplyTo: string;
   };
   inbox?: string;
+  whatsappTemplateId?: string;
+  whatsappBusinessAccountId?: string;
+  whatsappSender?: string;
 }
 
 export interface Recipient {
@@ -41,4 +44,7 @@ export interface CreateAdhocInitialValues {
   NotificationPriority?: number;
   NotificationValidity?: number;
   Recipients: Recipient[];
+  // WhatsApp template parameters
+  headerVariable?: string[];
+  bodyVariable?: string[];
 }

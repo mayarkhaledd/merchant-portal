@@ -10,6 +10,9 @@ import {
   GetSystemParamsInterface,
   GetSystemParamsPayload,
   GetSystemParamsResponse,
+  GetWhatsappOnboardingInterface,
+  GetWhatsappOnboardingPayload,
+  GetWhatsappOnboardingResponse,
   GetWhatsappTemplateByIdPayload,
   GetWhatsappTemplateByIdResponse,
   GetWhatsappTemplatesInterface,
@@ -26,6 +29,7 @@ import {
   adaptGetSystemParams,
   adaptGetWhatsappTemplateById,
   adaptGetWhatsappTemplates,
+  adaptGetWhatsappOnboarding,
 } from "../adaptors/whatsappAdaptor";
 
 export function useGetWhatsappTemplates(
@@ -137,4 +141,21 @@ export function useWhatsappOnboarding() {
   >((data: WhatsappOnboardingPayload) => {
     return WhatsappService.whatsappOnboarding(data);
   }, onSuccess);
+}
+export function useGetWhatsappOnboarding(
+  data: GetWhatsappOnboardingPayload,
+  enabled?: boolean,
+) {
+  return useCustomQuery<
+    GetWhatsappOnboardingPayload,
+    GetWhatsappOnboardingResponse,
+    GetWhatsappOnboardingInterface
+  >(
+    QueryCosntant.WHATSAPP_ONBOARDING,
+    () => {
+      return WhatsappService.getWhatsappOnboarding(data);
+    },
+    (data: GetWhatsappOnboardingResponse) => adaptGetWhatsappOnboarding(data),
+    enabled,
+  );
 }

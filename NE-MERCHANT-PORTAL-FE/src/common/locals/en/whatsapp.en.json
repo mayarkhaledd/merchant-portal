@@ -28,7 +28,7 @@
     "deleted_successfully": "The whatsapp template has been deleted successfully!",
     "error": "Something went wrong! Please try again.",
     "template_name": "Template Name",
-    "delete_message_first": "  The Template with the Template ID ({{templateId}}) will be Deleted from the Templates List",
+    "delete_message_first": "  The Template with the TemplateName ({{templateName}}) will be Deleted from the Templates List",
     "delete_message_second": "  Are you sure you want to delete the template ?",
     "something_went_wrong": "Something went wrong!",
     "there_is_no_data_with": "No Data Exists with ",
@@ -90,6 +90,10 @@
       "first_step": {
         "template_name": "Template Name",
         "language": "Language",
+        "whatsappBusinessAccountId": "WhatsApp Business Account",
+        "whatsappBusinessAccountId_placeholder": "Select WhatsApp Business Account",
+        "whatsappSender": "WhatsApp Sender",
+        "whatsappSender_placeholder": "Select WhatsApp Sender",
         "language_placeholder": "Select Language",
         "category": "Category"
       },

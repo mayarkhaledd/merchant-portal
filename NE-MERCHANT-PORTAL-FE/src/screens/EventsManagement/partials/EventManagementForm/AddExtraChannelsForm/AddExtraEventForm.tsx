@@ -22,6 +22,7 @@ export const AddExtraEventForm: React.FC<AddExtraEventFormProps> = ({
   channelList,
   watchedChannels,
   handleFormSubmit,
+  watch,
 }) => {
   const { t } = useTranslation();
   const { savedChannel, savedLanguage } = useContext(EventsManagementContext);
@@ -143,6 +144,7 @@ export const AddExtraEventForm: React.FC<AddExtraEventFormProps> = ({
                 key={index}
                 mode={"add"}
                 getValues={getValues}
+                watch={watch}
               />
             </Fragment>
           );

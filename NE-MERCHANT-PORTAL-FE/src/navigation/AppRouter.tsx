@@ -124,7 +124,7 @@ export const AppRouter = createBrowserRouter(
     },
     {
       path: AppRoutes.whatsappSignupCallback,
-      element:   <ProtectedRoute component={WhatsappSignupCallback}  />,
+      element: <ProtectedRoute component={WhatsappSignupCallback} />,
     },
     {
       path: AppRoutes.forgotPassword,
@@ -137,15 +137,13 @@ export const AppRouter = createBrowserRouter(
     {
       path: "*",
       element: (
-        <LayoutWithSidebar items={SideBarNavigation}>
-          <ProtectedRoute
-            component={() => (
-              <LayoutWithSidebar items={SideBarNavigation}>
-                <Error404 />
-              </LayoutWithSidebar>
-            )}
-          />
-        </LayoutWithSidebar>
+        <ProtectedRoute
+          component={() => (
+            <LayoutWithSidebar items={SideBarNavigation}>
+              <Error404 />
+            </LayoutWithSidebar>
+          )}
+        />
       ),
     },
   ],

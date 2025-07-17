@@ -191,8 +191,17 @@ export const formateToEditTemplateData = (
       languageCode: data.languageCode ?? "",
       body: data.body ?? "",
       header: data.header ?? "",
-      sender: data.sender ?? "",
+      sender:
+        data.channelId === "WHATSAPP"
+          ? data.whatsappSender
+            ? (data.whatsappSender as string)
+            : ""
+          : data.sender
+            ? data.sender
+            : "",
       eventChannelId: data.eventChannelId ?? "",
+      whatsappTemplateId: data.whatsappTemplateId ?? "",
+      whatsappBusinessAccountId: data.whatsappBusinessAccountId ?? "",
     },
   ];
 };
@@ -310,8 +319,15 @@ export const formateGetEventByIdData = (data: GetEventByIdInterface) => {
     channelId: channel.channelId ? channel.channelId : "",
     header: channel.header ? channel.header : "",
     body: channel.body ? channel.body : "",
-    sender: channel.sender ? channel.sender : "",
+    sender: channel.channelId === "WHATSAPP" ? "" : channel.sender || "",
     languageCode: channel.languageCode ? channel.languageCode : "",
+    whatsappTemplateId: channel.whatsappTemplateId
+      ? channel.whatsappTemplateId
+      : "",
+    whatsappBusinessAccountId: channel.whatsappBusinessAccountId
+      ? channel.whatsappBusinessAccountId
+      : "",
+    whatsappSender: channel.channelId === "WHATSAPP" ? channel.sender : "",
   }));
 };
 

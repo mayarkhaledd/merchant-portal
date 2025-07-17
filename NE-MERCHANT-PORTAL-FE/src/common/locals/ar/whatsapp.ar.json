@@ -31,7 +31,7 @@
     "deleted_successfully": "تم حذف قالب واتساب بنجاح!",
     "error": "حدث خطأ ما! يرجى المحاولة مرة أخرى.",
     "template_name": "اسم القالب",
-    "delete_message_first": "سيتم حذف القالب ذو معرف القالب ({{templateId}}) من قائمة القوالب",
+    "delete_message_first": "سيتم حذف القالب الذي يحمل اسم القالب ({{templateName}}) من قائمة القوالب",
     "delete_message_second": "هل أنت متأكد أنك تريد حذف القالب؟",
     "something_went_wrong": "حدث خطأ ما!",
     "there_is_no_data_with": "لا توجد بيانات مع ",
@@ -92,6 +92,10 @@
         "template_name": "اسم القالب",
         "language": "اللغة",
         "language_placeholder": "اختر اللغة",
+        "whatsappBusinessAccountId": "حساب واتساب للأعمال",
+        "whatsappBusinessAccountId_placeholder": "أدخل  حساب واتساب للأعمال",
+        "whatsappSender": "مرسل الواتساب",
+        "whatsappSender_placeholder": "اختر مرسل الواتساب",
         "category": "الفئة"
       },
       "second_step": {

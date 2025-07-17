@@ -44,4 +44,7 @@ export interface CreateEventInitialValues {
   notificationValidity?: number;
   notifyRecipientMode: string;
   recipients: Recipient[];
+  // WhatsApp template parameters
+  headerVariable?: string[];
+  bodyVariable?: string[];
 }

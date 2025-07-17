@@ -15,8 +15,12 @@ export const useWhatsappManagementTableColumns = (): TTableColumnsDef[] => {
   const { t } = useTranslation();
   const { whatsappTemplatesManegementData } = useWhatsapp();
   const navigate = useNavigate();
-  const { setIsDeletePopUpOpen, isEnglish, setWhatsappTemplateId } =
-    useContext<TWhatsappState>(WhatsappContext as Context<TWhatsappState>);
+  const {
+    setIsDeletePopUpOpen,
+    isEnglish,
+    setWhatsappTemplateId,
+    setTemplateName,
+  } = useContext<TWhatsappState>(WhatsappContext as Context<TWhatsappState>);
   if (
     !whatsappTemplatesManegementData ||
     !Array.isArray(whatsappTemplatesManegementData) ||
@@ -132,6 +136,7 @@ export const useWhatsappManagementTableColumns = (): TTableColumnsDef[] => {
               title: t("whatsapp.delete"),
               onClick: () => {
                 setWhatsappTemplateId(row.row.original.templateId as string);
+                setTemplateName(row.row.original.templateName as string);
                 setIsDeletePopUpOpen(true);
               },
             },

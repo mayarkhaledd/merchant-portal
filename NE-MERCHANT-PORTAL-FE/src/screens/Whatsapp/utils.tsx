@@ -84,7 +84,12 @@ export const formatWhatsappTemplatePayload = (
   }
 
   // BODY
-  if (data.body || data.securityCheckbox) {
+  if (
+    data.body ||
+    data.securityCheckbox ||
+    data.categoryButtons === whatsappConstants.authentication ||
+    data.categoryButtons === whatsappConstants.authentication_uppercase
+  ) {
     components.push({
       type: whatsappConstants.body,
       text: data.body || whatsappConstants.emptyString,
@@ -130,23 +135,6 @@ export const formatWhatsappTemplatePayload = (
     data.categoryButtons === whatsappConstants.authentication ||
     data.categoryButtons === whatsappConstants.authentication_uppercase
   ) {
-    components.push({
-      type: whatsappConstants.body,
-      text: data.body || whatsappConstants.emptyString,
-      format: whatsappConstants.emptyString,
-      mediaUrl: whatsappConstants.emptyString,
-      mediaCaption: whatsappConstants.emptyString,
-      ...(data.securityCheckbox ? { addSecurityRecommendation: true } : {}),
-      parameters: [],
-      buttons: [],
-      example: {
-        bodyText: data.bodyVariables
-          ? [data.bodyVariables.map((v) => v.value)]
-          : [[]],
-        headerText: [],
-        headerHandle: [],
-      },
-    });
     components.push({
       type: whatsappConstants.buttons,
       text: whatsappConstants.emptyString,
@@ -232,7 +220,7 @@ export const formatWhatsappTemplatePayload = (
     templateName: data.templateName,
     languageCode: data.languageCode,
     category: data.categoryButtons.toUpperCase(),
-    namespace: whatsappConstants.namespace, // Should be sent to BE
+    whatsappBusinessAccountId: data.whatsappBusinessAccountId,
     components: components || [],
     tenantId:
       Cookies.get(whatsappConstants.tenantId) || whatsappConstants.emptyString,
@@ -384,6 +372,8 @@ export const mapWhatsappTemplateInterfaceToInitialValues = (
 
   return {
     templateName: template.templateName || whatsappConstants.emptyString,
+    whatsappBusinessAccountId:
+      template.whatsappBusinessAccountId || whatsappConstants.emptyString,
     languageCode: template.languageCode || whatsappConstants.emptyString,
     categoryButtons: template.category || whatsappConstants.emptyString,
     header: headerComponent?.text || whatsappConstants.emptyString,

@@ -149,7 +149,8 @@
     "max_event_code_length": "يجب أن يكون رمز الحدث 10 أحرف على الأكثر",
     "select_template_to_preview": "اختر قالبًا للمعاينة",
     "template_preview_will_appear_here": "ستظهر معاينة القالب هنا",
-    "template_preview": "معاينة القالب"
+    "template_preview": "معاينة القالب",
+    "whatsapp_parameters_hint": "ملاحظة: معاملات الحدث لا تُستخدم لقنوات واتساب لأنها تستخدم الرسائل القائمة على القوالب بدلاً من ذلك."
   },
   "validations": {
     "name_InValid": "الاسم غير صالح",

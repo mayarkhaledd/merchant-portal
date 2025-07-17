@@ -15,6 +15,7 @@ import {
 } from "@ejada/screens/RecipientNotifications/RecipientNotifications.types";
 import { isEmailUniqueInChannel, validationRules } from "./ValidationSchema";
 import { CreateEventInitialValues } from "@ejada/screens/RecipientNotifications/partials/CreateEventMessage";
+import { WhatsappParametersHint } from "@ejada/screens/shared";
 
 import {
   RecipientType,
@@ -27,7 +28,7 @@ import {
 } from "@ejada/screens/RecipientNotifications/partials/RecipientNotification.constants";
 import { NotificationEventParameter } from "@ejada/types";
 import { RecipientNotificationsContext } from "@ejada/screens/RecipientNotifications/RecipientNotificationsProvider";
-import { Context, useContext, useEffect } from "react";
+import { Context, useContext, useEffect, useMemo } from "react";
 import { t } from "i18next";
 
 export const CreateEventFirstStep: React.FC<EventFormStepProps> = ({
@@ -49,15 +50,16 @@ export const CreateEventFirstStep: React.FC<EventFormStepProps> = ({
   } = useContext<TRecipientNotificationsState>(
     RecipientNotificationsContext as Context<TRecipientNotificationsState>,
   );
-  // Converts an array of channel keys to an array of { value, label } options for Select
-  const channelIdsToObject = () => {
+
+  const channelOptions = useMemo(() => {
     return channelArray
       .filter((item) => channelIds.includes(item.key))
       .map((item) => ({
         key: item.key,
         node: item.node,
       }));
-  };
+  }, [channelIds]);
+
   useEffect(() => {
     if (eventParameters && eventParameters.length > 0) {
       const paramCodes = eventParameters.map(
@@ -65,11 +67,11 @@ export const CreateEventFirstStep: React.FC<EventFormStepProps> = ({
       );
       setParamCodeGot(paramCodes);
     } else {
-      setParamCodeGot([]); // Ensure it's reset if no parameters exist
+      setParamCodeGot([]);
     }
   }, [eventParameters, setParamCodeGot]);
 
-  const recipientType = watch && watch("recipientType");
+  const recipientType = watch ? watch("recipientType") : "";
   const { fields, append, remove, update } = useFieldArray({
     control,
     name: "recipients",
@@ -87,7 +89,6 @@ export const CreateEventFirstStep: React.FC<EventFormStepProps> = ({
     }
   }, [eventParameters, fields, setValue]);
 
-  //adding new recipient to recepients array by the channels default values
   const handleAddRecipient = () => {
     append({
       channels: [
@@ -100,10 +101,10 @@ export const CreateEventFirstStep: React.FC<EventFormStepProps> = ({
       parameters: eventParameters.map((param) => ({
         parameterCode: param?.parameterName || "",
         parameterValue: "",
-      })), // Initialize parameters
+      })),
     });
   };
-  //adding a new channel to a specific recipient with channel default values
+
   const handleAddChannel = (recipientIndex: number) => {
     const updatedChannels = [
       ...fields[recipientIndex].channels,
@@ -154,6 +155,7 @@ export const CreateEventFirstStep: React.FC<EventFormStepProps> = ({
           />
         </div>
       </div>
+
       <div className="flex gap-[20px] mb-8 flex-grow">
         <div className="w-full">
           <Controller
@@ -229,9 +231,9 @@ export const CreateEventFirstStep: React.FC<EventFormStepProps> = ({
                   rules={validationRules.required}
                   control={control}
                   render={({ field }) => {
-                    const currentValue = watch(
-                      `recipients.${recipientIndex}.messageLanguage`,
-                    );
+                    const currentValue = watch
+                      ? watch(`recipients.${recipientIndex}.messageLanguage`)
+                      : "";
                     if (currentValue === "" && languageSelected) {
                       setValue?.(
                         `recipients.${recipientIndex}.messageLanguage`,
@@ -382,7 +384,7 @@ export const CreateEventFirstStep: React.FC<EventFormStepProps> = ({
                                 label={i18n.t(
                                   "recipient_notifications.adhoc_message.first_step.notificationChannel",
                                 )}
-                                options={channelIdsToObject()}
+                                options={channelOptions}
                                 placeholder={
                                   i18n.t(
                                     "recipient_notifications.adhoc_message.first_step.notificationChannel",
@@ -492,7 +494,6 @@ export const CreateEventFirstStep: React.FC<EventFormStepProps> = ({
                                     ]?.channels?.[channelIndex]
                                       ?.additionalEmailDetails?.emailCC?.message
                                   }
-                                  // isRequired
                                 />
                               )}
                             />
@@ -531,11 +532,10 @@ export const CreateEventFirstStep: React.FC<EventFormStepProps> = ({
                                       ?.additionalEmailDetails?.emailBCC
                                       ?.message
                                   }
-                                  // isRequired
                                 />
                               )}
                             />
-                          </div>{" "}
+                          </div>
                           <div className="mt-2">
                             <Controller
                               name={`recipients.${recipientIndex}.channels.${channelIndex}.additionalEmailDetails.emailReplyTo`}
@@ -570,7 +570,6 @@ export const CreateEventFirstStep: React.FC<EventFormStepProps> = ({
                                       ?.additionalEmailDetails?.emailReplyTo
                                       ?.message
                                   }
-                                  // isRequired
                                 />
                               )}
                             />
@@ -673,12 +672,14 @@ export const CreateEventFirstStep: React.FC<EventFormStepProps> = ({
                           </div>
                         </div>
                       )}
-                      {recipient.channels[channelIndex].notificationChannel ===
-                        "SMS" && (
+                      {(recipient.channels[channelIndex].notificationChannel ===
+                        "SMS" ||
+                        recipient.channels[channelIndex].notificationChannel ===
+                          "WHATSAPP") && (
                         <Controller
                           name={`recipients.${recipientIndex}.channels.${channelIndex}.mobile`}
                           control={control}
-                          rules={validationRules.mobile}
+                          rules={validationRules.required}
                           defaultValue={0}
                           render={({ field }) => (
                             <div
@@ -689,7 +690,7 @@ export const CreateEventFirstStep: React.FC<EventFormStepProps> = ({
                                 country="SA"
                                 setIsValidPhone={() => {}}
                                 className="w-full"
-                                placeholder="97979797"
+                                placeholder="59797979"
                                 color={ColorValues.Gray}
                                 size="large"
                                 label={
@@ -708,7 +709,81 @@ export const CreateEventFirstStep: React.FC<EventFormStepProps> = ({
                             </div>
                           )}
                         />
-                      )}{" "}
+                      )}
+                      {recipient.channels[channelIndex].notificationChannel !==
+                        "WHATSAPP" &&
+                        eventParameters?.length > 0 &&
+                        eventParameters.map((_, parameterIndex) => (
+                          <div
+                            key={parameterIndex}
+                            className="flex gap-[20px] mb-2 flex-grow"
+                          >
+                            {/* Parameter Code */}
+                            <div className="w-full mt-4">
+                              <Controller
+                                name={`recipients.${recipientIndex}.parameters.${parameterIndex}.parameterCode`}
+                                control={control}
+                                defaultValue={
+                                  paramCodeGot?.[parameterIndex] || ""
+                                }
+                                render={({ field }) => (
+                                  <InputField
+                                    {...field}
+                                    label={
+                                      i18n.t(
+                                        "recipient_notifications.event_message.parameterCode",
+                                      ) as string
+                                    }
+                                    placeHolder={
+                                      i18n.t(
+                                        "recipient_notifications.event_message.parameterCode",
+                                      ) as string
+                                    }
+                                    className="w-full"
+                                    type={Types.TextType}
+                                    inputError={
+                                      formState.errors.recipients?.[
+                                        recipientIndex
+                                      ]?.parameters?.[parameterIndex]
+                                        ?.parameterCode?.message
+                                    }
+                                    disabled={true}
+                                  />
+                                )}
+                              />
+                            </div>
+                            {/* Parameter Value */}
+                            <div className="w-full mt-4">
+                              <Controller
+                                name={`recipients.${recipientIndex}.parameters.${parameterIndex}.parameterValue`}
+                                control={control}
+                                render={({ field }) => (
+                                  <InputField
+                                    {...field}
+                                    label={
+                                      i18n.t(
+                                        "recipient_notifications.event_message.parameterValue",
+                                      ) as string
+                                    }
+                                    placeHolder={
+                                      i18n.t(
+                                        "recipient_notifications.event_message.parameterValue",
+                                      ) as string
+                                    }
+                                    className="w-full"
+                                    type={Types.TextType}
+                                    inputError={
+                                      formState.errors.recipients?.[
+                                        recipientIndex
+                                      ]?.parameters?.[parameterIndex]
+                                        ?.parameterValue?.message
+                                    }
+                                  />
+                                )}
+                              />
+                            </div>
+                          </div>
+                        ))}
                     </div>
                   ))}
                 </>
@@ -731,73 +806,7 @@ export const CreateEventFirstStep: React.FC<EventFormStepProps> = ({
                   />
                 </div>
               )}
-
-              {eventParameters?.length > 0 &&
-                eventParameters.map((_, parameterIndex) => (
-                  <div
-                    key={parameterIndex}
-                    className="flex gap-[20px] mb-2 flex-grow"
-                  >
-                    <div className="w-full mt-4">
-                      <Controller
-                        name={`recipients.${recipientIndex}.parameters.${parameterIndex}.parameterCode`}
-                        control={control}
-                        defaultValue={paramCodeGot?.[parameterIndex] || ""}
-                        render={({ field }) => (
-                          <InputField
-                            {...field}
-                            label={
-                              i18n.t(
-                                "recipient_notifications.event_message.parameterCode",
-                              ) as string
-                            }
-                            placeHolder={
-                              i18n.t(
-                                "recipient_notifications.event_message.parameterCode",
-                              ) as string
-                            }
-                            className="w-full"
-                            type={Types.TextType}
-                            inputError={
-                              formState.errors.recipients?.[recipientIndex]
-                                ?.parameters?.[parameterIndex]?.parameterCode
-                                ?.message
-                            }
-                            disabled={true}
-                          />
-                        )}
-                      />
-                    </div>
-                    <div className="w-full mt-4">
-                      <Controller
-                        name={`recipients.${recipientIndex}.parameters.${parameterIndex}.parameterValue`}
-                        control={control}
-                        render={({ field }) => (
-                          <InputField
-                            {...field}
-                            label={
-                              i18n.t(
-                                "recipient_notifications.event_message.parameterValue",
-                              ) as string
-                            }
-                            placeHolder={
-                              i18n.t(
-                                "recipient_notifications.event_message.parameterValue",
-                              ) as string
-                            }
-                            className="w-full"
-                            type={Types.TextType}
-                            inputError={
-                              formState.errors.recipients?.[recipientIndex]
-                                ?.parameters?.[parameterIndex]?.parameterValue
-                                ?.message
-                            }
-                          />
-                        )}
-                      />
-                    </div>
-                  </div>
-                ))}
+              <WhatsappParametersHint className="mt-8" />
             </div>
           ))}
         </>

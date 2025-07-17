@@ -5,6 +5,8 @@ import {
   DeleteWhatsappTemplateResponse,
   GetSystemParamsPayload,
   GetSystemParamsResponse,
+  GetWhatsappOnboardingPayload,
+  GetWhatsappOnboardingResponse,
   GetWhatsappTemplateByIdPayload,
   GetWhatsappTemplateByIdResponse,
   GetWhatsappTemplatesPayload,
@@ -91,6 +93,18 @@ export const WhatsappService = {
     const response = await httpClient.post(`${API.whatsappOnboarding}`, data);
     return {
       status: response.status,
+      ...response.data,
+    };
+  },
+  getWhatsappOnboarding: async (
+    data: GetWhatsappOnboardingPayload,
+  ): Promise<GetWhatsappOnboardingResponse> => {
+    const response = await httpClient.get(API.whatsappOnboarding, {
+      params: {
+        ...data,
+      },
+    });
+    return {
       ...response.data,
     };
   },

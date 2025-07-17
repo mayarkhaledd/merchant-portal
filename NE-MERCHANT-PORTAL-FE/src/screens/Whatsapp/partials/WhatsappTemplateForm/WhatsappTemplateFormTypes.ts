@@ -26,6 +26,7 @@ export interface IButtonsWithOTP extends ButtonType {
 }
 export interface WhatsappInitialValues {
   templateName: string;
+  whatsappBusinessAccountId: string;
   languageCode: string;
   categoryButtons: string;
   header: string;

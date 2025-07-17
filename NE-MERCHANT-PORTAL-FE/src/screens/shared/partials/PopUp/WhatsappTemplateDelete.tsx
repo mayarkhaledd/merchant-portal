@@ -5,7 +5,7 @@ import { DeleteWhatsappTemplateProps } from "./PopupIntefaces";
 export function WhatsappTemplateDelete({
   onClose,
   deleteConfirmLabel = t("whatsapp.delete") as string,
-  id,
+  templateName,
   onConfirm,
 }: DeleteWhatsappTemplateProps) {
   // const handleConfirm = () => {
@@ -21,7 +21,7 @@ export function WhatsappTemplateDelete({
         <>
           <p className="m-0 font-readexProRegular text-[#334D6E]">
             {t("whatsapp.delete_message_first", {
-              templateId: id,
+              templateName: templateName,
             })}
           </p>
           <div className="mt-2 font-readexProSemiBold600 ">

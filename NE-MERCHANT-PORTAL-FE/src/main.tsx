@@ -12,6 +12,7 @@ import "../node_modules/eds-react/src/common/components/PhoneInputField/PhoneInp
 import "../node_modules/eds-react/src/common/components/PhoneInputField/Components/CustomCountrySelect/CustomCountrySelect.css";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorFallback, AppLayoutWrapper } from "@ejada/common/wrappers";
+import { WhatsappOnboardingProvider } from "./context/WhatsappOnboardingContext"; // adjust path if needed
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -24,12 +25,14 @@ const queryClient = new QueryClient({
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <AppLayoutWrapper>
-        <ErrorBoundary FallbackComponent={ErrorFallback}>
-          <RouterProvider router={AppRouter} />
-          <ToastContainer />
-        </ErrorBoundary>
-      </AppLayoutWrapper>
+      <WhatsappOnboardingProvider>
+        <AppLayoutWrapper>
+          <ErrorBoundary FallbackComponent={ErrorFallback}>
+            <RouterProvider router={AppRouter} />
+            <ToastContainer />
+          </ErrorBoundary>
+        </AppLayoutWrapper>
+      </WhatsappOnboardingProvider>
     </QueryClientProvider>
   </React.StrictMode>,
 );

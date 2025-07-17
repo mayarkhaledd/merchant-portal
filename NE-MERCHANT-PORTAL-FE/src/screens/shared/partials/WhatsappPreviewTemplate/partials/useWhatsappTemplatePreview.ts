@@ -1,7 +1,3 @@
-/**
- * Pure logic – NO React-Hook-Form here.
- * Extracts template slices + {{n}} param arrays.
- */
 import { WhatsappTemplate } from "@ejada/types/api/whatsappInterface";
 import {
   sliceTemplateComponents,

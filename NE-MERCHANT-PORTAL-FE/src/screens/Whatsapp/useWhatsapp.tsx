@@ -41,6 +41,8 @@ export const useWhatsapp = () => {
     Partial<GetWhatsappTemplatesPayload>
   >({});
   const [whatsappTemplateId, setWhatsappTemplateId] = useState<string>("");
+  const [templateName, setTemplateName] = useState<string>("");
+
   const [searchQuery, setSearchQuery] = useState<
     boolean | Partial<GetWhatsappTemplatesPayload>
   >(false);
@@ -135,6 +137,7 @@ export const useWhatsapp = () => {
     isSuccess: isUpdateWhatsappTemplateSuccess,
     isError: isUpdateWhatsappTemplateError,
     error: isUpdateWhatsappTemplateAxiosError,
+    isPending: isUpdateWhatsappTemplatePending,
   } = useUpdateWhatsappTemplate();
 
   const {
@@ -302,5 +305,8 @@ export const useWhatsapp = () => {
     isConnected,
     setIsConnected,
     isCreateWhatsappTemplatePending,
+    isUpdateWhatsappTemplatePending,
+    templateName,
+    setTemplateName,
   };
 };

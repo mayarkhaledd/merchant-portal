@@ -70,7 +70,6 @@ export const useWhatsappTemplateForm = (
       const editPayload = {
         ...formattedDataPayload,
         languageCode: "",
-        namespace: "",
       };
       updateWhatsappTemplate(
         filterEmptyValues(editPayload) as UpdateTemplatePayload,

@@ -1,16 +1,22 @@
 import { useEffect, useState } from "react";
-import { SelectSearchList, formateEventsColumns } from "@ejada/screens";
+import {
+  SelectSearchList,
+  formatToSelectKeyNode,
+  formateEventsColumns,
+} from "@ejada/screens";
 import { GetEventPayload, NotificationEventParameter } from "@ejada/types";
 import {
   useGetEventGroups,
   useGetNotificationEvent,
   useGetWhatsappTemplateById,
+  useGetWhatsappTemplates,
 } from "@ejada/providers";
 import Cookies from "js-cookie";
 import { useNotificaitonRequest } from "@ejada/providers/recipientProvider/recipientProvider";
 import { TTableColumns, Notification } from "eds-react";
 import { toast } from "react-toastify";
 import i18n from "@ejada/common/locals/i18n";
+import { WhatsappTemplate } from "@ejada/types/api/whatsappInterface";
 
 export function useRecipientNotifications() {
   const [isCreateAdhocMessageOpen, setIsCreateAdhocMessageOpen] =
@@ -24,6 +30,8 @@ export function useRecipientNotifications() {
   const [searchQuery, setSearchQuery] = useState<
     Partial<GetEventPayload> | boolean
   >(false);
+  const [selectedWabaId, setSelectedWabaId] = useState<string>();
+  const [accessToken, setAccessToken] = useState<string>("");
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalListSize, setTotalListSize] = useState(0);
@@ -48,8 +56,12 @@ export function useRecipientNotifications() {
   >(null);
   const [selectedNotificationId, setSelectedNotificationId] = useState<
     string | null
-  >(null);
-
+  >();
+  const [selectedWhatsappTemplate, setSelectedWhatsappTemplate] =
+    useState<WhatsappTemplate | null>(null);
+  const [whatsappTemplatesList, setWhatsappTemplatesList] = useState<
+    { key: string; node: string }[]
+  >([]);
   const payload = {
     tenantId: Cookies.get("tenantId")
       ? (Cookies.get("tenantId") as string)
@@ -68,6 +80,14 @@ export function useRecipientNotifications() {
     limit: 1000000,
     offset: 0,
     ...(searchQuery && typeof searchQuery == "object" && searchQuery),
+  };
+
+  const allWhatsappTemplatesPayload = {
+    tenantId: Cookies.get("tenantId")
+      ? (Cookies.get("tenantId") as string)
+      : "",
+    limit: 1000000,
+    offset: 0,
   };
 
   const { updatedData: eventGroupData, isSuccess: isEventGroupSuccess } =
@@ -121,6 +141,26 @@ export function useRecipientNotifications() {
     selectedWhatsappTemplateId !== null,
   );
 
+  const {
+    updatedData: allWhatsappTemplatesData,
+    refetch: refetchAllWhatsappTemplatesData,
+    isError: isRefetchedDataErrorWhatsapp,
+    isSuccess: isRefetchDataSuccessWhatsapp,
+    error: errorMessageWhatsapp,
+  } = useGetWhatsappTemplates(
+    {
+      ...allWhatsappTemplatesPayload,
+      ...(searchQuery && typeof searchQuery === "object" && searchQuery),
+    },
+    false,
+  );
+
+  useEffect(() => {
+    if (selectedWhatsappTemplateId) {
+      refetchTemplateById?.();
+    }
+  }, [selectedWhatsappTemplateId]);
+
   useEffect(() => {
     if (searchQuery && typeof searchQuery == "object" && refetchEventsData) {
       setCurrentPage(1);
@@ -166,6 +206,28 @@ export function useRecipientNotifications() {
     const currentLanguage = localStorage.getItem("userLanguage");
     setIsEnglish(currentLanguage === "en" ? true : false);
   }, []);
+
+  useEffect(() => {
+    if (allWhatsappTemplatesData && isRefetchDataSuccessWhatsapp) {
+      const whatsappTemplatesList = formatToSelectKeyNode(
+        allWhatsappTemplatesData.templates,
+        "templateId",
+        "templateName",
+      );
+      setWhatsappTemplatesList(whatsappTemplatesList);
+    }
+  }, [allWhatsappTemplatesData]);
+
+  const getWhatsappTemplateDetails = (
+    templateId: string,
+  ): WhatsappTemplate | null => {
+    if (!allWhatsappTemplatesData?.templates) return null;
+    return (
+      allWhatsappTemplatesData.templates.find(
+        (template) => template.templateId === templateId,
+      ) || null
+    );
+  };
 
   return {
     EventsManagementData,
@@ -229,5 +291,17 @@ export function useRecipientNotifications() {
     isGetTemplateByIdLoading,
     selectedNotificationId,
     setSelectedNotificationId,
+    selectedWhatsappTemplate,
+    setSelectedWhatsappTemplate,
+    whatsappTemplatesList,
+    refetchAllWhatsappTemplatesData,
+    isRefetchedDataErrorWhatsapp,
+    errorMessageWhatsapp,
+    getWhatsappTemplateDetails,
+    selectedWabaId,
+    setSelectedWabaId,
+    allWhatsappTemplatesData,
+    accessToken,
+    setAccessToken,
   };
 }

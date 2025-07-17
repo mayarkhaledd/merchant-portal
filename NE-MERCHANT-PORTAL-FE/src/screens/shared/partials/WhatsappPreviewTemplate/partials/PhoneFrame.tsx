@@ -1,4 +1,3 @@
-// components/PhoneFrame.tsx
 import React from "react";
 import whatsappBG from "@ejada/common/assets/whatsappBG.png";
 

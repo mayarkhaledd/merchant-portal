@@ -1,4 +1,3 @@
-// components/WhatsappMessagePreview.tsx
 import React from "react";
 import { WhatsappButton as Btn } from "./whatsappTemplateUtils";
 import {

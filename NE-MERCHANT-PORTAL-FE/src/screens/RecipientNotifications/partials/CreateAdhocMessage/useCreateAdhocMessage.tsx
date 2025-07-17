@@ -8,6 +8,7 @@ import {
 import { mapFormToPayload } from "@ejada/screens/RecipientNotifications";
 import { TRecipientNotificationsState } from "../../RecipientNotifications.types";
 import { RecipientNotificationsContext } from "../../RecipientNotificationsProvider";
+import { useWhatsappOnboardingParams } from "@ejada/context/WhatsappOnboardingContext";
 
 const useCreateAdhocMessage = (
   closeDrawer: () => void,
@@ -41,13 +42,25 @@ const useCreateAdhocMessage = (
       ],
     },
   });
-  const { createNotification } = useContext<TRecipientNotificationsState>(
+  const context = useWhatsappOnboardingParams();
+  const params = context?.params;
+  const token = params?.onboardingMetaAuth?.accessToken || "";
+  const {
+    createNotification,
+    selectedWhatsappTemplate,
+    setSelectedWhatsappTemplate,
+  } = useContext<TRecipientNotificationsState>(
     RecipientNotificationsContext as Context<TRecipientNotificationsState>,
   );
   const onSubmit = async (data: CreateAdhocMessageValues) => {
-    const payload = await mapFormToPayload(data);
+    const payload = await mapFormToPayload(
+      data,
+      selectedWhatsappTemplate,
+      token,
+    );
     createNotification(payload);
     closeDrawer();
+    setSelectedWhatsappTemplate(null);
   };
   const handleCancel = (e: { preventDefault: () => void }) => {
     e.preventDefault();

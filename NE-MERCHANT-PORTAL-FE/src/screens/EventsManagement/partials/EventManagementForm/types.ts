@@ -28,4 +28,7 @@ export interface TemplateChannelsData {
   sender: string;
   languageCode: string;
   templateId?: string;
+  whatsappTemplateId?: string;
+  whatsappSender?: string;
+  whatsappBusinessAccountId?: string;
 }

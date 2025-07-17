@@ -65,6 +65,7 @@ export function EventsManagementModals() {
     sourceSystemsMenu,
     setIsButtonText,
     isButtonText,
+    setSelectedWhatsappTemplate,
   } = useContext<TEventsManagementState>(
     EventsManagementContext as Context<TEventsManagementState>,
   );
@@ -152,6 +153,7 @@ export function EventsManagementModals() {
             setSelectedChannels([]);
             setViewEventId("");
             setAddExtraChannelBtn(false);
+            setSelectedWhatsappTemplate(null);
           }}
           mode="add"
         />
@@ -182,6 +184,7 @@ export function EventsManagementModals() {
               setSelectedChannels([]);
               setViewEventId("");
               setAddExtraChannelBtn(false);
+              setSelectedWhatsappTemplate(null);
             }}
             initialValues={mapEventInterfaceToInitialValues(
               eventByIdData as GetEventByIdInterface,

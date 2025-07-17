@@ -19,7 +19,10 @@ import {
 } from "@ejada/types/api/recipientInterface";
 import { AxiosError } from "axios";
 import { TTableColumns } from "eds-react";
-import { WhatsappTemplate } from "@ejada/types/api/whatsappInterface";
+import {
+  GetWhatsappTemplatesInterface,
+  WhatsappTemplate,
+} from "@ejada/types/api/whatsappInterface";
 
 export interface FormStepProps {
   formValues: CreateAdhocMessageValues;
@@ -66,6 +69,10 @@ export type TRecipientNotificationsState = {
   setIsSendEventMessageOpen: (state: boolean) => void;
   eventId: string | undefined;
   setEventId: (val: string) => void;
+  selectedWabaId: string | undefined;
+  setSelectedWabaId: (val: string) => void;
+  accessToken: string;
+  setAccessToken: (val: string) => void;
   isEventFilterMenuOpen: boolean;
   setIsEventFilterMenuOpen: (state: boolean) => void;
   eventGroupList: SelectSearchList[];
@@ -112,6 +119,18 @@ export type TRecipientNotificationsState = {
   getTemplateByIdError: AxiosError | null;
   refetchTemplateById: (() => void) | undefined;
   isGetTemplateByIdLoading: boolean;
-  selectedNotificationId: string | null;
-  setSelectedNotificationId: Dispatch<SetStateAction<string | null>>;
+  selectedNotificationId: string | null | undefined;
+  setSelectedNotificationId: Dispatch<
+    SetStateAction<string | null | undefined>
+  >;
+  selectedWhatsappTemplate: WhatsappTemplate | null;
+  setSelectedWhatsappTemplate: Dispatch<
+    SetStateAction<WhatsappTemplate | null>
+  >;
+  whatsappTemplatesList: { key: string; node: string }[];
+  refetchAllWhatsappTemplatesData: (() => void) | undefined;
+  isRefetchedDataErrorWhatsapp: boolean;
+  errorMessageWhatsapp: AxiosError | null;
+  getWhatsappTemplateDetails: (templateId: string) => WhatsappTemplate | null;
+  allWhatsappTemplatesData: GetWhatsappTemplatesInterface | null;
 };

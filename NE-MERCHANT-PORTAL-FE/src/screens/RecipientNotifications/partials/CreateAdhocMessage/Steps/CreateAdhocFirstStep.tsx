@@ -317,18 +317,19 @@ export const CreateAdhocFirstStep: React.FC<FormStepProps> = ({
                             />
                           </div>
                         </div>
-                        {channel.notificationChannel === "SMS" && (
+                        {(channel.notificationChannel === "SMS" ||
+                          channel.notificationChannel === "WHATSAPP") && (
                           <div dir={"ltr"}>
                             <Controller
                               control={control}
-                              rules={validationRules.mobile}
+                              rules={validationRules.required}
                               name={`Recipients.${recipientIndex}.channels.${channelIndex}.mobile`}
                               render={({ field }) => (
                                 <PhoneInputField
                                   country="SA"
                                   setIsValidPhone={() => {}}
                                   className="w-full"
-                                  placeholder="97979797"
+                                  placeholder="59797979"
                                   color={ColorValues.Gray}
                                   size="large"
                                   label={t(

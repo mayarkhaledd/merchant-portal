@@ -354,6 +354,10 @@ export interface Event {
   eventParameters: string[];
   eventChannels: EventChannel[];
   eventBlockingPeriods: BlockingPeriod[];
+  whatsappTemplateId?: string;
+  whatsappBusinessAccountId?: string;
+  whatsappSender?: string;
+  languageCode: string;
 }
 export interface EventChannel {
   eventChannelId: string;
@@ -381,6 +385,9 @@ export interface EventChannel {
   additionalInfo3?: string;
   additionalInfo4?: string;
   additionalInfo5?: string;
+  whatsappTemplateId?: string;
+  whatsappBusinessAccountId?: string;
+  whatsappSender?: string;
 }
 export interface BlockingPeriod {
   blockingPeriodId: string;
@@ -423,6 +430,7 @@ export interface CreateEventPayload {
   eventParameters: string[];
   eventChannels: EventChannel[];
   eventBlockingPeriods: BlockingPeriod[];
+  whatsappTemplateId?: string;
 }
 export interface UpdateEventPayload {
   id?: string;

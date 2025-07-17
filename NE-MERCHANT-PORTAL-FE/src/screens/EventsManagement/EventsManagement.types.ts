@@ -121,6 +121,8 @@ export interface TEventsManagementState {
   >;
   resetCreateEvent: () => void;
   resetUpdateEvent: () => void;
+  selectedWabaId: string | undefined;
+  setSelectedWabaId: (val: string) => void;
   extraChannels: EventChannel[];
   setExtraChannels: Dispatch<SetStateAction<EventChannel[]>>;
   addExtraChannelBtn: boolean;
@@ -172,6 +174,9 @@ export interface EditTemplateFormInitialValues {
   sender: string;
   languageCode: string;
   channelId: string;
+  whatsappTemplateId: string;
+  whatsappBusinessAccountId?: string;
+  whatsappSender?: string;
 }
 export interface EditTemplateFormProps {
   initialValues?: EditTemplateFormInitialValues;

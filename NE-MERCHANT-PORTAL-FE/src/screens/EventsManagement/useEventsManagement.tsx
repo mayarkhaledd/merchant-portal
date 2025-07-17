@@ -31,6 +31,7 @@ export const useEventsManagement = () => {
     useState<boolean>(false);
   const [extraMobileAppName, setExtraMobileAppName] = useState<string>("");
   const [addExtraChannelBtn, setAddExtraChannelBtn] = useState(false);
+  const [selectedWabaId, setSelectedWabaId] = useState<string>("");
   const [extraChannels, setExtraChannels] = useState<EventChannel[]>([]);
   const [whatsappTemplatesList, setWhatsappTemplatesList] = useState<
     { key: string; node: string }[]
@@ -446,7 +447,7 @@ export const useEventsManagement = () => {
     if (allWhatsappTemplatesData && isRefetchDataSuccessWhatsapp) {
       const whatsappTemplatesList = formatToSelectKeyNode(
         allWhatsappTemplatesData.templates,
-        "templateName",
+        "templateId",
         "templateName",
       );
       setWhatsappTemplatesList(whatsappTemplatesList);
@@ -454,12 +455,12 @@ export const useEventsManagement = () => {
   }, [allWhatsappTemplatesData]);
 
   const getWhatsappTemplateDetails = (
-    templateName: string,
+    templateId: string,
   ): WhatsappTemplate | null => {
     if (!allWhatsappTemplatesData?.templates) return null;
     return (
       allWhatsappTemplatesData.templates.find(
-        (template) => template.templateName === templateName,
+        (template) => template.templateId === templateId,
       ) || null
     );
   };
@@ -583,5 +584,7 @@ export const useEventsManagement = () => {
     selectedWhatsappTemplate,
     setSelectedWhatsappTemplate,
     getWhatsappTemplateDetails,
+    selectedWabaId,
+    setSelectedWabaId,
   };
 };

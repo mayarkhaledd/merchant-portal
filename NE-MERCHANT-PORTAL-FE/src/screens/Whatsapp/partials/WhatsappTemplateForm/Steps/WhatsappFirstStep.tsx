@@ -12,15 +12,23 @@ import {
   WhatsappLanguage,
 } from "@ejada/screens/Whatsapp";
 import { t } from "i18next";
-
+import { useWhatsappOnboardingParams } from "@ejada/context/WhatsappOnboardingContext";
 export const WhatsappFirstStep: React.FC<WhatsappFormProps> = ({
   control,
   formState,
   drawerMode,
-  //initialValues = {} as WhatsappInitialValues,
 }) => {
   const { setTemplateType, templateType, whatsappTemplateByIdData } =
     useContext<TWhatsappState>(WhatsappContext as Context<TWhatsappState>);
+  const context = useWhatsappOnboardingParams();
+  const params = context?.params;
+  const whatsappAccounts =
+    params?.onboardingMetaAuth?.metaBusinessAccounts?.[0]?.whatsappAccounts ||
+    [];
+  const whatsappBusinessAccountOptions = whatsappAccounts.map((account) => ({
+    key: account.wabaId,
+    node: account.name,
+  }));
   const categoryType =
     drawerMode !== "add" ? whatsappTemplateByIdData?.category : "";
   return (
@@ -59,6 +67,35 @@ export const WhatsappFirstStep: React.FC<WhatsappFormProps> = ({
                   {...field}
                   isRequired
                   inputError={formState?.errors.templateName?.message as string}
+                />
+              )}
+            />
+          </div>
+          <div className="w-full">
+            <Controller
+              name="whatsappBusinessAccountId"
+              control={control}
+              defaultValue={""}
+              rules={validationRules.required}
+              render={({ field }) => (
+                <Select
+                  label={i18n.t(
+                    "whatsapp.create_template.first_step.whatsappBusinessAccountId",
+                  )}
+                  options={whatsappBusinessAccountOptions}
+                  value={field.value}
+                  disabled={drawerMode === "view"}
+                  onChange={field.onChange}
+                  inputError={
+                    formState?.errors.whatsappBusinessAccountId
+                      ?.message as string
+                  }
+                  isRequired
+                  placeholder={
+                    i18n.t(
+                      "whatsapp.create_template.first_step.whatsappBusinessAccountId_placeholder",
+                    ) as string
+                  }
                 />
               )}
             />

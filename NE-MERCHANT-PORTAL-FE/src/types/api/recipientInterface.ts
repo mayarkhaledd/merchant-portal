@@ -29,6 +29,7 @@ export interface NotificationRequestPayload {
   adhocMessageDetails?: {
     messageSubject?: string;
     messageContent: string;
+    whatsappSender?: string;
   };
   attachmentsCategory?: string;
   notifyRecipientMode: string;
@@ -42,6 +43,20 @@ export interface NotificationRequestPayload {
   notificationPriority?: number;
   notificationValidity?: number;
   recipients: Recipient[];
+  whatsappParameterValues?: {
+    templateName?: string;
+    templateLanguage?: string;
+    whatsappApiToken: string;
+    components?: {
+      componentType?: string;
+      buttonSubtype?: string;
+      parameters?: {
+        parameterType?: string;
+        parameterValue?: string;
+        parameterPosition?: number;
+      }[];
+    }[];
+  };
 }
 export interface NotificationRequestInterface {
   data: {

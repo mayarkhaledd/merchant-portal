@@ -67,6 +67,8 @@ export const CreateAdhocMessage: React.FC<CreateAdhocMessageEditProps> = ({
                 formState={formState}
                 colors={{ errorDefault: colors.errorDefault }}
                 initialValues={initialValues}
+                setValue={setValue}
+                watch={watch}
               />
             </div>
           </Stepper.Step>

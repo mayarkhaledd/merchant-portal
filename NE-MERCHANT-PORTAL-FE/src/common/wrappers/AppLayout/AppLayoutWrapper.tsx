@@ -12,7 +12,6 @@ export const AppLayoutWrapper = ({ children }: AppLayoutProps) => {
   useEffect(() => {
     const userLanguage = localStorage.getItem("userLanguage") || "en";
     const isArabic = userLanguage === "ar";
-
     // Set document direction
     document.documentElement.dir = isArabic ? "rtl" : "ltr";
     setDirection(isArabic ? "rtl" : "ltr");

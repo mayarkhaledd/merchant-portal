@@ -77,9 +77,7 @@ export const EventsService = {
   deleteNotificationEvent: async (
     data: DeleteNotificationEventPayload,
   ): Promise<DeleteNotificationEventResponse> => {
-    const response = await httpClient.delete(
-      `${API.notificationEvents}/${data.id}`,
-    );
+    const response = await httpClient.delete(`${API.events}/${data.id}`);
     return {
       status: response.status,
       ...response.data,

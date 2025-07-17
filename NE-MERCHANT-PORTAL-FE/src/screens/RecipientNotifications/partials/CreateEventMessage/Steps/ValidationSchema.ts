@@ -2,7 +2,7 @@ import i18n from "@ejada/common/locals/i18n";
 
 export const validationRules = {
   mobile: {
-    required: i18n.t("customer.create_customer.required.mobile") as string,
+    required: i18n.t("customer.create_customer.required") as string,
     minLength: {
       value: 13,
       message: i18n.t(

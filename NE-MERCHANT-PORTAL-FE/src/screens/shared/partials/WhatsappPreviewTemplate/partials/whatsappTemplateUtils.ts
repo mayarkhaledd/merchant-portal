@@ -1,7 +1,5 @@
-// utils/whatsappTemplateUtils.ts
 import { WhatsappTemplate } from "@ejada/types/api/whatsappInterface";
 
-/* ---------- params helpers ---------- */
 export const extractParams = (text = ""): string[] => {
   const matches = text.match(/\{\{(\d+)\}\}/g);
   return matches
@@ -21,7 +19,6 @@ const replaceParams = (text: string, vars: string[]) => {
 export const replaceHeaderParams = replaceParams;
 export const replaceBodyParams = replaceParams;
 
-/* ---------- button helpers ---------- */
 export interface WhatsappButton {
   buttonId: string;
   buttonType: string; // URL | PHONE_NUMBER | OTP | ..
@@ -58,7 +55,6 @@ export const getButtonContent = (btn: WhatsappButton) => {
   }
 };
 
-/* ---------- template slice helper ---------- */
 export const sliceTemplateComponents = (tpl: WhatsappTemplate | null) => {
   const byType = (t: string) =>
     tpl?.components?.find((c) => c.componentType === t);

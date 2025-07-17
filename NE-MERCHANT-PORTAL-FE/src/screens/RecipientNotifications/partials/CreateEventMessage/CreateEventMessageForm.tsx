@@ -14,6 +14,7 @@ import { RecipientNotificationsContext } from "../../RecipientNotificationsProvi
 import { TRecipientNotificationsState } from "../../RecipientNotifications.types";
 import { UseFormGetValues } from "react-hook-form";
 import { WhatsappTemplatePreview } from "@ejada/screens/shared";
+import { DevTool } from "@hookform/devtools";
 
 interface CreateEventMessageEditProps extends CreateEventMessageProps {
   initialValues?: CreateEventInitialValues;
@@ -42,10 +43,12 @@ export const CreateEventMessage: React.FC<CreateEventMessageEditProps> = ({
     useContext<TRecipientNotificationsState>(
       RecipientNotificationsContext as Context<TRecipientNotificationsState>,
     );
+
   const formValues: CreateEventInitialValues =
     watch() as CreateEventInitialValues;
   return (
     <form className="flex flex-col h-screen ">
+      <DevTool control={control} />
       <div className="flex-1 ">
         <Stepper
           validateForm={trigger}
@@ -79,6 +82,7 @@ export const CreateEventMessage: React.FC<CreateEventMessageEditProps> = ({
                     selectedTemplate={TemplateByIdData}
                     setValue={setValue}
                     control={control}
+                    key={TemplateByIdData?.templateId}
                   />
                 </div>
               </Stepper.Step>

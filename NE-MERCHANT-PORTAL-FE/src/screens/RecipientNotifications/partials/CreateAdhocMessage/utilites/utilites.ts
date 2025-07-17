@@ -4,7 +4,13 @@ import { removeEmptyValues } from "@ejada/screens/BulkNotifications";
 import { CreateAdhocMessageValues } from "@ejada/screens/RecipientNotifications";
 import { NotificationRequestPayload } from "@ejada/types/api/recipientInterface";
 import Cookies from "js-cookie";
-export const mapFormToPayload = async (data: CreateAdhocMessageValues) => {
+import { WhatsappTemplate } from "@ejada/types/api/whatsappInterface";
+
+export const mapFormToPayload = async (
+  data: CreateAdhocMessageValues,
+  selectedWhatsappTemplate?: WhatsappTemplate | null,
+  token?: string,
+) => {
   //mapping the initial values of the form to be sent as a payload to the API (to send notification )
   const recipients = data.Recipients.map((recipient) => {
     const isCustomer = data.RecipientType === "CUSTOMER";
@@ -31,6 +37,7 @@ export const mapFormToPayload = async (data: CreateAdhocMessageValues) => {
                   : String(channel.inbox),
             additionalEmailDetails: channel.additionalEmailDetails,
             operatingSystemType: channel.operatingSystemType,
+            whatsappTemplateId: channel.whatsappTemplateId,
           }))
         : undefined,
     };
@@ -49,6 +56,10 @@ export const mapFormToPayload = async (data: CreateAdhocMessageValues) => {
     adhocMessageDetails: {
       messageSubject: data.MessageSubject,
       messageContent: data.MessageContent,
+      whatsappSender:
+        data.Recipients?.flatMap((recipient) => recipient.channels || []).find(
+          (channel) => channel.notificationChannel === "WHATSAPP",
+        )?.whatsappSender || "",
     },
     attachmentsCategory: data.AttachmentType,
     attachments: attachments,
@@ -60,6 +71,42 @@ export const mapFormToPayload = async (data: CreateAdhocMessageValues) => {
     notifyRecipientMode: data.notifyRecipientMode,
     recipients,
   };
+
+  // Add WhatsApp parameter values if template is selected
+  if (selectedWhatsappTemplate) {
+    const components = [];
+
+    if (data.headerVariable && data.headerVariable.length > 0) {
+      components.push({
+        componentType: "HEADER",
+        buttonSubtype: "",
+        parameters: data.headerVariable.map((value: string, idx: number) => ({
+          parameterType: "TEXT",
+          parameterValue: value,
+          parameterPosition: idx,
+        })),
+      });
+    }
+
+    if (data.bodyVariable && data.bodyVariable.length > 0) {
+      components.push({
+        componentType: "BODY",
+        buttonSubtype: "",
+        parameters: data.bodyVariable.map((value: string, idx: number) => ({
+          parameterType: "TEXT",
+          parameterValue: value,
+          parameterPosition: idx,
+        })),
+      });
+    }
+
+    payload.whatsappParameterValues = {
+      templateName: selectedWhatsappTemplate.templateName,
+      templateLanguage: selectedWhatsappTemplate.languageCode,
+      whatsappApiToken: token || "",
+      components,
+    };
+  }
 
   return removeEmptyValues(payload, [
     "dueDateTime",

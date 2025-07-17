@@ -76,7 +76,7 @@ export interface WhatsappTemplate {
   languageCode: string;
   category: string;
   status?: string;
-  namespace: string;
+  whatsappBusinessAccountId: string;
   rejectionReason: string;
   tenantId: string;
   components: TemplateComponentListByID[];
@@ -89,7 +89,7 @@ export interface GetWhatsappTemplatesPayload {
   templateName?: string;
   languageCode?: string;
   category?: string;
-  namespace?: string;
+  whatsappBusinessAccountId?: string;
   //components?: TemplateComponentsList[];
   tenantId?: string;
 }
@@ -98,7 +98,7 @@ export interface CreateTemplatePayload {
   templateName: string;
   languageCode: string;
   category: string;
-  namespace: string;
+  whatsappBusinessAccountId: string;
   components: TemplateComponentsList[];
   tenantId: string;
 }
@@ -109,7 +109,7 @@ export interface CreateTemplateInterface {
   templateId?: string;
   templateName: string;
   languageCode: string;
-  namespace: string;
+  whatsappBusinessAccountId: string;
   status: string;
   category: string;
   components: TemplateComponentsList[];
@@ -142,3 +142,36 @@ export interface WhatsappOnboardingPayload {
 export interface WhatsappOnboardingInterface {}
 export interface WhatsappOnboardingResponse
   extends ResponseInterface<WhatsappOnboardingInterface> {}
+
+export interface GetWhatsappOnboardingPayload {}
+export interface GetWhatsappOnboardingInterface {
+  onboardingMetaAuth: {
+    tenantId: number;
+    userId: string;
+    accessToken: string;
+    tokenExpiresAt: string;
+    metaBusinessAccounts: {
+      businessId: string;
+      name: string;
+      vertical: string;
+      primaryPageId: string;
+      whatsappAccounts: {
+        wabaId: string;
+        name: string;
+        timezoneId: string;
+        namespace: string;
+        currency: string;
+        whatsappPhoneNumbersResponses: {
+          phoneNumberId: string;
+          displayPhoneNumber: string;
+          verifiedName: string;
+          qualityRating: string;
+          status: string;
+          codeVerificationStatus: string;
+        }[];
+      }[];
+    }[];
+  };
+}
+export interface GetWhatsappOnboardingResponse
+  extends ResponseInterface<GetWhatsappOnboardingInterface> {}

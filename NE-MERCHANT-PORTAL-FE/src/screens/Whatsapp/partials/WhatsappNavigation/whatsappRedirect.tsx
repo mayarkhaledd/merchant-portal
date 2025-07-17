@@ -5,12 +5,18 @@ import { useLocation, useNavigate } from "react-router-dom";
 export function WhatsappRedirect() {
   const navigate = useNavigate();
   const location = useLocation();
-  const path = location.pathname;
+
   useEffect(() => {
-    if (path === "/whatsapp" || path === "/whatsapp/") {
+    const currentPath = location.pathname;
+    const whatsappPath = AppRoutes.whatsapp;
+
+    if (
+      currentPath.endsWith(whatsappPath) ||
+      currentPath.endsWith(whatsappPath + "/")
+    ) {
       navigate(AppRoutes.templates, { replace: true });
     }
-  }, [path, navigate]);
+  }, [location.pathname, navigate]);
 
   return null;
 }

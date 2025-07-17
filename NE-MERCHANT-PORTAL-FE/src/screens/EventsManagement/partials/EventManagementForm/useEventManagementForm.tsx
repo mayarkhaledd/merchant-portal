@@ -50,7 +50,6 @@ export const useEventManagementForm = (
     resetUpdateEvent,
     resetCreateEvent,
     setAddExtraChannelBtn,
-    selectedWhatsappTemplate,
     setSelectedWhatsappTemplate,
   } = useContext(EventsManagementContext as Context<TEventsManagementState>);
   const queryClient = useQueryClient();
@@ -87,6 +86,8 @@ export const useEventManagementForm = (
     setSelectedChannels([]);
     setExtraMobileAppName("");
     setAddExtraChannelBtn(false);
+    setSelectedWhatsappTemplate(null);
+
     if (updateEventSuccess) {
       resetUpdateEvent();
     }
@@ -105,11 +106,13 @@ export const useEventManagementForm = (
       queryClient.removeQueries({ queryKey: [QueryCosntant.CHANNELS_DATA] });
       createEvent(filteredData as CreateEventPayload);
     } else {
+      const whatsappSender =
+        channelsTableDataEditMode?.find(
+          (channel) => channel.channelId === "WHATSAPP",
+        )?.sender ?? "";
+
       const formattedTableDataEditMode = channelsTableDataEditMode.map(
-        ({
-          //eventChannelId,
-          ...channel
-        }) => ({
+        ({ ...channel }) => ({
           ...channel,
           languageCode:
             channel.languageCode === "English"
@@ -117,6 +120,10 @@ export const useEventManagementForm = (
               : channel.languageCode === "Arabic"
                 ? "AR"
                 : channel.languageCode,
+          sender:
+            channel.channelId === "WHATSAPP"
+              ? whatsappSender
+              : channel.sender || "",
         }),
       );
       // Remove duplicates based on channelId and languageCode
@@ -139,7 +146,6 @@ export const useEventManagementForm = (
         },
         [] as typeof formattedTableDataEditMode,
       );
-
       const gotMobileAppName = getValues("mobileAppName");
       const updatePayLoadData = {
         ...formattedData,
@@ -152,16 +158,14 @@ export const useEventManagementForm = (
       updateEvent(filteredUpdateData as UpdateEventPayload);
       closeDrawer();
     }
-    if (selectedWhatsappTemplate) {
-      setSelectedWhatsappTemplate(null);
-    }
+
     resetAll();
   };
 
   const handleCancel = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    reset(); //reset hookform
-    resetAll(); //reset States handled from FE
+    reset();
+    resetAll();
     closeDrawer();
   };
 

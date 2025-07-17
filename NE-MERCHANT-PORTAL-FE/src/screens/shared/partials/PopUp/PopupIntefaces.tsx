@@ -13,7 +13,8 @@ export interface DeleteComponentProps {
 }
 export interface DeleteWhatsappTemplateProps {
   onClose: () => void;
-  id: string;
+  // id: string;
+  templateName: string;
   onConfirm: () => void;
   deleteConfirmLabel?: string;
 }
@@ -97,4 +98,5 @@ export type PopupProps =
   | DeleteSourceSystemProps
   | ReactivateCustomerComponentProps
   | DeactivateCustomerComponentProps
-  | DeleteCustomerProps;
+  | DeleteCustomerProps
+  | DeleteWhatsappTemplateProps;

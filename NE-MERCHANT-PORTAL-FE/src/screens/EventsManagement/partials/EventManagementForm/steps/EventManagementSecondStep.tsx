@@ -10,6 +10,7 @@ import { ExtraEventChannelForm } from "../AddExtraChannelsForm";
 import { t } from "i18next";
 import { IconAlertCircleFilled } from "@tabler/icons-react";
 import { Controller } from "react-hook-form";
+import { WhatsappParametersHint } from "@ejada/screens/shared";
 
 export const EventManagementSecondStep: React.FC<
   EventsManagementFormStepProps
@@ -53,6 +54,9 @@ export const EventManagementSecondStep: React.FC<
           )}
         />
       </div>
+
+      <WhatsappParametersHint className="mb-4" />
+
       {!addExtraChannelBtn && (
         <Button
           size={"medium"}

@@ -149,7 +149,8 @@
     "max_event_code_length": "Event code should be at most 10 characters",
     "select_template_to_preview": "Select a template to preview",
     "template_preview_will_appear_here": "Template preview will appear here",
-    "template_preview": "Template Preview"
+    "template_preview": "Template Preview",
+    "whatsapp_parameters_hint": "Note: Event parameters are not used for WhatsApp channels as they use template-based messaging instead."
   },
   "validations": {
     "name_InValid": "Name is invalid",

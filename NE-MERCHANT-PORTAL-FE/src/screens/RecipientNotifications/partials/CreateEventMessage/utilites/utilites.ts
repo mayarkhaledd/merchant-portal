@@ -10,8 +10,11 @@ import {
   RecipientChannel,
 } from "@ejada/screens/RecipientNotifications";
 import { removeEmptyValues } from "@ejada/screens/BulkNotifications/partials/BulkNotificationForm";
+import { WhatsappTemplate } from "@ejada/types/api/whatsappInterface";
 export function mapToNotificationRequestPayload(
   initialValues: CreateEventMessageValues,
+  TemplateByIdData: WhatsappTemplate | null,
+  token?: string,
 ): NotificationRequestPayload {
   //mapping the initial values of the form to be sent as a payload to the API (to send notification )
   const mappedRecipients: Recipient[] = initialValues.recipients
@@ -125,6 +128,43 @@ export function mapToNotificationRequestPayload(
       },
       ["dueDateTime"],
     ),
+  };
+
+  const components = [];
+
+  if (initialValues.headerVariable && initialValues.headerVariable.length > 0) {
+    components.push({
+      componentType: "HEADER",
+      buttonSubtype: "",
+      parameters: initialValues.headerVariable.map(
+        (value: string, idx: number) => ({
+          parameterType: "TEXT",
+          parameterValue: value,
+          parameterPosition: idx,
+        }),
+      ),
+    });
+  }
+
+  if (initialValues.bodyVariable && initialValues.bodyVariable.length > 0) {
+    components.push({
+      componentType: "BODY",
+      buttonSubtype: "",
+      parameters: initialValues.bodyVariable.map(
+        (value: string, idx: number) => ({
+          parameterType: "TEXT",
+          parameterValue: value,
+          parameterPosition: idx,
+        }),
+      ),
+    });
+  }
+
+  payload.whatsappParameterValues = {
+    templateName: TemplateByIdData?.templateName,
+    templateLanguage: TemplateByIdData?.languageCode,
+    whatsappApiToken: token || "",
+    components,
   };
 
   return removeEmptyValues(payload, [

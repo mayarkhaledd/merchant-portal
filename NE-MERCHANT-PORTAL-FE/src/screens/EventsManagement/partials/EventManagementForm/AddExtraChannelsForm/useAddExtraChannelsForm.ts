@@ -22,7 +22,6 @@ export const useAddExtraChannelsForm = () => {
     setSavedChannel,
     setSavedLanguage,
     setShowErrorNotification,
-    selectedWhatsappTemplate,
   } = useContext(EventsManagementContext);
 
   const {
@@ -146,6 +145,10 @@ export const useAddExtraChannelsForm = () => {
       data.demoChannels,
       data.eventChannels,
     );
+    const whatsappSender =
+      data.eventChannels?.find((channel) => channel.channelId === "WHATSAPP")
+        ?.whatsappSender ?? "";
+
     //create copies of channels with every language
     if (Array.isArray(data.languageCode) && Array.isArray(eventChannels)) {
       data.languageCode.forEach((languageCode: string) => {
@@ -155,22 +158,24 @@ export const useAddExtraChannelsForm = () => {
             formattedEventChannels.push({
               ...channel,
               languageCode: languageCode,
-              sender: Array.isArray(channel.sender)
-                ? channel.sender[0]
-                : channel.sender,
+              sender:
+                channel.channelId === "WHATSAPP"
+                  ? whatsappSender
+                  : Array.isArray(channel.sender)
+                    ? channel.sender[0]
+                    : channel.sender,
             });
           });
       });
     }
+    const whatsappTemplateId = data.eventChannels[0].whatsappTemplateId;
 
-    if (selectedWhatsappTemplate) {
-      const templateId = selectedWhatsappTemplate.templateId;
-      formattedEventChannels.forEach((channel) => {
-        if (channel.channelId === "WHATSAPP") {
-          channel.templateId = templateId;
-        }
-      });
-    }
+    formattedEventChannels.forEach((channel) => {
+      if (channel.channelId === "WHATSAPP") {
+        channel.whatsappTemplateId = whatsappTemplateId;
+        channel.sender = whatsappSender;
+      }
+    });
 
     const payLoadData = filterEmptyValues(
       formattedEventChannels as EventChannel[],

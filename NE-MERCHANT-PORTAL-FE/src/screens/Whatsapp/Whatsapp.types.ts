@@ -38,6 +38,8 @@ export interface TWhatsappState {
   setIsWhatsappFilterMenuOpen: (value: boolean) => void;
   whatsappTemplateId: string;
   setWhatsappTemplateId: (value: string) => void;
+  setTemplateName: (value: string) => void;
+  templateName: string;
   setIsDeletePopUpOpen: (value: boolean) => void;
   isDeletePopUpOpen: boolean;
   deleteWhatsappTemplateById: (data: DeleteWhatsappTemplatePayload) => void;
@@ -93,6 +95,7 @@ export interface TWhatsappState {
   isWhatsappOnboardingError: boolean;
   isWhatsappOnboardingAxiosError: AxiosError<unknown, any> | null;
   isCreateWhatsappTemplatePending: boolean;
+  isUpdateWhatsappTemplatePending: boolean;
 }
 export interface WhatsappOnboardingProps {
   metaSignUpUrl?: string;

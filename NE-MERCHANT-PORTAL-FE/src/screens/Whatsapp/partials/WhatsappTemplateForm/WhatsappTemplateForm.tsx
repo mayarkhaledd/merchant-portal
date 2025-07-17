@@ -37,6 +37,7 @@ export const WhatsappTemplateForm: React.FC<WhatsappFormProps> = ({
     whatsappTemplateByIdData,
     isGetWhatsappTemplateByIdLoading,
     isCreateWhatsappTemplatePending,
+    isUpdateWhatsappTemplatePending,
   } = useContext<TWhatsappState>(WhatsappContext as Context<TWhatsappState>);
   const categoryType = whatsappTemplateByIdData?.category;
   const navigate = useNavigate();
@@ -138,91 +139,97 @@ export const WhatsappTemplateForm: React.FC<WhatsappFormProps> = ({
     </div>
   ) : (
     <form className="flex flex-col h-screen">
-      <div className="flex-1">
-        <Tabs
-          tabs={[
-            {
-              label: t("whatsapp.Template"),
-              value: t("whatsapp.Template"),
-              content: (
-                <WhatsappFirstStep
-                  control={control}
-                  formState={formState}
-                  colors={{ errorDefault: colors.errorDefault }}
-                  initialValues={initialValues}
-                  drawerMode={drawerMode}
-                  watch={watch}
-                  setValue={setValue}
-                  closeDrawer={() => {}}
-                />
-              ),
-            },
-            ...(categoryType === "MARKETING"
-              ? [
-                  {
-                    label: t("whatsapp.MarketingTemplate"),
-                    value: t("whatsapp.MarketingTemplate"),
-                    content: (
-                      <WhatsappMarketingUtilitySecondStep
-                        templateType={templateType}
-                        control={control}
-                        formState={formState}
-                        colors={{ errorDefault: colors.errorDefault }}
-                        initialValues={initialValues}
-                        drawerMode={drawerMode}
-                        watch={watch}
-                        setValue={setValue}
-                        closeDrawer={() => {}}
-                      />
-                    ),
-                  },
-                ]
-              : []),
-            ...(categoryType === "UTILITY"
-              ? [
-                  {
-                    label: t("whatsapp.UtilityTemplate"),
-                    value: t("whatsapp.UtilityTemplate"),
-                    content: (
-                      <WhatsappMarketingUtilitySecondStep
-                        templateType={templateType}
-                        control={control}
-                        formState={formState}
-                        colors={{ errorDefault: colors.errorDefault }}
-                        initialValues={initialValues}
-                        setValue={setValue}
-                        drawerMode={drawerMode}
-                        watch={watch}
-                        closeDrawer={() => {}}
-                        unregister={unregister}
-                      />
-                    ),
-                  },
-                ]
-              : []),
-            ...(categoryType === "AUTHENTICATION"
-              ? [
-                  {
-                    label: t("whatsapp.AuthenticationTemplate"),
-                    value: t("whatsapp.AuthenticationTemplate"),
-                    content: (
-                      <WhatsappAuthSecondStep
-                        control={control}
-                        formState={formState}
-                        colors={{ errorDefault: colors.errorDefault }}
-                        initialValues={initialValues}
-                        setValue={setValue}
-                        drawerMode={drawerMode}
-                        watch={watch}
-                        closeDrawer={() => {}}
-                        unregister={unregister}
-                      />
-                    ),
-                  },
-                ]
-              : []),
-          ]}
-        />
+      <div className="flex-1 w-full">
+        {isUpdateWhatsappTemplatePending ? (
+          <div className="flex justify-center items-center h-screen">
+            <Loader className="animate-spin" />
+          </div>
+        ) : (
+          <Tabs
+            tabs={[
+              {
+                label: t("whatsapp.Template"),
+                value: t("whatsapp.Template"),
+                content: (
+                  <WhatsappFirstStep
+                    control={control}
+                    formState={formState}
+                    colors={{ errorDefault: colors.errorDefault }}
+                    initialValues={initialValues}
+                    drawerMode={drawerMode}
+                    watch={watch}
+                    setValue={setValue}
+                    closeDrawer={() => {}}
+                  />
+                ),
+              },
+              ...(categoryType === "MARKETING"
+                ? [
+                    {
+                      label: t("whatsapp.MarketingTemplate"),
+                      value: t("whatsapp.MarketingTemplate"),
+                      content: (
+                        <WhatsappMarketingUtilitySecondStep
+                          templateType={templateType}
+                          control={control}
+                          formState={formState}
+                          colors={{ errorDefault: colors.errorDefault }}
+                          initialValues={initialValues}
+                          drawerMode={drawerMode}
+                          watch={watch}
+                          setValue={setValue}
+                          closeDrawer={() => {}}
+                        />
+                      ),
+                    },
+                  ]
+                : []),
+              ...(categoryType === "UTILITY"
+                ? [
+                    {
+                      label: t("whatsapp.UtilityTemplate"),
+                      value: t("whatsapp.UtilityTemplate"),
+                      content: (
+                        <WhatsappMarketingUtilitySecondStep
+                          templateType={templateType}
+                          control={control}
+                          formState={formState}
+                          colors={{ errorDefault: colors.errorDefault }}
+                          initialValues={initialValues}
+                          setValue={setValue}
+                          drawerMode={drawerMode}
+                          watch={watch}
+                          closeDrawer={() => {}}
+                          unregister={unregister}
+                        />
+                      ),
+                    },
+                  ]
+                : []),
+              ...(categoryType === "AUTHENTICATION"
+                ? [
+                    {
+                      label: t("whatsapp.AuthenticationTemplate"),
+                      value: t("whatsapp.AuthenticationTemplate"),
+                      content: (
+                        <WhatsappAuthSecondStep
+                          control={control}
+                          formState={formState}
+                          colors={{ errorDefault: colors.errorDefault }}
+                          initialValues={initialValues}
+                          setValue={setValue}
+                          drawerMode={drawerMode}
+                          watch={watch}
+                          closeDrawer={() => {}}
+                          unregister={unregister}
+                        />
+                      ),
+                    },
+                  ]
+                : []),
+            ]}
+          />
+        )}
       </div>
       <div className="border-b-[0.5px] border-divider-color w-[100%] mt-auto py-4"></div>
       <div className="w-full flex justify-end gap-[20px] p-4">

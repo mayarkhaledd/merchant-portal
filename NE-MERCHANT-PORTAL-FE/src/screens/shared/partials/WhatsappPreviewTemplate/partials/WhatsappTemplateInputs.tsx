@@ -1,4 +1,3 @@
-// components/WhatsappTemplateInputs.tsx
 import React from "react";
 import { Controller, Control } from "react-hook-form";
 import { CreateEventMessageValues } from "@ejada/screens/RecipientNotifications/partials/CreateEventMessage/CreateEventMessage.types";

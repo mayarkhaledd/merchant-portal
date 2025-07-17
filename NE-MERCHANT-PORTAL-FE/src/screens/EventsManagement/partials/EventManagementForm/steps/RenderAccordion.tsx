@@ -1,4 +1,4 @@
-import React, { Context, useContext, useEffect } from "react";
+import React, { Context, useContext, useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import {
   Control,
@@ -6,6 +6,7 @@ import {
   FieldErrors,
   UseFormGetValues,
   UseFormSetValue,
+  UseFormWatch,
 } from "react-hook-form";
 import {
   NotificationEventFormValues,
@@ -17,6 +18,8 @@ import { EventManagementFormValidationSchema } from "../EventManagementFormValid
 import { EventsManagementContext } from "@ejada/screens/EventsManagement/EventsManagementProvider";
 import { Types } from "@ejada/common/utils/Enum";
 import { WhatsappTemplatePreview } from "@ejada/screens/shared";
+import i18n from "@ejada/common/locals/i18n";
+import { useWhatsappOnboardingParams } from "@ejada/context/WhatsappOnboardingContext";
 interface RenderAccordionProps {
   type: string;
   control:
@@ -35,6 +38,7 @@ interface RenderAccordionProps {
   getValues?:
     | UseFormGetValues<NotificationEventFormValues>
     | UseFormGetValues<extraEventChannelsInitialValues>;
+  watch: UseFormWatch<extraEventChannelsInitialValues>;
 }
 
 const RenderAccordion: React.FC<RenderAccordionProps> = ({
@@ -44,6 +48,7 @@ const RenderAccordion: React.FC<RenderAccordionProps> = ({
   id,
   setValue,
   mode,
+  watch,
 }) => {
   const { t } = useTranslation();
   const testSender = `eventChannels.${id}.sender`;
@@ -57,13 +62,49 @@ const RenderAccordion: React.FC<RenderAccordionProps> = ({
     smsSender,
     emailSender,
     refetchAllWhatsappTemplatesData,
-    whatsappTemplatesList,
+    allWhatsappTemplatesData,
     selectedWhatsappTemplate,
     setSelectedWhatsappTemplate,
     getWhatsappTemplateDetails,
+    selectedWabaId,
+    setSelectedWabaId,
   } = useContext<TEventsManagementState>(
     EventsManagementContext as Context<TEventsManagementState>,
   );
+  const context = useWhatsappOnboardingParams();
+  const params = context?.params;
+  const whatsappAccounts =
+    params?.onboardingMetaAuth?.metaBusinessAccounts?.[0]?.whatsappAccounts ||
+    [];
+  const whatsappBusinessAccountOptions = whatsappAccounts.map((account) => ({
+    key: account.wabaId,
+    node: account.name,
+  }));
+
+  const filteredSenderOptions = useMemo(() => {
+    if (!selectedWabaId) return [];
+    const account = whatsappAccounts.find(
+      (acc) => acc.wabaId === selectedWabaId,
+    );
+    return (
+      account?.whatsappPhoneNumbersResponses?.map((phone) => ({
+        key: phone.phoneNumberId,
+        node: phone.displayPhoneNumber,
+      })) || []
+    );
+  }, [selectedWabaId, whatsappAccounts]);
+
+  const filteredTemplateOptions = useMemo(() => {
+    if (!selectedWabaId) return [];
+    return allWhatsappTemplatesData?.templates
+      .filter(
+        (template) => template.whatsappBusinessAccountId === selectedWabaId,
+      )
+      .map((template) => ({
+        key: template.templateId ?? template.templateName,
+        node: template.templateName,
+      }));
+  }, [selectedWabaId, allWhatsappTemplatesData?.templates]);
 
   useEffect(() => {
     refetchAllWhatsappTemplatesData?.();
@@ -675,8 +716,77 @@ const RenderAccordion: React.FC<RenderAccordionProps> = ({
                       />
                     )}
                   />
+                  <div className="w-full">
+                    <Controller
+                      name={`eventChannels.${id}.whatsappBusinessAccountId`}
+                      control={
+                        control as Control<extraEventChannelsInitialValues>
+                      }
+                      defaultValue={undefined}
+                      rules={EventManagementFormValidationSchema.required}
+                      render={({ field }) => (
+                        <Select
+                          label={i18n.t(
+                            "whatsapp.create_template.first_step.whatsappBusinessAccountId",
+                          )}
+                          options={whatsappBusinessAccountOptions}
+                          value={field.value}
+                          onChange={field.onChange}
+                          inputError={
+                            formState?.errors?.eventChannels?.[0]
+                              ?.whatsappBusinessAccountId?.message as string
+                          }
+                          isRequired
+                          placeholder={
+                            i18n.t(
+                              "whatsapp.create_template.first_step.whatsappBusinessAccountId_placeholder",
+                            ) as string
+                          }
+                        />
+                      )}
+                    />
+                  </div>
+                  <div className="w-full mt-4 mb-4">
+                    <Controller
+                      name={`eventChannels.${id}.whatsappSender`}
+                      control={
+                        control as Control<extraEventChannelsInitialValues>
+                      }
+                      defaultValue={undefined}
+                      rules={EventManagementFormValidationSchema.required}
+                      render={({ field }) => {
+                        const selectedWhatsappBusinessId = watch
+                          ? watch(
+                              `eventChannels.${id}.whatsappBusinessAccountId`,
+                            )
+                          : "";
+                        setSelectedWabaId(selectedWhatsappBusinessId as string);
+                        return (
+                          <Select
+                            label={i18n.t(
+                              "whatsapp.create_template.first_step.whatsappSender",
+                            )}
+                            options={filteredSenderOptions}
+                            value={field.value}
+                            onChange={field.onChange}
+                            inputError={
+                              formState?.errors?.eventChannels?.[0]
+                                ?.whatsappSender?.message as string
+                            }
+                            isRequired
+                            placeholder={
+                              i18n.t(
+                                "whatsapp.create_template.first_step.whatsappSender_placeholder",
+                              ) as string
+                            }
+                            disabled={!selectedWabaId}
+                          />
+                        );
+                      }}
+                    />
+                  </div>
                   <Controller
-                    name={`eventChannels.${id}.templateName`}
+                    name={`eventChannels.${id}.whatsappTemplateId`}
                     control={
                       control as Control<
                         | NotificationEventFormValues
@@ -688,7 +798,7 @@ const RenderAccordion: React.FC<RenderAccordionProps> = ({
                     render={({ field }) => (
                       <div className="relative w-[100%]">
                         <Select
-                          options={whatsappTemplatesList || []}
+                          options={filteredTemplateOptions || []}
                           label={t("eventsManagement.templates") as string}
                           onChange={(value) => {
                             field.onChange(value);
@@ -702,10 +812,11 @@ const RenderAccordion: React.FC<RenderAccordionProps> = ({
                               setSelectedWhatsappTemplate(null);
                             }
                           }}
-                          value={selectedWhatsappTemplate?.templateName}
+                          value={selectedWhatsappTemplate?.templateId}
                           placeholder={
                             t("eventsManagement.select_template") as string
                           }
+                          disabled={!selectedWabaId}
                         />
                       </div>
                     )}

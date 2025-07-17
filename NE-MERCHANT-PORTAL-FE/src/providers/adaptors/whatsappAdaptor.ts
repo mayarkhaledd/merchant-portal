@@ -3,6 +3,8 @@ import {
   CreateTemplateResponse,
   GetSystemParamsInterface,
   GetSystemParamsResponse,
+  GetWhatsappOnboardingInterface,
+  GetWhatsappOnboardingResponse,
   GetWhatsappTemplateByIdResponse,
   GetWhatsappTemplatesInterface,
   GetWhatsappTemplatesResponse,
@@ -21,7 +23,7 @@ export function adaptGetWhatsappTemplates(
       tenantId: template.tenantId,
       category: template.category,
       languageCode: template.languageCode,
-      namespace: template.namespace,
+      whatsappBusinessAccountId: template.whatsappBusinessAccountId,
       rejectionReason: template.rejectionReason,
       components: template.components.map((component) => ({
         type: component.type,
@@ -71,7 +73,7 @@ export function adaptGetWhatsappTemplateById(
     languageCode: res.data.languageCode,
     category: res.data.category,
     status: res.data.status,
-    namespace: res.data.namespace,
+    whatsappBusinessAccountId: res.data.whatsappBusinessAccountId,
     rejectionReason: res.data.rejectionReason,
     tenantId: res.data.tenantId,
     components: res.data.components.map((component) => ({
@@ -112,9 +114,46 @@ export function adaptCreateUpdateWhatsappTemplate(
     templateId: data.data.templateId,
     templateName: data.data.templateName,
     languageCode: data.data.languageCode,
-    namespace: data.data.namespace,
+    whatsappBusinessAccountId: data.data.whatsappBusinessAccountId,
     status: data.data.status,
     category: data.data.category,
     components: data.data.components,
+  };
+}
+
+export function adaptGetWhatsappOnboarding(
+  data: GetWhatsappOnboardingResponse,
+): GetWhatsappOnboardingInterface {
+  return {
+    onboardingMetaAuth: {
+      tenantId: data.data.onboardingMetaAuth.tenantId,
+      userId: data.data.onboardingMetaAuth.userId,
+      accessToken: data.data.onboardingMetaAuth.accessToken,
+      tokenExpiresAt: data.data.onboardingMetaAuth.tokenExpiresAt,
+      metaBusinessAccounts:
+        data.data.onboardingMetaAuth.metaBusinessAccounts.map((mba) => ({
+          businessId: mba.businessId,
+          name: mba.name,
+          vertical: mba.vertical,
+          primaryPageId: mba.primaryPageId,
+          whatsappAccounts: mba.whatsappAccounts.map((wa) => ({
+            wabaId: wa.wabaId,
+            name: wa.name,
+            timezoneId: wa.timezoneId,
+            namespace: wa.namespace,
+            currency: wa.currency,
+            whatsappPhoneNumbersResponses: wa.whatsappPhoneNumbersResponses.map(
+              (pn) => ({
+                phoneNumberId: pn.phoneNumberId,
+                displayPhoneNumber: pn.displayPhoneNumber,
+                verifiedName: pn.verifiedName,
+                qualityRating: pn.qualityRating,
+                status: pn.status,
+                codeVerificationStatus: pn.codeVerificationStatus,
+              }),
+            ),
+          })),
+        })),
+    },
   };
 }
