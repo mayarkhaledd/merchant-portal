@@ -6,6 +6,7 @@ import { AppRoutes } from "@ejada/navigation";
 import { useNavigate } from "react-router-dom";
 import { getLocalizedErrorMessage, useErrorToast } from "@ejada/screens/shared";
 import { useTranslation } from "react-i18next";
+import { useWhatsappOnboardingParams } from "@ejada/context/WhatsappOnboardingContext";
 
 export function useOtp() {
   const { t } = useTranslation();
@@ -23,7 +24,8 @@ export function useOtp() {
     data,
   } = useVerifyOtp();
   //const { updatedData: tenants } = useGetTenants(true);
-
+  const context = useWhatsappOnboardingParams();
+  const refetch = context?.refetch;
   useErrorToast(
     isVerifyError,
     t("otp_failure") as string,
@@ -69,6 +71,9 @@ export function useOtp() {
 
       const targetRoute = AppRoutes.home;
       Cookies.set(HTTPCookies.otpValidationStatus, "Y");
+      if (Cookies.get(HTTPCookies.tenantId)) {
+        refetch?.();
+      }
       return navigate(targetRoute);
     }
     return null;
