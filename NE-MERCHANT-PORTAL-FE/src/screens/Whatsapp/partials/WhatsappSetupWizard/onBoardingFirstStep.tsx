@@ -3,6 +3,7 @@ import { DesktopStepCard } from "@ejada/common/components/DesktopStepProgress";
 import { Shield, CheckCircle, Building } from "lucide-react";
 import { Card, CardContent } from "@ejada/common/components/ui/card";
 import { Alert, AlertDescription } from "@ejada/common/components/ui/alert";
+import { t } from "i18next";
 
 export const OnBoardingFirstStep: React.FC<{
   onHasAccount: () => void;
@@ -10,8 +11,8 @@ export const OnBoardingFirstStep: React.FC<{
 }> = ({ onHasAccount, onNeedsAccount }) => {
   return (
     <DesktopStepCard
-      title="Account Verification"
-      description="Choose how you want to set up your WhatsApp Business Account"
+      title={t("onboarding.account_verification_title")}
+      description={t("onboarding.account_verification_desc")}
     >
       <div className="space-y-8">
         <div className="grid md:grid-cols-2 gap-6">
@@ -24,10 +25,10 @@ export const OnBoardingFirstStep: React.FC<{
                 <CheckCircle className="w-8 h-8 text-[#22c55e]" />
               </div>
               <h3 className="text-xl font-semibold text-[#001081] mb-2">
-                I have an account
+                {t("onboarding.i_have_account_title")}
               </h3>
               <p className="text-[#59595C] text-sm">
-                Connect your existing WhatsApp Business Account.
+                {t("onboarding.i_have_account_desc")}
               </p>
             </CardContent>
           </Card>
@@ -41,10 +42,10 @@ export const OnBoardingFirstStep: React.FC<{
                 <Building className="w-8 h-8 text-[#001081]" />
               </div>
               <h3 className="text-xl font-semibold text-[#001081] mb-2">
-                Create new account
+                {t("onboarding.create_new_account_title")}
               </h3>
               <p className="text-[#59595C] text-sm">
-                Set up a new WhatsApp Business Account from scratch.
+                {t("onboarding.create_new_account_desc")}
               </p>
             </CardContent>
           </Card>
@@ -53,8 +54,8 @@ export const OnBoardingFirstStep: React.FC<{
         <Alert className="border-[#001081] bg-[#f8fafc]">
           <Shield className="h-5 w-5 text-[#001081]" />
           <AlertDescription className="text-[#001081]">
-            <strong>Requirements:</strong> Valid business phone number,
-            documents, Facebook Business Manager.
+            <strong>{t("onboarding.requirements")}</strong>{" "}
+            {t("onboarding.requirements_details")}
           </AlertDescription>
         </Alert>
       </div>

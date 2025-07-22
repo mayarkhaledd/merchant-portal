@@ -2,6 +2,8 @@ import { MenuItem } from "@ejada/types";
 import { AppRoutes } from "./AppRoutes";
 import { default as i18next } from "@ejada/common/locals/i18n";
 
+const showTemplatesMenu = localStorage.getItem("showWhatsappTemplatesMenu") === "true";
+
 //Icons should follow PascalCase
 export const SideBarNavigation: MenuItem[] = [
   {
@@ -64,12 +66,14 @@ export const SideBarNavigation: MenuItem[] = [
         text: i18next.t("navigation.whatsappSignUp"),
         icon: "BrandWhatsapp",
       },
-      {
-        url: AppRoutes.templates,
-        pageTitle: i18next.t("navigation.whatsappTemplates"),
-        text: i18next.t("navigation.whatsappTemplates"),
-        icon: "BrandWhatsapp",
-      },
+      ...(showTemplatesMenu
+        ? [{
+            url: AppRoutes.templates,
+            pageTitle: i18next.t("navigation.whatsappTemplates"),
+            text: i18next.t("navigation.whatsappTemplates"),
+            icon: "BrandWhatsapp",
+          }]
+        : []),
     ],
   },
   {

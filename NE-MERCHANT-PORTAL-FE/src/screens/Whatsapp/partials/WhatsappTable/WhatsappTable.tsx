@@ -13,6 +13,9 @@ import { TWhatsappState } from "../../Whatsapp.types";
 import { WhatsappContext } from "../../WhatsappProvider";
 import { GetWhatsappTemplatesInterface } from "@ejada/types/api/whatsappInterface";
 import { Loader } from "lucide-react";
+import { HTTPCookies } from "@ejada/common";
+import Cookies from "js-cookie";
+import { useWhatsappOnboardingParams } from "@ejada/context/WhatsappOnboardingContext";
 
 export const WhatsappTable = () => {
   const { t } = useTranslation();
@@ -38,12 +41,21 @@ export const WhatsappTable = () => {
     currentPage,
     isWhatsappTemplatesSuccess,
   } = useContext<TWhatsappState>(WhatsappContext as Context<TWhatsappState>);
+    const context = useWhatsappOnboardingParams();
+    const refetch = context?.refetch;
 
   useEffect(() => {
     if (itemsPerPage || currentPage) {
       refetchWhatsappTemplates?.();
     }
   }, [itemsPerPage, currentPage]);
+  
+  useEffect(() => {  
+     if (Cookies.get(HTTPCookies.tenantId) !== "") {              
+      refetch?.();
+  }
+  },[]);
+
   return (
     <>
       {isGetWhatsappTemplatesLoading ? (

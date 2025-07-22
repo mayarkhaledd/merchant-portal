@@ -1,5 +1,6 @@
 import React from "react";
 import { CheckCircle, Circle, ArrowRight } from "lucide-react";
+import { t } from "i18next";
 
 interface Step {
   id: string;
@@ -16,19 +17,16 @@ interface DesktopStepProgressProps {
 
 export function DesktopStepProgress({
   steps,
-  currentStep,
+  // currentStep,
 }: DesktopStepProgressProps) {
   return (
-    <div className="bg-[#ffffff] border-b border-[#e2e8f0]">
+    <div className="bg-[#ffffff] border-b border-[#e2e8f0] mb-4">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-[#001081] mb-2">
-            WhatsApp Integration Setup
+            {t("onboarding.setup_title")}
           </h1>
-          <p className="text-[#59595C]">
-            Connect your WhatsApp Business account to start sending
-            notifications
-          </p>
+          <p className="text-[#59595C]">{t("onboarding.headline")}</p>
         </div>
 
         <div className="relative">
@@ -36,7 +34,7 @@ export function DesktopStepProgress({
           <div className="absolute top-6 left-6 right-6 h-0.5 bg-[#e2e8f0] hidden md:block">
             <div
               className="h-full bg-[#001081] transition-all duration-500 ease-in-out"
-              style={{ width: `${(currentStep / (steps.length - 1)) * 100}%` }}
+              style={{ width: `100%` }}
             />
           </div>
 

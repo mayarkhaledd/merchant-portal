@@ -1,26 +1,50 @@
 import { useState } from "react";
 import Cookies from "js-cookie";
-import { AppRoutes } from "@ejada/navigation";
 import { useWhatsapp } from "../../useWhatsapp";
 import { getParamValue } from "../../utils";
 import { whatsappConstants } from "../../Whatsapp.constants";
 import { OnBoardingFirstStep } from "./onBoardingFirstStep";
 import { OnBoardingSecondStep } from "./onBoardingSecondStep";
-import { useWhatsappOnboardingParams } from "@ejada/context/WhatsappOnboardingContext";
-import { HTTPCookies } from "@ejada/common";
 import { OnBoardingThirdStep } from "./onBoardingThirdStep";
 import { OnBoardingLoadingStep } from "./OnBoardingLoadingStep";
 import { OnBoardingDoneStep } from "./OnBoardingDoneStep";
+import { OnBoardingErrorStep } from "./OnBoardingErrorStep";
+import { useEffect } from "react";
+import {
+  ErrorCode,
+  getLocalizedErrorMessage,
+  useErrorToast,
+} from "@ejada/screens/shared";
+import { DesktopStepProgress } from "@ejada/common/components/DesktopStepProgress";
+import { WhatsappStepperSteps } from "./WhatsappStepperSteps";
+import { t } from "i18next";
 
 export function WhatsAppSetupWizard() {
   const [currentStep, setCurrentStep] = useState(0);
-  const { setIsConnected, systemParamsData, whatsappOnboarding } =
-    useWhatsapp();
-  const context = useWhatsappOnboardingParams();
-  const refetch = context?.refetch;
-
-  const metaUrl = "https://business.facebook.com/overview";
-
+  const [hasExistingAccount, setHasExistingAccount] = useState<boolean | null>(
+    null,
+  );
+  const [setupStatus, setSetupStatus] = useState<"success" | "failed" | null>(
+    null,
+  ); // <-- Add this line
+  const {
+    setIsConnected,
+    systemParamsData,
+    whatsappOnboarding,
+    refetchSystemParamsData,
+    isWhatsappOnboardingAxiosError,
+  } = useWhatsapp();
+  useEffect(() => {
+    refetchSystemParamsData?.();
+  }, []);
+  useErrorToast(
+    isWhatsappOnboardingAxiosError ? true : false,
+    t("whatsapp.something_went_wrong"),
+    getLocalizedErrorMessage(
+      isWhatsappOnboardingAxiosError as ErrorCode,
+      t(isWhatsappOnboardingAxiosError?.message as string),
+    ),
+  );
   const startSignup = () => {
     const params = systemParamsData?.params || [];
     const appId = getParamValue(params, whatsappConstants.whatsappAppId);
@@ -30,7 +54,6 @@ export function WhatsAppSetupWizard() {
     );
     const state = getParamValue(params, whatsappConstants.whatsappState);
     const scope = getParamValue(params, whatsappConstants.whatsappScope);
-
     const url = `https://www.facebook.com/v19.0/dialog/oauth?client_id=${appId}&redirect_uri=${encodeURIComponent(
       redirectUri,
     )}&state=${state}&scope=${scope}`;
@@ -46,12 +69,19 @@ export function WhatsAppSetupWizard() {
             code,
             tenantId: Number(Cookies.get(whatsappConstants.tenantId)),
           });
+          setTimeout(() => {
+            if (isWhatsappOnboardingAxiosError === null) {
+              setSetupStatus("success");
+              setCurrentStep(4); // done
+            } else {
+              setSetupStatus("failed");
+              setCurrentStep(5); // error
+            }
+          }, 3000);
           setIsConnected(true);
-          if (Cookies.get(HTTPCookies.tenantId)) {
-            refetch?.();
-          }
           setCurrentStep(3); // loading
-          setTimeout(() => setCurrentStep(4), 3000); // done after 3s
+        } else {
+          setSetupStatus("failed");
         }
 
         window.removeEventListener("message", handleMessage);
@@ -66,8 +96,14 @@ export function WhatsAppSetupWizard() {
       case 0:
         return (
           <OnBoardingFirstStep
-            onHasAccount={() => setCurrentStep(2)}
-            onNeedsAccount={() => setCurrentStep(1)}
+            onHasAccount={() => {
+              setHasExistingAccount(true);
+              setCurrentStep(2);
+            }}
+            onNeedsAccount={() => {
+              setHasExistingAccount(false);
+              setCurrentStep(1);
+            }}
           />
         );
       case 1:
@@ -81,21 +117,29 @@ export function WhatsAppSetupWizard() {
         return (
           <OnBoardingThirdStep
             startSignup={startSignup}
-            onBack={() => setCurrentStep(1)}
+            onBack={() => setCurrentStep(hasExistingAccount ? 0 : 1)}
           />
         );
       case 3:
         return <OnBoardingLoadingStep />;
       case 4:
         return <OnBoardingDoneStep />;
+      case 5:
+        return <OnBoardingErrorStep onRetry={() => setCurrentStep(2)} />;
       default:
         return null;
     }
   };
 
+  const allSteps = WhatsappStepperSteps(
+    currentStep,
+    hasExistingAccount,
+    setupStatus,
+  );
+  // Do NOT filter out hidden steps
   return (
     <div className="mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-6">WhatsApp Business Setup</h1>
+      <DesktopStepProgress steps={allSteps} currentStep={currentStep} />
       {renderStep()}
     </div>
   );

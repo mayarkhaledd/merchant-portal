@@ -71,7 +71,7 @@ export function useOtp() {
 
       const targetRoute = AppRoutes.home;
       Cookies.set(HTTPCookies.otpValidationStatus, "Y");
-      if (Cookies.get(HTTPCookies.tenantId)) {
+      if (Cookies.get(HTTPCookies.tenantId) !== "") {
         refetch?.();
       }
       return navigate(targetRoute);
