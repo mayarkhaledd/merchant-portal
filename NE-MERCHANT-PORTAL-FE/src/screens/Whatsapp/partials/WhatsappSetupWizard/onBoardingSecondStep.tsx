@@ -4,6 +4,7 @@ import { DesktopStepCard } from "@ejada/common/components/DesktopStepProgress";
 import { ExternalLink, FileText } from "lucide-react";
 import { Tooltip } from "react-tooltip";
 import { t } from "i18next";
+import { whatsappConstants } from "../../Whatsapp.constants";
 
 export const OnBoardingSecondStep: React.FC<{
   onNext: () => void;
@@ -11,8 +12,8 @@ export const OnBoardingSecondStep: React.FC<{
 }> = ({ onNext, onBack }) => {
   const [accountCreated, setAccountCreated] = useState(false);
 
-  const metaUrl = "https://business.facebook.com/overview";
-  const pdfUrl = "/meta_business_account_instructions.pdf"; // Place PDF in public/
+  const metaUrl = whatsappConstants.metaUrl;
+  const pdfUrl = whatsappConstants.pdfUrl;
 
   const handleOpenMeta = () => {
     window.open(metaUrl, "_blank", "width=600,height=700,left=100,top=100");

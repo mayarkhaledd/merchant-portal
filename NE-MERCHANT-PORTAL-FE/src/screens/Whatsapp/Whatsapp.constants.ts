@@ -34,4 +34,6 @@ export const whatsappConstants = {
   whatsappRedirectUri: "WHATSAPP_REDIRECT_URI",
   whatsappState: "WHATSAPP_STATE",
   whatsappScope: "WHATSAPP_SCOPE",
+  pdfUrl: "/esharat/meta_business_account_instructions.pdf",
+  metaUrl: "https://business.facebook.com/overview",
 };
