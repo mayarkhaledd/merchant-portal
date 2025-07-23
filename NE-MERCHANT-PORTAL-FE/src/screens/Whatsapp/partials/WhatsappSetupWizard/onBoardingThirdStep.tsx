@@ -16,6 +16,12 @@ export const OnBoardingThirdStep: React.FC<{
       <p className="text-[#59595C]">
         {t("onboarding.connect_with_meta_info")}
       </p>
+      <p
+        className="text-[#89898f] text-sm"
+        style={{ marginTop: "10px" }}
+      >
+        {t("onboarding.language-hint")}
+      </p>
       <div className="flex justify-center">
         <Button
           onClick={startSignup}

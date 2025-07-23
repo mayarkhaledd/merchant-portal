@@ -172,6 +172,7 @@
     "error_desc": "We couldn't connect your WhatsApp Business Account. Please try again.",
     "retry": "Retry",
     "headline":"Connect your WhatsApp Business account to start sending notifications",
-    "setup_title":"WhatsApp Integration Setup"
+    "setup_title":"WhatsApp Integration Setup",
+    "language-hint":"“The page may appear in your Facebook account’s language.”" 
   }
 }

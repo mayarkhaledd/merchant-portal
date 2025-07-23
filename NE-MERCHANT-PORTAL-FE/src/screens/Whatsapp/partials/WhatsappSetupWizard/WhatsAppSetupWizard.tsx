@@ -18,6 +18,7 @@ import {
 import { DesktopStepProgress } from "@ejada/common/components/DesktopStepProgress";
 import { WhatsappStepperSteps } from "./WhatsappStepperSteps";
 import { t } from "i18next";
+import i18n from "@ejada/common/locals/i18n";
 
 export function WhatsAppSetupWizard() {
   const [currentStep, setCurrentStep] = useState(0);
@@ -27,6 +28,10 @@ export function WhatsAppSetupWizard() {
   const [setupStatus, setSetupStatus] = useState<"success" | "failed" | null>(
     null,
   );
+  const localeMap: Record<string, string> = {
+      en: whatsappConstants.en_US,
+      ar: whatsappConstants.ar_AR,
+    };
   const {
     setIsConnected,
     systemParamsData,
@@ -59,16 +64,20 @@ export function WhatsAppSetupWizard() {
   const startSignup = () => {
     const params = systemParamsData?.params || [];
     const appId = getParamValue(params, whatsappConstants.whatsappAppId);
-    const redirectUri = getParamValue(
-      params,
-      whatsappConstants.whatsappRedirectUri,
-    );
+    const redirectUri = "http://localhost:5173/whatsapp/whatsapp-signup-callback";
+    //  getParamValue(params, whatsappConstants.whatsappRedirectUri);
+
     const state = getParamValue(params, whatsappConstants.whatsappState);
     const scope = getParamValue(params, whatsappConstants.whatsappScope);
+
+    // Get current language and map it to Facebook locale
+    const currentLang = i18n.language; 
+  
+    const fbLocale = localeMap[currentLang] || whatsappConstants.en_US;
+
     const url = `https://www.facebook.com/v19.0/dialog/oauth?client_id=${appId}&redirect_uri=${encodeURIComponent(
       redirectUri,
-    )}&state=${state}&scope=${scope}`;
-
+    )}&state=${state}&scope=${scope}&locale=${fbLocale}`;
     window.open(url, "_blank", "width=600,height=700,left=100,top=100");
 
     const handleMessage = (event: MessageEvent) => {

@@ -29,6 +29,7 @@ export const whatsappConstants = {
   ar: "ar",
   en_US: "en_US",
   en_GB: "en_GB",
+  ar_AR:"ar_AR",
   whatsappAppId: "WHATSAPP_APP_ID",
   whatsappRedirectUri: "WHATSAPP_REDIRECT_URI",
   whatsappState: "WHATSAPP_STATE",

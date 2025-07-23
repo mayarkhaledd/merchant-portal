@@ -29,7 +29,7 @@ export const LoginForm = () => {
 
   return (
     <BackdropWithLogo>
-      <div className="flex flex-col items-center justify-center">
+     <div className="flex flex-col items-center justify-center pt-[80px]">
         <div>
           <div className="text-primary-blue">
             <span className=" font-readexProSemiBold600 text-5xl">
