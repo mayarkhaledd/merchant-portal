@@ -26,7 +26,7 @@ export function WhatsAppSetupWizard() {
   );
   const [setupStatus, setSetupStatus] = useState<"success" | "failed" | null>(
     null,
-  ); // <-- Add this line
+  );
   const {
     setIsConnected,
     systemParamsData,
@@ -37,6 +37,7 @@ export function WhatsAppSetupWizard() {
   useEffect(() => {
     refetchSystemParamsData?.();
   }, []);
+
   useErrorToast(
     isWhatsappOnboardingAxiosError ? true : false,
     t("whatsapp.something_went_wrong"),
@@ -45,6 +46,16 @@ export function WhatsAppSetupWizard() {
       t(isWhatsappOnboardingAxiosError?.message as string),
     ),
   );
+
+  useEffect(() => {
+    if (currentStep === 3) {
+      if (isWhatsappOnboardingAxiosError) {
+        setSetupStatus("failed");
+        setCurrentStep(5); // error
+      }
+    }
+  }, [isWhatsappOnboardingAxiosError, currentStep]);
+
   const startSignup = () => {
     const params = systemParamsData?.params || [];
     const appId = getParamValue(params, whatsappConstants.whatsappAppId);
@@ -69,17 +80,17 @@ export function WhatsAppSetupWizard() {
             code,
             tenantId: Number(Cookies.get(whatsappConstants.tenantId)),
           });
+
+          setIsConnected(true);
+          setCurrentStep(3);
+
           setTimeout(() => {
-            if (isWhatsappOnboardingAxiosError === null) {
+            if (currentStep === 3) {
+              // Still in loading state (no error occurred)
               setSetupStatus("success");
-              setCurrentStep(4); // done
-            } else {
-              setSetupStatus("failed");
-              setCurrentStep(5); // error
+              setCurrentStep(4);
             }
           }, 3000);
-          setIsConnected(true);
-          setCurrentStep(3); // loading
         } else {
           setSetupStatus("failed");
         }
