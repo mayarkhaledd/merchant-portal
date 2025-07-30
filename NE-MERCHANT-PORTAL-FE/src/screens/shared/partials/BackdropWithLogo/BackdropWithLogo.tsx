@@ -34,7 +34,7 @@ export const BackdropWithLogo = ({ children }: PropsWithChildren) => {
               className="absolute inset-0 flex flex-col justify-center space-y-4 w-[517px]"
               style={{
                 paddingTop: "100px",
-                ...(isRtl ? { paddingRight: "40px" } : { paddingLeft: "40px" }),
+                ...(isRtl ? { paddingRight: "25px" } : { paddingLeft: "25px" }),
               }}
             >
               <img

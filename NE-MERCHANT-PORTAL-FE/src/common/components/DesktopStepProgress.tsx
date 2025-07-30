@@ -1,6 +1,8 @@
 import React from "react";
 import { CheckCircle, Circle, ArrowRight } from "lucide-react";
 import { t } from "i18next";
+import Cookies from "js-cookie";
+import { HTTPCookies } from "@ejada/common";
 
 interface Step {
   id: string;
@@ -13,10 +15,12 @@ interface Step {
 interface DesktopStepProgressProps {
   steps: Step[];
   currentStep: number;
+  isChecked?: boolean;
 }
 
 export function DesktopStepProgress({
   steps,
+  isChecked,
   // currentStep,
 }: DesktopStepProgressProps) {
   return (
@@ -45,7 +49,7 @@ export function DesktopStepProgress({
                 <div className="flex items-start space-x-4 md:flex-col md:items-center md:space-x-0 md:space-y-4">
                   {/* Step icon */}
                   <div className="relative z-10 flex-shrink-0">
-                    {step.completed ? (
+                    {step.completed || (Cookies.get(HTTPCookies.showWhatsappTemplatesMenu) === "true" && isChecked) ? (
                       <div className="w-12 h-12 bg-[#001081] rounded-full flex items-center justify-center">
                         <CheckCircle className="w-6 h-6 text-white" />
                       </div>

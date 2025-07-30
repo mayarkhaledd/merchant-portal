@@ -26,6 +26,7 @@ export function WhatsAppSetupWizard() {
   const [hasExistingAccount, setHasExistingAccount] = useState<boolean | null>(
     null,
   );
+  const [isChecked, setIsChecked] = useState<boolean |null >(true);
   const [setupStatus, setSetupStatus] = useState<"success" | "failed" | null>(
     null,
   );
@@ -39,6 +40,7 @@ export function WhatsAppSetupWizard() {
     whatsappOnboarding,
     refetchSystemParamsData,
     isWhatsappOnboardingAxiosError,
+    isWhatsappOnboardingSuccess,
   } = useWhatsapp();
   useEffect(() => {
     refetchSystemParamsData?.();
@@ -54,16 +56,17 @@ export function WhatsAppSetupWizard() {
   );
 
   useEffect(() => {
+    console.log(isWhatsappOnboardingSuccess)
     if (currentStep === 3) {
       if (isWhatsappOnboardingAxiosError) {
         setSetupStatus("failed");
         setCurrentStep(5); // error
-      } else {
+      } else if (isWhatsappOnboardingSuccess) {
         setSetupStatus("success");
         setCurrentStep(4); // done
       }
     }
-  }, [isWhatsappOnboardingAxiosError, currentStep]);
+  }, [isWhatsappOnboardingAxiosError, currentStep,isWhatsappOnboardingSuccess]);
 
   const startSignup = () => {
     const params = systemParamsData?.params || [];
@@ -99,13 +102,8 @@ export function WhatsAppSetupWizard() {
           setIsConnected(true);
           setCurrentStep(3);
 
-          // setTimeout(() => {
-          //   if (currentStep === 3) {
-          //     // Still in loading state (no error occurred)
-          //     setSetupStatus("success");
-          //     setCurrentStep(4);
-          //   }
-          // }, 3000);
+          setTimeout(() => {
+          }, 4000);
         } else {
           setSetupStatus("failed");
         }
@@ -125,10 +123,12 @@ export function WhatsAppSetupWizard() {
             onHasAccount={() => {
               setHasExistingAccount(true);
               setCurrentStep(2);
+              setIsChecked(false);
             }}
             onNeedsAccount={() => {
               setHasExistingAccount(false);
               setCurrentStep(1);
+              setIsChecked(false);
             }}
             alreadyOnboarded={
               Cookies.get(HTTPCookies.showWhatsappTemplatesMenu) === "true" ||
@@ -169,7 +169,7 @@ export function WhatsAppSetupWizard() {
   // Do NOT filter out hidden steps
   return (
     <div className="mx-auto p-4">
-      <DesktopStepProgress steps={allSteps} currentStep={currentStep} />
+      <DesktopStepProgress steps={allSteps} currentStep={currentStep} isChecked={isChecked as boolean}/>
       {renderStep()}
     </div>
   );

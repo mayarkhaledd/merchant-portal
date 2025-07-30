@@ -16,7 +16,7 @@ export const FormContainer = () => {
   } = useOtp();
 
   return (
-    <div>
+    <div className="pt-[90px]">
       {navigateTo() || null}
       <div>
         <p className="text-primary-blue font-readexProBold600 font-semibold text-[48px] leading-[60px] tracking-[-0.02em]">
