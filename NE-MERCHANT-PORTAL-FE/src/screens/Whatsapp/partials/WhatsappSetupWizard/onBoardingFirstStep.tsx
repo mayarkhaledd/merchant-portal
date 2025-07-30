@@ -8,12 +8,27 @@ import { t } from "i18next";
 export const OnBoardingFirstStep: React.FC<{
   onHasAccount: () => void;
   onNeedsAccount: () => void;
-}> = ({ onHasAccount, onNeedsAccount }) => {
+  alreadyOnboarded?: boolean;
+}> = ({ onHasAccount, onNeedsAccount, alreadyOnboarded }) => {
   return (
     <DesktopStepCard
       title={t("onboarding.account_verification_title")}
       description={t("onboarding.account_verification_desc")}
     >
+      {alreadyOnboarded && (
+        <div>
+          <Card className="cursor-pointer border-2 group mb-4">
+            <CardContent className="p-8 text-center space-y-6">
+              <h3 className="text-xl font-semibold text-[#001081] mb-2">
+                {t("onboarding.onboarded_title")}
+              </h3>
+              <p className="text-[#59595C] text-sm">
+                {t("onboarding.onboarded_desc")}
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+      )}
       <div className="space-y-8">
         <div className="grid md:grid-cols-2 gap-6">
           <Card

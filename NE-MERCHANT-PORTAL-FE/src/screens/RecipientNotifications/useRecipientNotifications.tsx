@@ -17,6 +17,7 @@ import { TTableColumns, Notification } from "eds-react";
 import { toast } from "react-toastify";
 import i18n from "@ejada/common/locals/i18n";
 import { WhatsappTemplate } from "@ejada/types/api/whatsappInterface";
+import { useWhatsappOnboardingParams } from "@ejada/context/WhatsappOnboardingContext";
 
 export function useRecipientNotifications() {
   const [isCreateAdhocMessageOpen, setIsCreateAdhocMessageOpen] =
@@ -38,6 +39,8 @@ export function useRecipientNotifications() {
   const [EventsManagementData, setEventsManagementData] = useState<
     TTableColumns[]
   >([]);
+  const context = useWhatsappOnboardingParams();
+  const refetch = context?.refetch;
   const [eventParameters, setEventParameters] = useState<
     NotificationEventParameter[]
   >([]);
@@ -154,7 +157,6 @@ export function useRecipientNotifications() {
     },
     false,
   );
-
   useEffect(() => {
     if (selectedWhatsappTemplateId) {
       refetchTemplateById?.();
@@ -208,6 +210,12 @@ export function useRecipientNotifications() {
   }, []);
 
   useEffect(() => {
+    if (Cookies.get("tenantId") !== "") {
+      refetch?.();
+    }
+  }, []);
+
+  useEffect(() => {
     if (allWhatsappTemplatesData && isRefetchDataSuccessWhatsapp) {
       const whatsappTemplatesList = formatToSelectKeyNode(
         allWhatsappTemplatesData.templates,
@@ -217,7 +225,6 @@ export function useRecipientNotifications() {
       setWhatsappTemplatesList(whatsappTemplatesList);
     }
   }, [allWhatsappTemplatesData]);
-
   const getWhatsappTemplateDetails = (
     templateId: string,
   ): WhatsappTemplate | null => {

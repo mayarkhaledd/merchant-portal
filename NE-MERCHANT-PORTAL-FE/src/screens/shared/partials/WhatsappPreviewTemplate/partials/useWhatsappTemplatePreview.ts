@@ -8,6 +8,7 @@ export const useWhatsappTemplatePreview = (template: WhatsappTemplate) => {
   const components = sliceTemplateComponents(template);
   const headerParams = extractParams(components.header?.text || "");
   const bodyParams = extractParams(components.body?.text || "");
+  const category = template.category || "";
 
-  return { components, headerParams, bodyParams };
+  return { components, headerParams, bodyParams, category };
 };

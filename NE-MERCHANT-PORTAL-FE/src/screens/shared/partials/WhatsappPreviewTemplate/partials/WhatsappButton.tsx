@@ -8,7 +8,7 @@ import {
 export const WhatsappButton: React.FC<{ button: Btn }> = ({ button }) => {
   if (!button?.text) return null;
   const cls = getButtonStyles(button.buttonType);
-  const { text, subtitle } = getButtonContent(button);
+  const { text } = getButtonContent(button);
 
   return (
     <button
@@ -16,14 +16,14 @@ export const WhatsappButton: React.FC<{ button: Btn }> = ({ button }) => {
       onClick={(e) => e.preventDefault()}
       type="button"
     >
-      <div className="flex items-center gap-2 justify-between w-full px-4 break-all">
+      <div className="flex items-center gap-2 justify-center w-full px-4 break-all">
         <span className="text-sm">{text}</span>
       </div>
-      {subtitle && (
+      {/* {subtitle && (
         <div className="text-xs text-gray-500 mt-1 px-4 break-all">
           {subtitle}
         </div>
-      )}
+      )} */}
     </button>
   );
 };

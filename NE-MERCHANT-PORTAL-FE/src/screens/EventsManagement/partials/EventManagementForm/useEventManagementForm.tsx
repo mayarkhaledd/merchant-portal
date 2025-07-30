@@ -17,6 +17,8 @@ import {
 import { useQueryClient } from "@tanstack/react-query";
 import { QueryCosntant } from "@ejada/common/constants";
 import { EventManagementInitialValues } from "@ejada/screens/EventsManagement/partials/EventManagementForm/types";
+import { useWhatsappOnboardingParams } from "@ejada/context/WhatsappOnboardingContext";
+import Cookies from "js-cookie";
 
 export const useEventManagementForm = (
   mode: "add" | "edit" | "view",
@@ -70,12 +72,20 @@ export const useEventManagementForm = (
       ...initialValues,
     },
   });
+  const context = useWhatsappOnboardingParams();
+  const refetch = context?.refetch;
 
   useEffect(() => {
     if (createEventSuccess && createEventData) {
       setViewEventId(createEventData?.data.eventId as string);
     }
   }, [createEventData, createEventSuccess]);
+
+  useEffect(() => {
+    if (Cookies.get("tenantId") !== "") {
+      refetch?.();
+    }
+  }, []);
 
   const resetAll = () => {
     setChannelsTableDataEditMode([]);

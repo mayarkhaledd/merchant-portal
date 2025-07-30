@@ -55,7 +55,7 @@ export const PreviewSection: React.FC<PreviewSectionProps> = ({
               {footer && (
                 <div className="text-base text-gray-600 mt-2">{footer}</div>
               )}
-              <div className="mt-2 space-y-2">
+              <div className="mt-2 space-y-2 justify-center">
                 {buttons.map((button, index) => (
                   <div key={index}>{renderButton(button, index)}</div>
                 ))}

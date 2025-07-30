@@ -56,6 +56,8 @@ export function useOtp() {
     if (data) {
       if (data.header?.status.code === "I000000" && data.status === 200) {
         setErrorCode("");
+        Cookies.set(HTTPCookies.showWhatsappTemplatesMenu, "true");
+        window.location.reload();
         navigate(AppRoutes.dashboard);
       }
       if (data.header?.status.code !== "I000000" && data.status !== 200) {

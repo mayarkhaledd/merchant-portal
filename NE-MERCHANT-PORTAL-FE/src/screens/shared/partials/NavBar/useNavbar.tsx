@@ -182,6 +182,7 @@ export const useNavbar = () => {
     Cookies.remove(HTTPCookies.appTypes);
     Cookies.remove(HTTPCookies.otpVerified);
     Cookies.remove(HTTPCookies.otpValidationStatus);
+    Cookies.remove(HTTPCookies.showWhatsappTemplatesMenu);
 
     navigate(AppRoutes.login);
   };

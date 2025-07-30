@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 import { ReactNode } from "react";
 import { GetWhatsappOnboardingInterface } from "@ejada/types/api/whatsappInterface";
 import { WhatsappOnboardingContextType } from "./WhatsappOnboardingContext.types";
+import { HTTPCookies } from "@ejada/common";
 
 const WhatsappOnboardingContext = createContext<
   WhatsappOnboardingContextType | undefined
@@ -30,6 +31,14 @@ export const WhatsappOnboardingProvider = ({
   useEffect(() => {
     if (isSuccess && whatsappOnboardingData) {
       setOnboardingParams(whatsappOnboardingData);
+      if (
+        whatsappOnboardingData.onboardingMetaAuth.metaBusinessAccounts.length >
+        0
+      ) {
+        Cookies.set(HTTPCookies.showWhatsappTemplatesMenu, "true");
+      } else {
+        Cookies.set(HTTPCookies.showWhatsappTemplatesMenu, "false");
+      }
     }
   }, [isSuccess, whatsappOnboardingData]);
 

@@ -65,6 +65,7 @@ export function useSessionExpired() {
     Cookies.remove(HTTPCookies.token);
     Cookies.remove(HTTPCookies.refreshToken);
     Cookies.remove(HTTPCookies.appTypeId);
+    Cookies.remove(HTTPCookies.showWhatsappTemplatesMenu);
     navigate(AppRoutes.login);
   };
 

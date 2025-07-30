@@ -401,7 +401,7 @@ export const renderButton = (button: ButtonType, index: number) => {
           onClick={(e) => e.preventDefault()}
           type="button"
         >
-          <div className="flex items-center gap-2 justify-between w-full px-4 break-all">
+          <div className="flex items-center gap-2 justify-center w-full px-4 break-all">
             <span className="text-sm">{button.text}</span>
           </div>
           {/* {button.url && (

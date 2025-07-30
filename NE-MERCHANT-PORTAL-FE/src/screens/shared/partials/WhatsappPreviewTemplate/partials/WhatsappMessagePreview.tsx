@@ -5,6 +5,7 @@ import {
   replaceBodyParams,
 } from "./whatsappTemplateUtils";
 import { WhatsappButton } from "./WhatsappButton";
+import { t } from "i18next";
 
 interface Props {
   headerText?: string;
@@ -13,6 +14,9 @@ interface Props {
   buttons?: Btn[];
   headerVarArray: string[];
   bodyVarArray: string[];
+  expiryMinutes?: number;
+  securityEnabled?: boolean;
+  category?: string;
 }
 
 export const WhatsappMessagePreview: React.FC<Props> = ({
@@ -22,6 +26,9 @@ export const WhatsappMessagePreview: React.FC<Props> = ({
   buttons,
   headerVarArray,
   bodyVarArray,
+  securityEnabled,
+  expiryMinutes,
+  category,
 }) => (
   <div className="bg-white rounded-lg shadow-lg p-3 max-w-[220px] mx-auto mt-3">
     <div className="text-xs text-gray-500 mb-2">
@@ -42,10 +49,25 @@ export const WhatsappMessagePreview: React.FC<Props> = ({
       </div>
     )}
 
+    {category === "AUTHENTICATION" && (
+      <strong className="block mb-4 text-m">{t("whatsapp.code_header")}</strong>
+    )}
+    {securityEnabled && (
+      <div className="bg-green-100 p-2 rounded-lg mb-2 break-all text-sm">
+        {t("whatsapp.security_section_text")}
+      </div>
+    )}
     {footerText && (
       <div className="text-xs text-gray-600 mt-2 break-all">{footerText}</div>
     )}
-
+    {expiryMinutes !== undefined && (
+      <div className="bg-green-100 p-2 rounded-lg mb-2 break-all text-sm">
+        {t("whatsapp.expiry_section_text").replace(
+          "{{0}}",
+          expiryMinutes.toString(),
+        )}
+      </div>
+    )}
     {buttons?.length ? (
       <div className="mt-2 space-y-1">
         {buttons.map((b) => (

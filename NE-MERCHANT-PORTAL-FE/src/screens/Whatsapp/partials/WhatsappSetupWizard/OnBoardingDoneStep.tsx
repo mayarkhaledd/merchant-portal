@@ -4,6 +4,8 @@ import { Button } from "@ejada/common/components/ui/button";
 import { AppRoutes } from "@ejada/navigation";
 import { useNavigate } from "react-router-dom";
 import { t } from "i18next";
+import Cookies from "js-cookie";
+import { HTTPCookies } from "@ejada/common";
 
 export const OnBoardingDoneStep = () => {
   const navigate = useNavigate();
@@ -17,7 +19,7 @@ export const OnBoardingDoneStep = () => {
         <p className="text-[#166534]">{t("onboarding.done_desc")}</p>
         <Button
           onClick={() => {
-            localStorage.setItem("showWhatsappTemplatesMenu", "true");
+            Cookies.set(HTTPCookies.showWhatsappTemplatesMenu, "true");
             navigate(`/${AppRoutes.templates}`, { replace: true });
             window.location.reload();
           }}

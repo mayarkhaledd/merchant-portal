@@ -34,6 +34,7 @@ export function adaptGetWhatsappTemplates(
         mediaUrl: component.mediaUrl,
         mediaCaption: component.mediaCaption,
         addSecurityRecommendation: component.addSecurityRecommendation,
+        codeExpirationMinutes: component.codeExpirationMinutes,
         parameters: component.parameters.map((parameter) => ({
           type: parameter.type,
           name: parameter.name,

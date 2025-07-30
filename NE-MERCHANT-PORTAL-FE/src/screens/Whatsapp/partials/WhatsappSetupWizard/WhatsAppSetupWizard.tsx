@@ -19,6 +19,7 @@ import { DesktopStepProgress } from "@ejada/common/components/DesktopStepProgres
 import { WhatsappStepperSteps } from "./WhatsappStepperSteps";
 import { t } from "i18next";
 import i18n from "@ejada/common/locals/i18n";
+import { HTTPCookies } from "@ejada/common";
 
 export function WhatsAppSetupWizard() {
   const [currentStep, setCurrentStep] = useState(0);
@@ -29,9 +30,9 @@ export function WhatsAppSetupWizard() {
     null,
   );
   const localeMap: Record<string, string> = {
-      en: whatsappConstants.en_US,
-      ar: whatsappConstants.ar_AR,
-    };
+    en: whatsappConstants.en_US,
+    ar: whatsappConstants.ar_AR,
+  };
   const {
     setIsConnected,
     systemParamsData,
@@ -57,6 +58,9 @@ export function WhatsAppSetupWizard() {
       if (isWhatsappOnboardingAxiosError) {
         setSetupStatus("failed");
         setCurrentStep(5); // error
+      } else {
+        setSetupStatus("success");
+        setCurrentStep(4); // done
       }
     }
   }, [isWhatsappOnboardingAxiosError, currentStep]);
@@ -64,15 +68,17 @@ export function WhatsAppSetupWizard() {
   const startSignup = () => {
     const params = systemParamsData?.params || [];
     const appId = getParamValue(params, whatsappConstants.whatsappAppId);
-    const redirectUri = "http://localhost:5173/whatsapp/whatsapp-signup-callback";
-    //  getParamValue(params, whatsappConstants.whatsappRedirectUri);
+    const redirectUri = getParamValue(
+      params,
+      whatsappConstants.whatsappRedirectUri,
+    );
 
     const state = getParamValue(params, whatsappConstants.whatsappState);
     const scope = getParamValue(params, whatsappConstants.whatsappScope);
 
     // Get current language and map it to Facebook locale
-    const currentLang = i18n.language; 
-  
+    const currentLang = i18n.language;
+
     const fbLocale = localeMap[currentLang] || whatsappConstants.en_US;
 
     const url = `https://www.facebook.com/v19.0/dialog/oauth?client_id=${appId}&redirect_uri=${encodeURIComponent(
@@ -93,13 +99,13 @@ export function WhatsAppSetupWizard() {
           setIsConnected(true);
           setCurrentStep(3);
 
-          setTimeout(() => {
-            if (currentStep === 3) {
-              // Still in loading state (no error occurred)
-              setSetupStatus("success");
-              setCurrentStep(4);
-            }
-          }, 3000);
+          // setTimeout(() => {
+          //   if (currentStep === 3) {
+          //     // Still in loading state (no error occurred)
+          //     setSetupStatus("success");
+          //     setCurrentStep(4);
+          //   }
+          // }, 3000);
         } else {
           setSetupStatus("failed");
         }
@@ -124,6 +130,10 @@ export function WhatsAppSetupWizard() {
               setHasExistingAccount(false);
               setCurrentStep(1);
             }}
+            alreadyOnboarded={
+              Cookies.get(HTTPCookies.showWhatsappTemplatesMenu) === "true" ||
+              false
+            }
           />
         );
       case 1:

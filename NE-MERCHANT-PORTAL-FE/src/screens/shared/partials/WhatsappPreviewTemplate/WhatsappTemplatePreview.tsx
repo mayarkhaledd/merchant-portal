@@ -14,7 +14,7 @@ const WhatsappTemplatePreviewWithForm: React.FC<{
   control: Control<CreateEventMessageValues, any>;
   setValue: UseFormSetValue<CreateEventMessageValues>;
 }> = ({ template, control, setValue }) => {
-  const { components, headerParams, bodyParams } =
+  const { components, headerParams, bodyParams, category } =
     useWhatsappTemplatePreview(template);
 
   const { headerVarArray, bodyVarArray } = useWhatsappTemplateForm(
@@ -41,8 +41,11 @@ const WhatsappTemplatePreviewWithForm: React.FC<{
           bodyText={components.body?.text}
           footerText={components.footer?.text}
           buttons={components.buttons?.buttons}
+          securityEnabled={components.body?.addSecurityRecommendation}
+          expiryMinutes={Number(components.footer?.codeExpirationMinutes)}
           headerVarArray={headerVarArray}
           bodyVarArray={bodyVarArray}
+          category={category}
         />
       </PhoneFrame>
     </div>
@@ -52,7 +55,7 @@ const WhatsappTemplatePreviewWithForm: React.FC<{
 const WhatsappTemplatePreviewOnly: React.FC<{
   template: WhatsappTemplate;
 }> = ({ template }) => {
-  const { components, headerParams, bodyParams } =
+  const { components, headerParams, bodyParams, category } =
     useWhatsappTemplatePreview(template);
 
   const headerVarArray = new Array(headerParams.length).fill("");
@@ -68,6 +71,9 @@ const WhatsappTemplatePreviewOnly: React.FC<{
           buttons={components.buttons?.buttons}
           headerVarArray={headerVarArray}
           bodyVarArray={bodyVarArray}
+          securityEnabled={components.body?.addSecurityRecommendation}
+          expiryMinutes={Number(components.footer?.codeExpirationMinutes)}
+          category={category}
         />
       </PhoneFrame>
     </div>

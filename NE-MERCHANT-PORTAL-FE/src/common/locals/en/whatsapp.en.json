@@ -171,8 +171,10 @@
     "error_title": "Something Went Wrong",
     "error_desc": "We couldn't connect your WhatsApp Business Account. Please try again.",
     "retry": "Retry",
-    "headline":"Connect your WhatsApp Business account to start sending notifications",
-    "setup_title":"WhatsApp Integration Setup",
-    "language-hint":"“The page may appear in your Facebook account’s language.”" 
+    "headline": "Connect your WhatsApp Business account to start sending notifications",
+    "language-hint": "“The page may appear in your Facebook account’s language.”",
+    "setup_title": "WhatsApp Integration Setup",
+    "onboarded_title": "Your Buiness Account is already Connected",
+    "onboarded_desc": " You can add or remove meta business and whatsapp accounts"
   }
 }

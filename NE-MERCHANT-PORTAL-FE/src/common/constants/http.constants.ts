@@ -13,4 +13,5 @@ export const HTTPCookies = {
   tenantName: "tenantName",
   otpReferenece: "otpReference",
   refreshToken: "refreshToken",
+  showWhatsappTemplatesMenu: "showWhatsappTemplatesMenu",
 };
