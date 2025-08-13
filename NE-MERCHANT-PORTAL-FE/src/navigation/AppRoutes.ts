@@ -26,4 +26,5 @@ export const AppRoutes = {
   editWhatsappTemplateId: "edit/:templateId",
   viewWhatsappTemplate: "view",
   viewWhatsappTemplateId: "view/:templateId",
+  email: "/email",
 };

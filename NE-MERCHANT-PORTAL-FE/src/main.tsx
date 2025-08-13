@@ -12,7 +12,8 @@ import "../node_modules/eds-react/src/common/components/PhoneInputField/PhoneInp
 import "../node_modules/eds-react/src/common/components/PhoneInputField/Components/CustomCountrySelect/CustomCountrySelect.css";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorFallback, AppLayoutWrapper } from "@ejada/common/wrappers";
-import { WhatsappOnboardingProvider } from "./context/WhatsappOnboardingContext"; // adjust path if needed
+import { WhatsappOnboardingProvider } from "./context/WhatsappOnboardingContext";
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {

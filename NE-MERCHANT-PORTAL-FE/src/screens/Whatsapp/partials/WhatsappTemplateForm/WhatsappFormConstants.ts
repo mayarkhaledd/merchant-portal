@@ -28,7 +28,5 @@ export const UtilityDropDown = [
 ];
 export const WhatsappLanguage = [
   { key: "en", node: t("whatsapp.english") },
-  { key: "en_US", node: t("whatsapp.english_us") },
-  { key: "en_GB", node: t("whatsapp.english_uk") },
   { key: "ar", node: t("whatsapp.arabic") },
 ];

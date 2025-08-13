@@ -1,10 +1,9 @@
-import { LayoutWithSidebar } from "@ejada/common";
-import { SideBarNavigation } from "@ejada/navigation";
+import { DashboardProvider } from "./DashboardProvider";
 
 export function Dashboard() {
   return (
-    <div className="flex">
-      <LayoutWithSidebar items={SideBarNavigation} />
-    </div>
+    <DashboardProvider>
+      <div></div>
+    </DashboardProvider>
   );
 }

@@ -60,7 +60,7 @@ export const WhatsappMessagePreview: React.FC<Props> = ({
     {footerText && (
       <div className="text-xs text-gray-600 mt-2 break-all">{footerText}</div>
     )}
-    {expiryMinutes !== undefined && (
+    {expiryMinutes !== undefined && category === "AUTHENTICATION" && (
       <div className="bg-green-100 p-2 rounded-lg mb-2 break-all text-sm">
         {t("whatsapp.expiry_section_text").replace(
           "{{0}}",

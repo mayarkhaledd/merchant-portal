@@ -9,13 +9,13 @@ export const OnBoardingFirstStep: React.FC<{
   onHasAccount: () => void;
   onNeedsAccount: () => void;
   alreadyOnboarded?: boolean;
-}> = ({ onHasAccount, onNeedsAccount, alreadyOnboarded }) => {
+}> = ({ onHasAccount, onNeedsAccount }) => {
   return (
     <DesktopStepCard
       title={t("onboarding.account_verification_title")}
       description={t("onboarding.account_verification_desc")}
     >
-      {alreadyOnboarded && (
+      {/* {alreadyOnboarded && (
         <div>
           <Card className="cursor-pointer border-2 group mb-4">
             <CardContent className="p-8 text-center space-y-6">
@@ -28,7 +28,7 @@ export const OnBoardingFirstStep: React.FC<{
             </CardContent>
           </Card>
         </div>
-      )}
+      )} */}
       <div className="space-y-8">
         <div className="grid md:grid-cols-2 gap-6">
           <Card

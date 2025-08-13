@@ -4,11 +4,11 @@ import {
   ForgotPassword,
   Login,
   SetNewPassword,
+  EventsManagement,
 } from "@ejada/screens";
 import { createBrowserRouter } from "react-router-dom";
 import { LayoutWithSidebar, ProtectedRoute } from "@ejada/common/wrappers";
 import { EventGroupManagement } from "@ejada/screens/EventGroupManagement";
-import { EventsManagement } from "@ejada/screens";
 
 import { AppRoutes } from "./AppRoutes";
 import { BulkNotificationsManagement } from "@ejada/screens/BulkNotifications";
@@ -25,17 +25,22 @@ import {
   Whatsapp,
   WhatsappRedirect,
   WhatsappSignupCallback,
-} from "@ejada/screens/Whatsapp";
-import {
   WhatsappTemplateForm,
   WhatsAppSetupWizard,
 } from "@ejada/screens/Whatsapp";
+import EmailBuilder from "@ejada/screens/EmailBuilder/EmailBuilder";
+import { Home } from "@ejada/screens/home/Home";
+
 export const AppRouter = createBrowserRouter(
   [
     {
       path: "/",
-      element: <ProtectedRoute component={Dashboard} />,
+      element: <ProtectedRoute component={Home} />,
       children: [
+        {
+          path: AppRoutes.dashboard,
+          element: <Dashboard />,
+        },
         {
           path: AppRoutes.eventManagement,
           element: <EventsManagement />,
@@ -80,6 +85,10 @@ export const AppRouter = createBrowserRouter(
         {
           path: AppRoutes.settings,
           element: <Settings />,
+        },
+        {
+          path: AppRoutes.email,
+          element: <EmailBuilder />,
         },
         {
           path: AppRoutes.whatsapp,

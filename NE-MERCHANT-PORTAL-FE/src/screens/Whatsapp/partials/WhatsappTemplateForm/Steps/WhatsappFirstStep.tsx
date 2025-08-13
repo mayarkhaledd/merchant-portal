@@ -1,4 +1,9 @@
-import { IconAlertCircleFilled, IconInfoCircle } from "@tabler/icons-react";
+import {
+  IconAlertCircleFilled,
+  IconBell,
+  IconDeviceMobileCheck,
+  IconSpeakerphone,
+} from "@tabler/icons-react";
 import React, { Context, useContext } from "react";
 import { Controller } from "react-hook-form";
 import { Button, colors, InputField, Select } from "eds-react";
@@ -137,19 +142,19 @@ export const WhatsappFirstStep: React.FC<WhatsappFormProps> = ({
             rules={validationRules.required}
             render={({ field }) => (
               <>
-                <div className="w-full">
+                <div className="w-full h-[8rem]">
                   <Button
                     className={
                       categoryType !== "MARKETING"
-                        ? " "
-                        : " !bg-[#aba7a7] !text-black"
+                        ? " w-full h-full"
+                        : " !bg-[#aba7a7] !text-black w-full h-full"
                     }
                     buttonVariant={
                       drawerMode === "add" && templateType !== "Marketing"
                         ? "outlined"
                         : "secondary"
                     }
-                    icon={<IconInfoCircle />}
+                    icon={<IconSpeakerphone />}
                     onClick={() => {
                       setTemplateType("Marketing");
                       field.onChange("Marketing");
@@ -164,15 +169,15 @@ export const WhatsappFirstStep: React.FC<WhatsappFormProps> = ({
                     type="withIcon"
                   />
                 </div>
-                <div className="w-full">
+                <div className="w-full h-[8rem]">
                   <Button
                     className={
                       categoryType !== "UTILITY"
-                        ? " "
-                        : " !bg-[#aba7a7] !text-black"
+                        ? " w-full h-full"
+                        : " !bg-[#aba7a7] !text-black w-full h-full"
                     }
                     buttonVariant={`${templateType !== "Utility" ? "outlined" : "secondary"}`}
-                    icon={<IconInfoCircle />}
+                    icon={<IconBell />}
                     onClick={() => {
                       setTemplateType("Utility");
                       field.onChange("Utility");
@@ -187,15 +192,15 @@ export const WhatsappFirstStep: React.FC<WhatsappFormProps> = ({
                     type="withIcon"
                   />
                 </div>
-                <div className="w-full">
+                <div className="w-full h-[8rem]">
                   <Button
                     className={
                       categoryType !== "AUTHENTICATION"
-                        ? " "
-                        : " !bg-[#aba7a7] !text-black"
+                        ? " w-full h-full"
+                        : " !bg-[#aba7a7] !text-black w-full h-full"
                     }
                     buttonVariant={`${templateType !== "Authentication" ? "outlined" : "secondary"}`}
-                    icon={<IconInfoCircle />}
+                    icon={<IconDeviceMobileCheck />}
                     onClick={() => {
                       setTemplateType("Authentication");
                       field.onChange("Authentication");

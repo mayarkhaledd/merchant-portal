@@ -82,6 +82,12 @@ export const SideBarNavigation: MenuItem[] = [
     ],
   },
   {
+    url: AppRoutes.email,
+    pageTitle: i18next.t("navigation.email"),
+    text: i18next.t("navigation.email"),
+    icon: "Mail",
+  },
+  {
     url: AppRoutes.settings,
     pageTitle: i18next.t("navigation.settings"),
     text: i18next.t("navigation.settings"),
