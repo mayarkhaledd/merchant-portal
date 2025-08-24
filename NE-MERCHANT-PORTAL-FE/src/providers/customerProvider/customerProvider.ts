@@ -21,7 +21,7 @@ import {
   GetCustomersPayload,
   GetCustomersResponse,
 } from "@ejada/types/api/customerManagementInterface";
-import { QueryCosntant } from "@ejada/common";
+import { QueryConstant } from "@ejada/common";
 import { useCustomMutation } from "../useCustomMutation";
 
 export function useGetCustomers(data: GetCustomersPayload, enabled?: boolean) {
@@ -30,7 +30,7 @@ export function useGetCustomers(data: GetCustomersPayload, enabled?: boolean) {
     GetCustomersResponse,
     GetCustomersInterface
   >(
-    [QueryCosntant.CUSTOMERS, data.limit as number, data.offset as number],
+    [QueryConstant.CUSTOMERS, data.limit as number, data.offset as number],
     () => {
       return CustomerService.getCustomers(data);
     },
@@ -84,7 +84,7 @@ export function useGetCustomer(data: GetCustomerPayload, enabled?: boolean) {
     GetCustomerResponse,
     CustomerInterface
   >(
-    QueryCosntant.CUSTOMER,
+    QueryConstant.CUSTOMER,
     () => {
       return CustomerService.getCustomer(data);
     },

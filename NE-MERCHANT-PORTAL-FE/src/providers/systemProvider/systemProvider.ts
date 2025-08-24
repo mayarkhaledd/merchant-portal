@@ -12,7 +12,7 @@ import {
 import { useCustomMutation, useCustomQuery } from "..";
 import { SystemService } from "@ejada/services/system.service";
 import { adaptGetSystems } from "../adaptors/systemAdaptor";
-import { QueryCosntant } from "@ejada/common";
+import { QueryConstant } from "@ejada/common";
 
 export function useCreateSystem() {
   const onSuccess = (res: CreateSourceSystemResponse) => {
@@ -42,7 +42,7 @@ export function useGetSystems(data: GetSourceSystemPayload, enabled?: boolean) {
     GetSourceSystemResponse,
     GetSourceSystemInterface
   >(
-    QueryCosntant.SYSTEM,
+    QueryConstant.SYSTEM,
     () => {
       return SystemService.getSystems(data);
     },

@@ -3,6 +3,7 @@ import OtpInput from "react-otp-input";
 import styles from "@ejada/screens/OTP/otp.module.css";
 import { useTranslation } from "react-i18next";
 import { useOtp } from "@ejada/screens/OTP";
+import { useEffect } from "react";
 
 export const FormContainer = () => {
   const { t } = useTranslation();
@@ -13,11 +14,17 @@ export const FormContainer = () => {
     handleVerifyOtp,
     OTP,
     navigateTo,
+    isVerifySuccess,
   } = useOtp();
+
+  useEffect(() => {
+    if (isVerifySuccess) {
+      navigateTo();
+    }
+  }, [isVerifySuccess, navigateTo]);
 
   return (
     <div className="pt-[90px]">
-      {navigateTo() || null}
       <div>
         <p className="text-primary-blue font-readexProBold600 font-semibold text-[48px] leading-[60px] tracking-[-0.02em]">
           {t("welcome")}

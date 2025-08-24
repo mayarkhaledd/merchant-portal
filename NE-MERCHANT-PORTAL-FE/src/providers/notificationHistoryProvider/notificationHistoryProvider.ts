@@ -16,7 +16,7 @@ import {
   useCustomQuery,
   adaptGetMessageStatusLogsList,
 } from "@ejada/providers";
-import { QueryCosntant } from "@ejada/common";
+import { QueryConstant } from "@ejada/common";
 export function useGetNotificationMessagesList(
   data: GetNotificationMessageListPayload,
   enabled?: boolean,
@@ -26,7 +26,7 @@ export function useGetNotificationMessagesList(
     GetNotificationMessagesListResponse,
     NotificationMessagesInterface
   >(
-    [QueryCosntant.MESSAGES, data.maxRecs, data.offset],
+    [QueryConstant.MESSAGES, data.maxRecs, data.offset],
     () => {
       return NotificationHistoryService.GetNotificationMessagesList(data);
     },
@@ -45,7 +45,7 @@ export function useGetNotificationMessageById(
     GetNotificationMessageByIdResponse,
     NotificationMessageByIdInterface
   >(
-    QueryCosntant.MESSAGES_ID,
+    QueryConstant.MESSAGES_ID,
     () => {
       return NotificationHistoryService.GetNotificationMessagesById(data);
     },
@@ -64,7 +64,7 @@ export function useGetMessageStatusLogsList(
     GetMessageStatusLogsResponse,
     MessageStatusLogListInterface
   >(
-    QueryCosntant.MESSAGE_STATUS_LOGS,
+    QueryConstant.MESSAGE_STATUS_LOGS,
     () => {
       return NotificationHistoryService.GetMessageStatusList(data);
     },

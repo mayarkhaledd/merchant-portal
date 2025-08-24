@@ -3,6 +3,7 @@ import { DeleteCustomer } from "./CustomerDelete";
 import { ReactivateCustomerComponent } from "./CustomerReactivate";
 import { DeleteEventGroup } from "./DeleteEventGroup";
 import { DeleteSourceSystem } from "./DeleteSourceSystem";
+import { DeleteEmailTemplate } from "./DeleteEmailTemplate";
 import {
   DeactivateCustomerComponentProps,
   DeleteCustomerProps,
@@ -11,6 +12,7 @@ import {
   DeleteWhatsappTemplateProps,
   PopupProps,
   ReactivateCustomerComponentProps,
+  DeleteEmailTemplateProps,
 } from "./PopupIntefaces";
 import { WhatsappTemplateDelete } from "./WhatsappTemplateDelete";
 
@@ -31,6 +33,8 @@ export const ContextPopup = ({
       return <DeleteSourceSystem {...(props as DeleteSourceSystemProps)} />;
     case "deleteCustomer":
       return <DeleteCustomer {...(props as DeleteCustomerProps)} />;
+    case "deleteEmailTemplate":
+      return <DeleteEmailTemplate {...(props as DeleteEmailTemplateProps)} />;
     case "deleteWhatsappTemplate":
       return (
         <WhatsappTemplateDelete {...(props as DeleteWhatsappTemplateProps)} />

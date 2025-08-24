@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useEffect, useState } from "react";
-import { parseAxiosError, QueryCosntant } from "@ejada/common";
+import { parseAxiosError, QueryConstant } from "@ejada/common";
 
 export function useCustomQuery<Payload, Response, DataInterface>(
-  queryKey: (number | QueryCosntant)[] | string,
+  queryKey: (number | QueryConstant)[] | string,
   queryFn: (data: Payload) => Promise<Response>,
   onSuccess?: (data: Response) => DataInterface,
   enabled?: boolean,

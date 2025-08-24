@@ -26,7 +26,7 @@ export const WhatsappOnboardingProvider = ({
     isError,
     isLoading,
     refetch,
-  } = useGetWhatsappOnboarding({ tenantId }, false);
+  } = useGetWhatsappOnboarding({ tenantId: tenantId }, false);
 
   useEffect(() => {
     if (isSuccess && whatsappOnboardingData) {

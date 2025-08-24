@@ -4,7 +4,7 @@ import { useEventsMessageTableColumns } from "./useEventsMessageTableColumns";
 import { TRecipientNotificationsState } from "@ejada/screens/RecipientNotifications/RecipientNotifications.types";
 import { useContext, Context, useEffect, useLayoutEffect } from "react";
 import { RecipientNotificationsContext } from "@ejada/screens/RecipientNotifications/RecipientNotificationsProvider";
-import { PagesName, QueryCosntant } from "@ejada/common";
+import { PagesName, QueryConstant } from "@ejada/common";
 import { Pagination } from "eds-react";
 import { useQueryClient } from "@tanstack/react-query";
 import { Loader } from "lucide-react";
@@ -48,7 +48,7 @@ export const RecipientEventTable = () => {
   useEffect(() => {
     if (itemsPerPage || currentPage) {
       queryClient.invalidateQueries({
-        queryKey: [QueryCosntant.EVENTS, itemsPerPage, currentPage],
+        queryKey: [QueryConstant.EVENTS, itemsPerPage, currentPage],
       });
     }
   }, [itemsPerPage, currentPage]);

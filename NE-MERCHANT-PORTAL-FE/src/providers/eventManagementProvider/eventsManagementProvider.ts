@@ -30,7 +30,7 @@ import {
   adaptGetSenders,
   useCustomQuery,
 } from "@ejada/providers";
-import { QueryCosntant } from "@ejada/common";
+import { QueryConstant } from "@ejada/common";
 
 // export function useCreateNotificationEvent() {
 //   const onSuccess = (res: CreateNotificationEventResponse) => {
@@ -54,7 +54,7 @@ export function useGetNotificationEvent(
     GetNotificationEventResponse,
     NotificationEventInterface
   >(
-    [QueryCosntant.EVENTS, data.limit, data.offset],
+    [QueryConstant.EVENTS, data.limit, data.offset],
     () => {
       return EventsService.getNotificationEvents(data);
     },
@@ -100,7 +100,7 @@ export function useGetLookUpParameters(enabled?: boolean) {
     getLookUpParametersResponse,
     getLookUpParametersInterface[]
   >(
-    QueryCosntant.LOOKUP_PARAMETERS,
+    QueryConstant.LOOKUP_PARAMETERS,
     () => {
       return EventsService.getLookUpParameters();
     },
@@ -114,7 +114,7 @@ export function useGetNotificationChannels(enabled?: boolean) {
     getNotificationChannelsResponse,
     getNotificationChannelsInterface[]
   >(
-    QueryCosntant.CHANNELS,
+    QueryConstant.CHANNELS,
     () => {
       return EventsService.getNotificationChannels();
     },
@@ -129,7 +129,7 @@ export function useSmsSender(data: GetSendersPayload, enabled?: boolean) {
     GetSendersResponse,
     SendersInterface
   >(
-    QueryCosntant.SENDERS,
+    QueryConstant.SENDERS,
     () => {
       return EventsService.getSenders(data);
     },
@@ -172,7 +172,7 @@ export function useGetEventById(data: GetEventByIdPayload, enabled?: boolean) {
     GetEventByIdResponse,
     GetEventByIdInterface
   >(
-    QueryCosntant.CHANNELS_DATA,
+    QueryConstant.CHANNELS_DATA,
     () => {
       return EventsService.getEventById(data);
     },

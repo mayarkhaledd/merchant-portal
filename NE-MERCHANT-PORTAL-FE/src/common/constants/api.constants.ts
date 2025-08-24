@@ -32,6 +32,8 @@ export const PublicRoutes = {
   whatsapp: `/core/whatsapp/templates`,
   senders: `/core/tenants/senders`,
   systemParams: `/core/system-parameters`,
+  dashboard: `/web/dashboard/billing`,
+  emailTemplate: `/core/email/template`,
 };
 const LocalRoutes = {
   baseURL: "",
@@ -60,6 +62,8 @@ const LocalRoutes = {
   whatsapp: `${APIVersion}/whatsapp/templates`,
   senders: `${APIVersion}/tenants/senders`,
   systemParams: `${APIVersion}/system-parameters`,
+  dashboard: `${APIVersion}/dashboard/billing`,
+  emailTemplate: `${APIVersion}/email/template`,
 };
 
 export const API =

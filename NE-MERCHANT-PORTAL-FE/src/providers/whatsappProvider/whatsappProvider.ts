@@ -1,4 +1,4 @@
-import { QueryCosntant } from "@ejada/common";
+import { QueryConstant } from "@ejada/common";
 import { useCustomQuery } from "../useCustomQuery";
 import { WhatsappService } from "@ejada/services/whatsapp.service";
 import { useCustomMutation } from "../useCustomMutation";
@@ -41,7 +41,7 @@ export function useGetWhatsappTemplates(
     GetWhatsappTemplatesResponse,
     GetWhatsappTemplatesInterface
   >(
-    QueryCosntant.WHATSAPP_TEMPLATES,
+    QueryConstant.WHATSAPP_TEMPLATES,
     () => {
       return WhatsappService.getWhatsappTemplates(data);
     },
@@ -59,7 +59,7 @@ export function useGetWhatsappTemplateById(
     GetWhatsappTemplateByIdResponse,
     WhatsappTemplate
   >(
-    QueryCosntant.WHATSAPP_TEMPLATE_ID,
+    QueryConstant.WHATSAPP_TEMPLATE_ID,
     () => {
       return WhatsappService.getWhatsappTemplateById(data);
     },
@@ -120,7 +120,7 @@ export function useGetSystemParams(
     GetSystemParamsResponse,
     GetSystemParamsInterface
   >(
-    QueryCosntant.SYSTEM_PARAMS,
+    QueryConstant.SYSTEM_PARAMS,
     () => {
       return WhatsappService.getsystemParams(data);
     },
@@ -151,7 +151,7 @@ export function useGetWhatsappOnboarding(
     GetWhatsappOnboardingResponse,
     GetWhatsappOnboardingInterface
   >(
-    QueryCosntant.WHATSAPP_ONBOARDING,
+    QueryConstant.WHATSAPP_ONBOARDING,
     () => {
       return WhatsappService.getWhatsappOnboarding(data);
     },

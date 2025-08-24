@@ -1,5 +1,5 @@
 // Query constants used in queries and mutations
-export enum QueryCosntant {
+export enum QueryConstant {
   USERS = "users",
   USER = "user",
   GROUPS = "groups",
@@ -34,4 +34,11 @@ export enum QueryCosntant {
   WHATSAPP_TEMPLATE_ID = "whatsapp_template_id",
   SYSTEM_PARAMS = "system_params",
   WHATSAPP_ONBOARDING = "whatsapp_onboarding",
+  CHANNEL_USAGE = "channel_usage",
+  AVG_CHANNEL_USAGE = "avg_channel_usage",
+  TOTAL_NOTIFICATION_SENT = "total_notification_sent",
+  TOP_COSTLY_EVENTS = "top_costly_events",
+  MONTHLY_BILLING = "monthly_billing",
+  BALANCE_OVERVIEW = "balance_overview",
+  EMAIL_TEMPLATES = "email_templates",
 }

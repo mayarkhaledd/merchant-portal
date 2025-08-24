@@ -1,4 +1,4 @@
-import { PagesName, QueryCosntant } from "@ejada/common";
+import { PagesName, QueryConstant } from "@ejada/common";
 import {
   EventsManagementContext,
   TEventsManagementState,
@@ -49,7 +49,7 @@ export const EventsTable = () => {
   useEffect(() => {
     if (itemsPerPage || currentPage) {
       queryClient.invalidateQueries({
-        queryKey: [QueryCosntant.EVENTS, itemsPerPage, currentPage],
+        queryKey: [QueryConstant.EVENTS, itemsPerPage, currentPage],
       });
     }
   }, [itemsPerPage, currentPage]);

@@ -11,7 +11,7 @@ import {
 } from "@ejada/screens/shared";
 import { Context, useContext, useEffect, useState } from "react";
 import { Spinner } from "eds-react";
-import { QueryCosntant } from "@ejada/common";
+import { QueryConstant } from "@ejada/common";
 import { InvalidateQueryFilters, useQueryClient } from "@tanstack/react-query";
 import {
   formatChannelsColumnsEditMode,
@@ -46,7 +46,7 @@ export const EventManagementThirdStep: React.FC<
 
   const invalidateChannelsData = () => {
     queryClient.invalidateQueries({
-      queryKey: QueryCosntant.CHANNELS_DATA, // Ensure this matches the expected type
+      queryKey: QueryConstant.CHANNELS_DATA, // Ensure this matches the expected type
     } as unknown as InvalidateQueryFilters);
   };
   useEffect(() => {

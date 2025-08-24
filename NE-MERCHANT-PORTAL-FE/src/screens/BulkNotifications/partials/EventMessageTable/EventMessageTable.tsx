@@ -4,7 +4,7 @@ import { useEventsMessageTableColumns } from "./useEventsMessageTableColumns";
 import { Context, useContext, useEffect, useLayoutEffect } from "react";
 import { TBulkNotificationsState } from "../../BulkNotificationsManagement.types";
 import { BulkNotificationsContext } from "../../BulkNotificationsProvider";
-import { PagesName, QueryCosntant } from "@ejada/common";
+import { PagesName, QueryConstant } from "@ejada/common";
 import { Pagination } from "eds-react";
 import { useQueryClient } from "@tanstack/react-query";
 import { Loader } from "lucide-react";
@@ -50,7 +50,7 @@ export const EventsMessageTable = () => {
   useEffect(() => {
     if (itemsPerPage || currentPage) {
       queryClient.invalidateQueries({
-        queryKey: [QueryCosntant.EVENTS, itemsPerPage, currentPage],
+        queryKey: [QueryConstant.EVENTS, itemsPerPage, currentPage],
       });
     }
   }, [itemsPerPage, currentPage]);

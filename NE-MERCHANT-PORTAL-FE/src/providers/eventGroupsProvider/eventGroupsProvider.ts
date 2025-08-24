@@ -1,4 +1,4 @@
-import { QueryCosntant } from "@ejada/common";
+import { QueryConstant } from "@ejada/common";
 import { useCustomQuery } from "../useCustomQuery";
 import { EventGroupsService } from "@ejada/services/eventGroups.service";
 import {
@@ -31,7 +31,7 @@ export function useGetEventGroups(
     GetEventGroupsResponse,
     GetEventGroupInterface
   >(
-    QueryCosntant.EVENT_GROUPS,
+    QueryConstant.EVENT_GROUPS,
     () => {
       return EventGroupsService.getEventGroups(data);
     },
@@ -49,7 +49,7 @@ export function useGetEventGroupById(
     GetEventGroupByIdResponse,
     EventGroup
   >(
-    QueryCosntant.EVENT_GROUPS_BY_ID,
+    QueryConstant.EVENT_GROUPS_BY_ID,
     () => {
       return EventGroupsService.getEventGroupById(data);
     },

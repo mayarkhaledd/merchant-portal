@@ -1,4 +1,4 @@
-import { PagesName, QueryCosntant } from "@ejada/common";
+import { PagesName, QueryConstant } from "@ejada/common";
 import { useCustomerManagementColumns } from "./useCustomerManagementColumns";
 import {
   ActiveSearchCriteria,
@@ -48,7 +48,7 @@ export function CustomerManagementTable() {
   useEffect(() => {
     if (itemsPerPage || currentPage) {
       queryClient.invalidateQueries({
-        queryKey: [QueryCosntant.CUSTOMERS, itemsPerPage, currentPage],
+        queryKey: [QueryConstant.CUSTOMERS, itemsPerPage, currentPage],
       });
     }
   }, [itemsPerPage, currentPage]);

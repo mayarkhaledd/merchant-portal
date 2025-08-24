@@ -56,6 +56,12 @@ export interface DeleteEventGroupProps {
   onConfirm: () => void;
   deleteConfirmLabel?: string;
 }
+export interface DeleteEmailTemplateProps {
+  onClose: () => void;
+  templateName: string;
+  onConfirm: () => void;
+  deleteConfirmLabel?: string;
+}
 export interface DeleteSourceSystemProps {
   onClose: () => void;
   id: string;

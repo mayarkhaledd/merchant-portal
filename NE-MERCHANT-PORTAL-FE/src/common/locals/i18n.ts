@@ -34,6 +34,8 @@ import whatsapp from "./en/whatsapp.en.json";
 import whatsappAr from "./ar/whatsapp.ar.json";
 import email from "./en/email.en.json";
 import emailAr from "./ar/email.ar.json";
+import dashboard from "./en/dashboard.en.json";
+import dashboardAr from "./ar/dashboard.ar.json";
 
 export const userLanguage = localStorage.getItem("userLanguage");
 export const language =
@@ -63,6 +65,7 @@ i18n.init({
         ...Users,
         ...whatsapp,
         ...email,
+        ...dashboard,
       },
     },
     ar: {
@@ -84,6 +87,7 @@ i18n.init({
         ...UsersAr,
         ...whatsappAr,
         ...emailAr,
+        ...dashboardAr,
       },
     },
   },

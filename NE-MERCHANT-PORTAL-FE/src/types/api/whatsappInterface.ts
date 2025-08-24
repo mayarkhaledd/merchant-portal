@@ -143,7 +143,9 @@ export interface WhatsappOnboardingInterface {}
 export interface WhatsappOnboardingResponse
   extends ResponseInterface<WhatsappOnboardingInterface> {}
 
-export interface GetWhatsappOnboardingPayload {}
+export interface GetWhatsappOnboardingPayload {
+  tenantId: string;
+}
 export interface GetWhatsappOnboardingInterface {
   onboardingMetaAuth: {
     tenantId: number;

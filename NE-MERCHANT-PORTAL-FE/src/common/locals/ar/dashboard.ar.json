@@ -1,0 +1,20 @@
+{
+  "dashboard": {
+    "your_balance": "رصيدك الكلي",
+    "used_balance": "الرصيد المستخدم",
+    "hold_balance": "الرصيد المحتفظ",
+    "overage_limit": "حد التجاوز",
+    "overage_usage": "الاستخدام الزائد",
+    "balance_overview": "ملخص الرصيد",
+    "billed_balance": "الرصيد المفوتر",
+    "remaining_balance": "الرصيد المتبقي",
+    "start_date": "تاريخ البدء",
+    "end_date": "تاريخ الانتهاء",
+    "channel_usage_analytics": "القنوات المستخدمة",
+    "average_channel_usage": "متوسط القنوات المستخدمة",
+    "top_costly_events": "اعلي الاحداث تكلفة",
+    "total_notification_sent": "اجمالي الاشعارات المرسلة",
+    "monthly_billing": "الفواتير الشهرية",
+    "usage": "مستخدم"
+  }
+}

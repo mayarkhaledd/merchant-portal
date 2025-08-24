@@ -1,0 +1,20 @@
+{
+  "dashboard": {
+    "your_balance": "Your Balance",
+    "used_balance": "Used Balance",
+    "hold_balance": "Hold Balance",
+    "overage_limit": "Overage Limit",
+    "overage_usage": "Overage Usage",
+    "balance_overview": "Balance Overview",
+    "billed_balance": "Billed Balance",
+    "remaining_balance": "Remaining Balance",
+    "start_date": "Start Date",
+    "end_date": "End Date",
+    "channel_usage_analytics": "Channel Usage Analytics",
+    "average_channel_usage": "Average Channel Usage",
+    "top_costly_events": "Top Costly Events",
+    "total_notification_sent": "Total Notifications Sent",
+    "monthly_billing": "Monthly Billing",
+    "usage": "Usage"
+  }
+}

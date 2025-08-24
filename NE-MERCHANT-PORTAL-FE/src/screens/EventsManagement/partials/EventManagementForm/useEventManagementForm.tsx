@@ -15,7 +15,7 @@ import {
   UpdateEventPayload,
 } from "@ejada/types";
 import { useQueryClient } from "@tanstack/react-query";
-import { QueryCosntant } from "@ejada/common/constants";
+import { QueryConstant } from "@ejada/common/constants";
 import { EventManagementInitialValues } from "@ejada/screens/EventsManagement/partials/EventManagementForm/types";
 import { useWhatsappOnboardingParams } from "@ejada/context/WhatsappOnboardingContext";
 import Cookies from "js-cookie";
@@ -113,7 +113,7 @@ export const useEventManagementForm = (
       };
       const filteredData = filterPayloadEmptyStringsAndArrays(payLoadData);
       setViewEventId("");
-      queryClient.removeQueries({ queryKey: [QueryCosntant.CHANNELS_DATA] });
+      queryClient.removeQueries({ queryKey: [QueryConstant.CHANNELS_DATA] });
       createEvent(filteredData as CreateEventPayload);
     } else {
       const whatsappSender =

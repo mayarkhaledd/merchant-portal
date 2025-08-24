@@ -11,7 +11,7 @@ import { Context, useContext, useEffect } from "react";
 import { NotificationMessageByIdInterface } from "@ejada/types";
 import { HeaderContext } from "@tanstack/react-table";
 import { useQueryClient } from "@tanstack/react-query";
-import { QueryCosntant } from "@ejada/common";
+import { QueryConstant } from "@ejada/common";
 
 export const useNotificationHistoryColumns = (): TTableColumnsDef[] => {
   const { t } = useTranslation();
@@ -36,7 +36,7 @@ export const useNotificationHistoryColumns = (): TTableColumnsDef[] => {
   useEffect(() => {
     if (itemsPerPage || currentPage) {
       queryClient.invalidateQueries({
-        queryKey: [QueryCosntant.MESSAGES, itemsPerPage, currentPage],
+        queryKey: [QueryConstant.MESSAGES, itemsPerPage, currentPage],
       });
     }
   }, [itemsPerPage, currentPage]);
